@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 676aa760a5817f14aa60a4e80b47c5ba, type: 3}
+  m_Name: Skill_ChargeAttack
+  m_EditorClassIdentifier: 
+  ToggleOnValidate: 0
+  skillName: Charge Attack
+  skillDescription: 'This skill is called ChargeAttack '
+  skillClass: 99
+  hasUserClassRestriction: 0
+  userClass: 0000000000000000
+  skillEffectCollection:
+    hasDamage: 1
+    hasHeal: 1
+    SE_Damage:
+      skillType: 0
+      isAOE: 0
+      isPercentage: 1
+      hpCostPercentage: 0
+      spCostPercentage: 0
+      hpCostFixed: 0
+      spCostFixed: 0
+      totalInstance: 3
+      successRate: 90
+      damageAmount: 100
+    SE_Heal:
+      skillType: 1
+      isAOE: 0
+      isPercentage: 1
+      hpCostPercentage: 0
+      spCostPercentage: 0
+      hpCostFixed: 0
+      spCostFixed: 0
+      totalInstance: 1
+      successRate: 100
+      healAmount: 100

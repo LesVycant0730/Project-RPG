@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e63877ff894e9349875a45e60870a11, type: 3}
+  m_Name: Animation Combat
+  m_EditorClassIdentifier: 
+  animationType: 1
+  animationCounts: 11
+  animationArray:
+  - status: 0
+    animTrigger: T_CombatStart
+  - status: 1
+    animTrigger: 
+  - status: 2
+    animTrigger: T_CombatIdle
+  - status: 3
+    animTrigger: 
+  - status: 4
+    animTrigger: 
+  - status: 5
+    animTrigger: 
+  - status: 6
+    animTrigger: 
+  - status: 7
+    animTrigger: 
+  - status: 8
+    animTrigger: 
+  - status: 9
+    animTrigger: 
+  - status: 10
+    animTrigger: 
