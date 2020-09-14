@@ -2,17 +2,16 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ButtonWrapper_Combat : Button
+public class ButtonWrapper_Combat : Selectable
 {
 	public Combat_Action actionType;
 
-	public override void OnSubmit(BaseEventData eventData)
-	{
-		base.OnSubmit(eventData);
-	}
+	private ActionManager Action_M => ActionManager.Instance;
 
-	public override void OnPointerClick(PointerEventData eventData)
+	public override void OnPointerDown(PointerEventData eventData)
 	{
-		base.OnPointerClick(eventData);
+		base.OnPointerDown(eventData);
+
+		Action_M?.RunAction<CombatAction>(actionType);
 	}
 }

@@ -4,6 +4,8 @@ public sealed class CombatManager : MonoBehaviour, IManager
 {
     public static CombatManager Instance { get; private set; }
 
+	[SerializeField] private CombatAction action_Combat;
+
 	private void Awake()
 	{
 		Instance = this;
