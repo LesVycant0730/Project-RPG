@@ -25,7 +25,7 @@ public class ActionManager : MonoBehaviour
         action_Combat = GetComponent<CombatAction>();
 	}
 
-	public void RunAction<Action>(Combat_Action _actionType) where Action : CombatAction
+	public void RunAction(Combat_Action _actionType)
 	{
 		print("Yo run");
 		action_Combat.RunCombatAction(_actionType);

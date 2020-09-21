@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7307c5ecbcc1b14c8339877c0e8c96a, type: 3}
+  m_Name: Kachujin
+  m_EditorClassIdentifier: 
+  name: Kachujin
+  health: 100
+  stamina: 100
+  damage_Physical: 10
+  damage_Magical: 10
+  critical_Rate: 10
+  critical_Damage: 10
+  defense_Physical: 10
+  defense_Magical: 10
+  accuracy: 0.7
+  evasion: 0.05
+  resistance: 0.1
+  speed: 5
+  player_Class: 0

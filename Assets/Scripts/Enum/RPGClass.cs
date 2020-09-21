@@ -85,6 +85,11 @@
         Taunt
     }
 
+    public enum Skill_Name
+	{
+
+	}
+
     public enum Combat_Action
 	{
         // Phase 1

@@ -3,8 +3,8 @@ using System;
 
 public class CombatAction : Action
 {
-	public Action<Combat_Action> Action_Next;
-	public Action<Combat_Action> Action_Prev;
+	public static Action<Combat_Action> Action_Next;
+	public static Action<Combat_Action> Action_Prev;
 
 	/// <summary>
 	/// Run action based on the enum parameter
@@ -33,6 +33,12 @@ public class CombatAction : Action
 	public override void RunDefaultAction()
 	{
 		Action_Next?.Invoke(Combat_Action.Default);
+	}
+
+	public override void ClearAllActions()
+	{
+		Action_Next = null;
+		Action_Prev = null;
 	}
 
 	public void RunCombatAction(Combat_Action _actionType)

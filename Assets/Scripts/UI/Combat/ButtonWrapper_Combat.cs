@@ -12,6 +12,6 @@ public class ButtonWrapper_Combat : Selectable
 	{
 		base.OnPointerDown(eventData);
 
-		Action_M?.RunAction<CombatAction>(actionType);
+		Action_M?.RunAction(actionType);
 	}
 }
