@@ -8,7 +8,6 @@ public class RPGStat_Player : RPGStat
 	[Header ("[Class]")]
 	[Space (10)]
 	[SerializeField, SearchableEnum] private User_Class player_Class = User_Class.None;
-	//[SerializeField] private 
 
 	public RPGStat_Player()
 	{

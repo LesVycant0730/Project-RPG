@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
 using RPG_Data;
-using TextExtension;
+using RoboRyanTron.SearchableEnum;
 
 [CreateAssetMenu(fileName = "Skill Data", menuName = "ScriptableObjects/Skill Data", order = 1)]
 public class SkillData : ScriptableObject
 {
     [SerializeField] private bool ToggleOnValidate = false;
+    [Space (10)]
 
     // Skill Info Section
-    [Header("Skill Info")]
-    public string skillName;
+    [Header("Skill Info"), SearchableEnum]
+    public Skill_Name skillName;
+
     [TextArea(0, 100)]
     public string skillDescription;
     //
@@ -34,12 +36,6 @@ public class SkillData : ScriptableObject
         if (!ToggleOnValidate)
 		{
             return;
-		}
-
-        if (skillName == "")
-		{
-            skillName = name.Replace("Skill_", "");
-            skillName = TextModifier.SpaceByUppercase(skillName);
 		}
 
 		if (skillDescription == "")
