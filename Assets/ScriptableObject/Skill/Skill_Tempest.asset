@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 676aa760a5817f14aa60a4e80b47c5ba, type: 3}
-  m_Name: Skill_LightSpear
+  m_Name: Skill_Tempest
   m_EditorClassIdentifier: 
   ToggleOnValidate: 0
-  skillName: Light Spear
-  skillDescription: Summons a light element spear and damage the targeted enemy.
-  skillClass: 1
-  hasUserClassRestriction: 1
-  userClass: 000000000100000003000000
+  skillName: 18
+  skillDescription: This skill is Tempest
+  skillClass: 99
+  hasUserClassRestriction: 0
+  userClass: 
   skillEffectCollection:
-    hasDamage: 1
+    hasDamage: 0
     hasHeal: 0
     SE_Damage:
       skillType: 0

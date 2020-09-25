@@ -41,8 +41,11 @@ namespace RPG_Data
 		Intimidate, Flesh_Corruption, Time_Manipulation, Blinding_Light,
 
 		// Support (Defensive)
-		Rally, Protection, Hermes_Blessing, Shadow_Calculus
+		Rally, Protection, Hermes_Blessing, Shadow_Calculus,
 
 		// Others
+
+		// Index
+		FINAL_INDEX
 	}
 }

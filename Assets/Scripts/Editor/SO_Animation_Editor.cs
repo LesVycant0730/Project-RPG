@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [CustomEditor(typeof(Animation), true)]
-public class ScriptableObject_Animation_Editor : Editor
+public class SO_Animation_Editor : Editor
 {
 	public override void OnInspectorGUI()
 	{

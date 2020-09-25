@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 676aa760a5817f14aa60a4e80b47c5ba, type: 3}
-  m_Name: Skill_ChargeAttack
+  m_Name: Skill_Hex
   m_EditorClassIdentifier: 
   ToggleOnValidate: 0
-  skillName: Charge Attack
-  skillDescription: 'This skill is called ChargeAttack '
+  skillName: 27
+  skillDescription: This skill is Hex
   skillClass: 99
   hasUserClassRestriction: 0
-  userClass: 0000000000000000
+  userClass: 
   skillEffectCollection:
-    hasDamage: 1
-    hasHeal: 1
+    hasDamage: 0
+    hasHeal: 0
     SE_Damage:
       skillType: 0
       isAOE: 0
@@ -29,9 +29,9 @@ MonoBehaviour:
       spCostPercentage: 0
       hpCostFixed: 0
       spCostFixed: 0
-      totalInstance: 3
-      successRate: 90
-      damageAmount: 100
+      totalInstance: 0
+      successRate: 0
+      damageAmount: 0
     SE_Heal:
       skillType: 1
       isAOE: 0
@@ -40,6 +40,6 @@ MonoBehaviour:
       spCostPercentage: 0
       hpCostFixed: 0
       spCostFixed: 0
-      totalInstance: 1
-      successRate: 100
-      healAmount: 100
+      totalInstance: 0
+      successRate: 0
+      healAmount: 0

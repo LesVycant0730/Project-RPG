@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [CustomEditor (typeof(SkillData))]
-public class ScriptableObject_Skill_Editor : Editor
+public class SO_Skill_Editor : Editor
 {
 	public override void OnInspectorGUI()
 	{
