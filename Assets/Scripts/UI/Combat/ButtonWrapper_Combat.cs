@@ -1,9 +1,11 @@
 ﻿using RPG_Data;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ButtonWrapper_Combat : Selectable
 {
+	[Space (10]
 	public Combat_Action actionType;
 
 	private ActionManager Action_M => ActionManager.Instance;

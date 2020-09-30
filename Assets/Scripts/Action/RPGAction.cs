@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public abstract class Action : MonoBehaviour
+public abstract class RPGAction : MonoBehaviour
 {
 	protected abstract void InvokeActions<ActionType>(ActionType _actionType) where ActionType : Enum;
 	protected abstract void CancelActions<ActionType>(ActionType _actionType) where ActionType : Enum;

@@ -106,5 +106,12 @@
         Defend,
         Escape
 	}
+
+    public enum RPG_Party
+	{
+        Ally,
+        Enemy,
+        None
+	}
 }
 

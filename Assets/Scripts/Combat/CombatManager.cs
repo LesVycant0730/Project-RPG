@@ -7,6 +7,9 @@ public sealed class CombatManager : MonoBehaviour, IManager
 
 	[SerializeField] private Combat_Action currentAction;
 
+	private static RPGAction OnTargetAlly;
+	private static RPGAction OnTargetEnemy;
+
 	private void Awake()
 	{
 		Instance = this;
@@ -36,6 +39,8 @@ public sealed class CombatManager : MonoBehaviour, IManager
 		switch (currentAction)
 		{
 			case Combat_Action.Default:
+				break;
+			case Combat_Action.Target_Skill_Enemy:
 				break;
 			default:
 				break;

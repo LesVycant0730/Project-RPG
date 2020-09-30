@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using AnimationTypes;
+using System;
+using System.Collections;
 
 public sealed class CombatAnimationManager : MonoBehaviour, IManager
 {
@@ -9,6 +11,8 @@ public sealed class CombatAnimationManager : MonoBehaviour, IManager
 	[SerializeField] private AnimationCombat AnimationCombatRef;
 
 	[SerializeField] private List<Animator> animList;
+
+	private Coroutine AnimationCor = null;
 
 	#region Start/End
 	public void Init()
@@ -35,6 +39,36 @@ public sealed class CombatAnimationManager : MonoBehaviour, IManager
 		print("Exit Combat Animation Manager");
 
 		animList.ForEach(x => UpdateTrigger(x, CombatAnimationStatus.Idle));
+	}
+	#endregion
+
+	#region Combat Action
+	public void AnimUpdate_SkillOnEnemy()
+	{
+		if (AnimationCor != null)
+		{
+			return;
+		}
+
+		AnimationCor = StartCoroutine(RunAnimation(AnimationCor));
+
+	}
+
+	public void AnimUpdate_Default()
+	{
+
+	}
+
+	private IEnumerator<Action> RunAnimation(Coroutine _cor)
+	{
+		if (this != null)
+		{
+			_cor = null;
+			yield return AnimUpdate_Default;
+		}
+
+		_cor = null;
+		yield return null;
 	}
 	#endregion
 

@@ -1,7 +1,7 @@
 ﻿using RPG_Data;
 using System;
 
-public class CombatAction : Action
+public class CombatAction : RPGAction
 {
 	public static Action<Combat_Action> Action_Next;
 	public static Action<Combat_Action> Action_Prev;
