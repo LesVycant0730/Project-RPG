@@ -10,6 +10,8 @@ public sealed class CombatManager : MonoBehaviour, IManager
 	private static RPGAction OnTargetAlly;
 	private static RPGAction OnTargetEnemy;
 
+	[SerializeField] private GameObject nulll;
+
 	private void Awake()
 	{
 		Instance = this;

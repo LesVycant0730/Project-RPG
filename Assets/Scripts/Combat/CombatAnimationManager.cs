@@ -2,7 +2,6 @@
 using UnityEngine;
 using AnimationTypes;
 using System;
-using System.Collections;
 
 public sealed class CombatAnimationManager : MonoBehaviour, IManager
 {
@@ -65,6 +64,8 @@ public sealed class CombatAnimationManager : MonoBehaviour, IManager
 		{
 			_cor = null;
 			yield return AnimUpdate_Default;
+
+			yield break;
 		}
 
 		_cor = null;

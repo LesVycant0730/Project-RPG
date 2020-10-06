@@ -9,9 +9,11 @@ public class RPGStat_Player : RPGStat
 	[Space (10)]
 	[SerializeField, SearchableEnum] private User_Class player_Class = User_Class.None;
 
+	public override string GetClass() => player_Class.ToString();
+
 	public RPGStat_Player()
 	{
-		name = "New Player";
+		characterName = "New Player";
 		player_Class = User_Class.None;
 
 		health = 100;
@@ -31,4 +33,5 @@ public class RPGStat_Player : RPGStat
 		resistance = 0.1f;
 		speed = 5;
 	}
+
 }

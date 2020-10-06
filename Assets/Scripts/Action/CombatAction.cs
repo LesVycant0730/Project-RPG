@@ -1,5 +1,6 @@
 ﻿using RPG_Data;
 using System;
+using UnityEngine;
 
 public class CombatAction : RPGAction
 {
@@ -13,7 +14,7 @@ public class CombatAction : RPGAction
 	{
 		Combat_Action action = GetActionType<Combat_Action>(_actionType);
 
-		print("Run Action: " + action);
+		Debug.Log("Run Action: " + action);
 
 		Action_Next?.Invoke(action);
 	}
@@ -25,7 +26,7 @@ public class CombatAction : RPGAction
 	{
 		Combat_Action action = GetActionType<Combat_Action>(_actionType);
 
-		print("Cancel Action: " + action);
+		Debug.Log("Cancel Action: " + action);
 
 		Action_Prev?.Invoke(action);
 	}
