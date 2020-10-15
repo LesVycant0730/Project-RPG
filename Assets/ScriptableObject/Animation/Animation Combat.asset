@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Animation Combat
   m_EditorClassIdentifier: 
   animationType: 1
-  animationCounts: 11
+  animationCounts: 13
   animationArray:
   - status: 0
     animTrigger: T_CombatStart
@@ -30,10 +30,14 @@ MonoBehaviour:
   - status: 6
     animTrigger: 
   - status: 7
-    animTrigger: 
+    animTrigger: T_CombatCastSpell
   - status: 8
     animTrigger: 
   - status: 9
     animTrigger: 
   - status: 10
+    animTrigger: 
+  - status: 11
+    animTrigger: 
+  - status: 12
     animTrigger: 

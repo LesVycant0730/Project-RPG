@@ -383,7 +383,6 @@ GameObject:
   m_Component:
   - component: {fileID: 734643780}
   - component: {fileID: 734643782}
-  - component: {fileID: 734643781}
   m_Layer: 0
   m_Name: RPGCharacterManager
   m_TagString: Untagged
@@ -405,34 +404,6 @@ Transform:
   m_Father: {fileID: 2092811786}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &734643781
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 734643779}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1497d54400da26949856fa59e8d10e7f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterStatSO: {fileID: 0}
-  characterInfo:
-    characterName: 
-    characterClass: 
-    health: 0
-    stamina: 0
-    damage_Physical: 0
-    damage_Magical: 0
-    critical_Rate: 0
-    critical_Damage: 0
-    defense_Physical: 0
-    defense_Magical: 0
-    accuracy: 0
-    evasion: 0
-    resistance: 0
-    speed: 0
 --- !u!114 &734643782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -445,6 +416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6690b3a6634d2a49a279bef8e6114fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rpgParty: []
 --- !u!1 &777188665
 GameObject:
   m_ObjectHideFlags: 0
@@ -2433,7 +2405,7 @@ Animator:
   m_GameObject: {fileID: 2084429675}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f0228ea033aa8d448b7ec77e3537bd72, type: 2}
+  m_Controller: {fileID: 22100000, guid: d37aa6fddba089345bdc4f2056f6fed0, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
