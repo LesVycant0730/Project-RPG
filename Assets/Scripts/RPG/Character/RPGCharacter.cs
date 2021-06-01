@@ -1,25 +1,19 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections.Generic;
+using RPG_Data;
 
 [Serializable]
 public class RPGCharacter
 {
-	public enum CharacterType
-	{
-		Ally,
-		Enemy,
-		Neutral
-	}
-
-	// The type/stance for the character
-	private CharacterType characterType; 
+	// The party type for the character
+	[SerializeField] private RPG_Party characterPartyType; 
 
 	// The SO reference for the RPG Stat, only reference, is not allowed to modified.
 	[SerializeField] private RPGStat characterStatSO;
 
 	// The direct reference for the RPG Stat, the information that will modified and saved.
-	private RPGStat characterStat;
+	[SerializeField] private RPGStat characterStat;
 
 	// The separate class reference for RPG Stat, the information that will be modified and referred throughout but will not be saved.
 	[SerializeField] private RPGCharacterInfo characterInfo;
@@ -29,14 +23,18 @@ public class RPGCharacter
 	/// <para> Setup character stat info (Allowed to modify in any scenarios, combat, UI etc.) </para>
 	/// <para> Only initialized once at the beginning </para>
 	/// </summary>
-	public void SetCharacter(RPGStat _stat, CharacterType _type)
+	public void SetCharacter(RPGStat _stat, RPG_Party _type)
 	{
 		characterStat = _stat;
 
-		characterType = _type;
+		characterPartyType = _type;
 
 		characterInfo = new RPGCharacterInfo(_stat);
 	}
+
+	public RPG_Party GetCharacterParty => characterPartyType;
+
+	public RPGStat GetCharacterStatSO => characterStatSO;
 
 	public RPGStat GetCharacterStat() => characterStat;
 
@@ -46,7 +44,7 @@ public class RPGCharacter
 [Serializable]
 public class RPGParty
 {
-	public enum RPGPartyAction
+	public enum PartyAction
 	{
 		Success,
 		Party_Full,
@@ -55,7 +53,7 @@ public class RPGParty
 		Failed
 	}
 
-	public enum RPGPartyType
+	public enum PartyType
 	{
 		Ally,
 		Enemy,
@@ -63,73 +61,109 @@ public class RPGParty
 	}
 
 	public const int MIN_PARTY_NUMBER = 1;
-	public const int MAX_PARTY_NUMBER = 5;
+	public const int MAX_PARTY_NUMBER = 4;
 
-	private HashSet<RPGCharacter> partyCharacters = new HashSet<RPGCharacter>();
+	[SerializeField] private List<RPGCharacter> partyCharacters = new List<RPGCharacter>();
 	
-	public RPGPartyType PartyType { get; private set; }
+	public PartyType PType { get; private set; }
 
 	public Action OnPartyActive;
 
-	public RPGParty(RPGPartyType _type)
+	public RPGParty(PartyType _type)
 	{
-		PartyType = _type;
+		PType = _type;
 	}
 
-	public void AddPartyMember(RPGCharacter _character, out RPGPartyAction _status)
+	public void AddPartyMember(RPGCharacter _character, out PartyAction _status)
 	{
 		if (partyCharacters.Contains(_character))
 		{
 			Debug.Log("The character is already in party.");
-			_status = RPGPartyAction.Duplicate;
+			_status = PartyAction.Duplicate;
 
 			return;
 		}
 
-		if (partyCharacters.Count >= 5)
+		if (partyCharacters.Count >= 4)
 		{
 			Debug.Log("The party is full.");
-			_status = RPGPartyAction.Party_Full;
+			_status = PartyAction.Party_Full;
 		}
 		else
 		{
 			if (_character == null)
 			{
 				Debug.Log("The character to add is invalid or null.");
-				_status = RPGPartyAction.Invalid_Character;
+				_status = PartyAction.Invalid_Character;
 			}
 			else
 			{
 				Debug.Log("Add Character: " + _character.GetCharacterStat().name);
-				_status = RPGPartyAction.Success;
+				_status = PartyAction.Success;
 				partyCharacters.Add(_character);
 			}
 		}
 	}
 
-	public void RemovePartyMember(RPGCharacter _character, out RPGPartyAction _status)
+	public void RemovePartyMember(RPGCharacter _character, out PartyAction _status)
 	{
 		if (_character == null)
 		{
 			Debug.Log("The character to remove is invalid or null.");
-			_status = RPGPartyAction.Invalid_Character;
+			_status = PartyAction.Invalid_Character;
 			return;
 		}
 
 		if (partyCharacters.Contains(_character))
 		{
 			Debug.Log("Remove Character: " + _character.GetCharacterStat().name);
-			_status = RPGPartyAction.Success;
+			_status = PartyAction.Success;
 			partyCharacters.Remove(_character);
 		}
 		else
 		{
-			_status = RPGPartyAction.Invalid_Character;
+			_status = PartyAction.Invalid_Character;
 		}
+	}
+
+	public void DefaultAsSO(bool _useCache)
+	{
+		partyCharacters.ForEach(character =>
+		{
+			RPGStat stat = _useCache ? character.GetCharacterStatSO : null;
+
+			switch (PType)
+			{
+				case PartyType.Ally:
+
+					if (!_useCache)
+						stat = CharacterLibrary.GetPlayer(character.GetCharacterStatInfo().characterID);
+
+					character.SetCharacter((RPGStat_Player)stat, RPG_Party.Ally);
+					break;
+
+				case PartyType.Enemy:
+
+					if (!_useCache)
+						stat = CharacterLibrary.GetEnemy(character.GetCharacterStatInfo().characterID);
+
+					character.SetCharacter(stat, RPG_Party.Enemy);
+					break;
+
+				default:
+
+					if (!_useCache)
+						stat = CharacterLibrary.GetEnemy(character.GetCharacterStatInfo().characterID);
+
+					character.SetCharacter(stat, RPG_Party.Neutral);
+					break;
+			}
+		});
 	}
 
 	public void AddActionToParty(Action _action)
 	{
+		OnPartyActive -= _action;
 		OnPartyActive += _action;
 	}
 
@@ -137,4 +171,45 @@ public class RPGParty
 	{
 		OnPartyActive?.Invoke();
 	}
+
+	#region Value Return
+	public RPGCharacter GetFastestCharacter()
+	{
+		partyCharacters.RemoveAll(character => character == null);
+
+		RPGCharacter character = null;
+
+		int _speed = 0;
+
+		for (int i = 0; i < partyCharacters.Count; i++)
+		{
+			int characterSpeed = partyCharacters[i].GetCharacterStat().GetSpeed();
+
+			// If character speed is move than current speed, set it as the highest
+			if (characterSpeed > _speed)
+			{
+				_speed = characterSpeed;
+
+				character = partyCharacters[i];
+			}
+			// If character speed is default 0, set it as default if there's no current character
+			else if (characterSpeed == 0 && character == null)
+			{
+				character = partyCharacters[i];
+			}
+		}
+
+		return character;
+	}
+
+	public static Color PartyColor(RPG_Party _party)
+	{
+		switch (_party)
+		{
+			case RPG_Party.Ally: return Color.white;
+			case RPG_Party.Enemy: return Color.red;
+			default: return Color.green;
+		}
+	}
+	#endregion
 }

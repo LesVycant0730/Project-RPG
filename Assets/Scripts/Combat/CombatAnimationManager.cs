@@ -27,6 +27,11 @@ public sealed class CombatAnimationManager : MonoBehaviour, IManager
 		animList.ForEach(x => UpdateTrigger(x, CombatAnimationStatus.Battle_Start));
 	}
 
+	public void Run()
+	{
+
+	}
+
 	public void Exit()
 	{
 		if (AnimationCombatRef == null)

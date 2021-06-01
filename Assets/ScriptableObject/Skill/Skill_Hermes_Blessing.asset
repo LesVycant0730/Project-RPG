@@ -18,6 +18,8 @@ MonoBehaviour:
   skillClass: 99
   hasUserClassRestriction: 0
   userClass: 
+  hpCost: 0
+  spCost: 0
   skillEffectCollection:
     hasDamage: 0
     hasHeal: 0

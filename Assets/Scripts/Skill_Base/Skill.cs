@@ -2,19 +2,35 @@
 using RPG_Data;
 
 // Note: The base class for skill
+[System.Serializable]
 public class Skill : IRPGAction
 {
     [SerializeField]
     private SkillData skill_Data;
 
+    public Skill(SkillData _skillData)
+	{
+        skill_Data = _skillData;
+	}
+
+    public string GetName()
+	{
+        return skill_Data.skillName.ToString();
+	}
+
+    public Skill_Name GetEnum()
+	{
+        return skill_Data.skillName;
+	}
+
     public int GetHPCost()
     {
-        return 0;
+        return skill_Data.hpCost;
     }
 
     public int GetSPCost()
     {
-        return 0;
+        return skill_Data.spCost;
     }
 
     public bool HasClassRestriction()

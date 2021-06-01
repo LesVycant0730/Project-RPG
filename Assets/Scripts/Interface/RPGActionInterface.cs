@@ -11,7 +11,15 @@
 
 public interface IManager
 {
+    /// <summary>
+    /// Always invoked first before Run()
+    /// </summary>
     void Init();
+
+    /// <summary>
+    /// Will invoked after Init()
+    /// </summary>
+    void Run();
 
     void Exit();
 }

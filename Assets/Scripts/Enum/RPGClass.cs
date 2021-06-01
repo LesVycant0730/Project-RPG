@@ -1,6 +1,6 @@
 ﻿namespace RPG_Data
 {
-    public enum User_Class
+	public enum User_Class
     {
         Leader,
         Sorcerer,
@@ -19,6 +19,13 @@
         Giant,
         Undead
     }
+
+    public enum Character_ID
+	{
+        Kachujin,
+        Dummy,
+        NULL
+	}
 
     public enum RPG_Stat
 	{
@@ -98,20 +105,32 @@
         Target_Check,
 
         // Phase 3 (Action End)
-        Target_Skill_Enemy,
-        Target_Skill_Ally,
+        Target_Selection_Enemy,
+        Target_Selection_Ally,
         Target_Assist_Ally,
+        Target_AOE_Enemy,
+        Target_AOE_Ally,
+        Target_AOE_All,
+
+        // Phase 4 (During Action)
+        Running_Action,
 
         // No Phase (Action End)
         Defend,
-        Escape
+        Escape,
+
+        // Disable
+        Disabled,
+
+        // Empty
+        NONE
 	}
 
     public enum RPG_Party
 	{
         Ally,
         Enemy,
-        None
+        Neutral
 	}
 }
 

@@ -13,7 +13,7 @@ public class SkillData : ScriptableObject
     public Skill_Name skillName;
 
     [TextArea(0, 100)]
-    public string skillDescription;
+    public string skillDescription = string.Empty;
     //
     [Header ("Skill Detail")]
 	public Skill_Class skillClass = Skill_Class.None;
@@ -22,6 +22,9 @@ public class SkillData : ScriptableObject
 
     [ConditionalHide(false, ConditionalSourceField = "hasUserClassRestriction")]
     public User_Class[] userClass;
+
+    [Header("Skill Cost")]
+    public int hpCost, spCost;
 
     [Header("Skill Effects")]
     [Space(20)]
@@ -38,7 +41,7 @@ public class SkillData : ScriptableObject
             return;
 		}
 
-		if (skillDescription == "")
+		if (string.IsNullOrEmpty(skillDescription))
 		{
             skillDescription = "This skill is called " + skillName;
 		}

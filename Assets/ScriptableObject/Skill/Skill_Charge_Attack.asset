@@ -18,21 +18,25 @@ MonoBehaviour:
   skillClass: 99
   hasUserClassRestriction: 0
   userClass: 
+  hpCost: 0
+  spCost: 0
   skillEffectCollection:
-    hasDamage: 0
+    hasDamage: 1
     hasHeal: 0
     SE_Damage:
+      canOverrideSkillType: 0
       skillType: 0
       isAOE: 0
-      isPercentage: 1
+      isPercentage: 0
       hpCostPercentage: 0
       spCostPercentage: 0
-      hpCostFixed: 0
+      hpCostFixed: 12
       spCostFixed: 0
       totalInstance: 0
       successRate: 0
       damageAmount: 0
     SE_Heal:
+      canOverrideSkillType: 0
       skillType: 1
       isAOE: 0
       isPercentage: 1

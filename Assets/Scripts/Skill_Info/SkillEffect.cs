@@ -6,9 +6,9 @@ using UnityEngine;
 [Serializable]
 public abstract class SkillEffect
 {
-	private bool canOverrideSkillType = false;
+	[SerializeField] private bool canOverrideSkillType = false;
 
-	[ConditionalHide ("canOverrideSkillType", HideInInspector = false, Inverse = true)]
+	[ConditionalHide (nameof(canOverrideSkillType), HideInInspector = false, Inverse = true)]
 	public Skill_Effect_Type skillType;
 
 	[SerializeField]
@@ -16,10 +16,10 @@ public abstract class SkillEffect
 
 	public bool isPercentage = true;
 
-	[ConditionalHide("isPercentage", true, inverse: false)]
+	[ConditionalHide(nameof(isPercentage), true, inverse: false)]
 	public float hpCostPercentage, spCostPercentage;
 
-	[ConditionalHide("isPercentage", true, inverse: true)]
+	[ConditionalHide(nameof(isPercentage), true, inverse: true)]
 	public int hpCostFixed, spCostFixed;
 
 	[SerializeField] 
@@ -106,10 +106,10 @@ public class SkillEffectCollection
 	[SerializeField]
 	private bool hasDamage, hasHeal;
 
-	[ConditionalHide ("hasDamage", hideInInspector: true)]
+	[ConditionalHide (nameof(hasDamage), hideInInspector: true)]
 	public SkillEffect_Damage SE_Damage;
 
-	[ConditionalHide("hasHeal", hideInInspector: true)]
+	[ConditionalHide(nameof(hasHeal), hideInInspector: true)]
 	public SkillEffect_Heal SE_Heal;
 
 	public SkillEffectCollection()
@@ -139,14 +139,15 @@ public class SkillEffectCollection
 	{
 		switch (_type)
 		{
-			case Skill_Effect_Type.Damage:
-				return hasDamage;
-
-			case Skill_Effect_Type.Heal:
-				return hasHeal;
-
-			default:
-				return false;
+			case Skill_Effect_Type.Damage: return hasDamage;
+			case Skill_Effect_Type.Heal: return hasHeal;
+			case Skill_Effect_Type.Cleanse: return false;
+			case Skill_Effect_Type.Stun: return false;
+			case Skill_Effect_Type.Immunity: return false;
+			case Skill_Effect_Type.Cure_Poison: return false;
+			case Skill_Effect_Type.Cure_Confusion: return false;
+			case Skill_Effect_Type.InstaKill: return false;
+			default: return false;
 		}
 	}
 }

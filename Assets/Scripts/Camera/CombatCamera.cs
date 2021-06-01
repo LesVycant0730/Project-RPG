@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class CombatCamera : CameraBase
 {
-	public override void Init()
+	public override void Start()
 	{
-		base.Init();
+		base.Start();
 	}
 
 	public override void Enable()

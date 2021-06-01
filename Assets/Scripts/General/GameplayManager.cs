@@ -1,43 +1,36 @@
 ﻿using UnityEngine;
+using System;
 
-public sealed class GameplayManager : MonoBehaviour
+public class GameplayManager : MonoBehaviour
 {
 	private IManager[] Managers;
 	private bool isInitialized;
 
 	// Temp use on Toggle Combat button
-	public void OnGameplayStart()
+	public void OnCombatToggle()
 	{
 		if (Managers == null)
 		{
 			Managers = GetComponentsInChildren<IManager>();
 		}
 
-		foreach (IManager manager in Managers)
-		{
-			if (manager != null)
-			{
-				if (isInitialized)
-				{
-					manager.Exit();
-				}
-				else
-				{
-					manager.Init();
-				}
-			}
-		}
-
 		isInitialized = !isInitialized;
-	}
 
-	public void Init()
-	{
-		print("Start Main Gameplay Manager");
-	}
+		// Exit or Init the managers
+		Array.ForEach(Managers, manager =>
+		{
+			if (isInitialized)
+				manager.Init();
+			else
+				manager.Exit();
+		});
 
-	public void Exit()
-	{
-		print("Exit Main Gameplay Manager");
+		if (isInitialized)
+		{
+			// Run the managers after finished all the Init
+			Array.ForEach(Managers, manager => manager.Run());
+
+			ActionManager.Instance.ResetAction();
+		}
 	}
 }

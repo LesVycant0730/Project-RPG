@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace RPG_Input
 {
@@ -10,6 +7,7 @@ namespace RPG_Input
 		public static InputManager Instance { get; private set; }
 
 		private InputType _input;
+
         // Start is called before the first frame update
         void Awake()
         {
@@ -28,9 +26,26 @@ namespace RPG_Input
         {
             if (InputKeys.InputUpdate(out _input))
 			{
+                InputAction();
                 print("Input type: " + _input);
 			}
         }
+
+        private void InputAction()
+        {
+            switch (_input)
+			{
+                case InputType.Accept:
+                    break;
+                case InputType.Back:
+                    ActionManager.Instance.Action_Back();
+                    break;
+                case InputType.Inspect:
+                    break;
+                default:
+                    break;
+			}
+		}
     }
 }
 

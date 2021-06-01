@@ -9,7 +9,26 @@ public class RPGStat_Player : RPGStat
 	[Space (10)]
 	[SerializeField, SearchableEnum] private User_Class player_Class = User_Class.None;
 
-	public override string GetClass() => player_Class.ToString();
+	[Header ("[Object]")]
+	[Space (10)]
+	[SerializeField] private GameObject objectPrefab = null;
+
+	public override User_Class GetClass() => player_Class;
+	public override string GetClassName() => player_Class.ToString();
+
+	public override GameObject GetObject()
+	{
+		if (objectPrefab)
+		{
+			return objectPrefab;
+		}
+		else
+		{
+			Debug.LogError("Missing player prefab reference in character: " + name);
+
+			return null;
+		}
+	}
 
 	public RPGStat_Player()
 	{
@@ -19,13 +38,13 @@ public class RPGStat_Player : RPGStat
 		health = 100;
 		stamina = 100;
 
-		damage_Physical = 10;
-		damage_Magical = 10;
-		critical_Rate = 10;
-		critical_Damage = 10;
+		damagePhysical = 10;
+		damageMagical = 10;
+		criticalRate = 10;
+		criticalDamage = 10;
 
-		defense_Physical = 10;
-		defense_Magical = 10;
+		defensePhysical = 10;
+		defenseMagical = 10;
 
 		accuracy = 0.7f;
 		evasion = 0.05f;
@@ -34,4 +53,22 @@ public class RPGStat_Player : RPGStat
 		speed = 5;
 	}
 
+	public RPGStat_Player Clone(RPGStat_Player _data)
+	{
+		Clone<RPGStat_Player>(_data);
+
+		return this;
+	}
+
+	public override void Clone<T>(T _type)
+	{
+		base.Clone(_type);
+
+		var data = _type as RPGStat_Player;
+
+		player_Class = data.player_Class;
+
+		CustomLog.Log("Clone: " + data.characterName);
+		CustomLog.Log("Clone: " + player_Class);
+	}
 }

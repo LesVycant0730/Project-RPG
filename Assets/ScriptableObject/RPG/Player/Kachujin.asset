@@ -12,17 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7307c5ecbcc1b14c8339877c0e8c96a, type: 3}
   m_Name: Kachujin
   m_EditorClassIdentifier: 
-  name: Kachujin
+  characterName: Kachujin
+  characterID: 0
   health: 100
   stamina: 100
-  damage_Physical: 10
-  damage_Magical: 10
-  critical_Rate: 10
-  critical_Damage: 10
-  defense_Physical: 10
-  defense_Magical: 10
+  damagePhysical: 10
+  damageMagical: 10
+  criticalRate: 10
+  criticalDamage: 10
+  defensePhysical: 10
+  defenseMagical: 10
   accuracy: 0.7
   evasion: 0.05
   resistance: 0.1
   speed: 5
+  unlockedSkills: 04000000120000001a000000210000002a000000
   player_Class: 0
+  objectPrefab: {fileID: 0}

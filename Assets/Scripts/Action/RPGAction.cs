@@ -5,7 +5,7 @@ public abstract class RPGAction : MonoBehaviour
 {
 	protected abstract void InvokeActions<ActionType>(ActionType _actionType) where ActionType : Enum;
 	protected abstract void CancelActions<ActionType>(ActionType _actionType) where ActionType : Enum;
-	public abstract void RunDefaultAction();
+	public abstract void RunResetAction();
 	public abstract void ClearAllActions();
 
 	protected T GetActionType<T>(object type) where T : Enum
