@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 676aa760a5817f14aa60a4e80b47c5ba, type: 3}
+  m_Name: Skill_Cleave
+  m_EditorClassIdentifier: 
+  ToggleOnValidate: 0
+  skillName: 2
+  skillDescription: This skill is Cleave
+  skillClass: 99
+  hasUserClassRestriction: 0
+  userClass: 
+  skillEffectCollection:
+    hasDamage: 0
+    hasHeal: 0
+    SE_Damage:
+      skillType: 0
+      isAOE: 0
+      isPercentage: 1
+      hpCostPercentage: 0
+      spCostPercentage: 0
+      hpCostFixed: 0
+      spCostFixed: 0
+      totalInstance: 0
+      successRate: 0
+      damageAmount: 0
+    SE_Heal:
+      skillType: 1
+      isAOE: 0
+      isPercentage: 1
+      hpCostPercentage: 0
+      spCostPercentage: 0
+      hpCostFixed: 0
+      spCostFixed: 0
+      totalInstance: 0
+      successRate: 0
+      healAmount: 0
