@@ -1,6 +1,6 @@
 The project is non-commercial use, for self-learning and showcasing purpose only. The project is based on Unity Engine 5.
 
-Models are retrieved from Mixamo.
+Models are retrieved from Mixamo. For more information, here's the link to the website: https://www.mixamo.com
 
 Credits to Brecht Lecluyse for ConditionalHideAttribute and ConditionalHidePropertyDrawer scripts. For more information, here's the link to his website: www.brechtos.com
 
