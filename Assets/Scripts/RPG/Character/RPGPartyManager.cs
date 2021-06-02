@@ -24,10 +24,10 @@ public class RPGPartyManager : MonoBehaviour, IManager
 	#region RPG Character
 	[SerializeField] public RPGCharacter CurrentCharacter { get; private set; }
 
-	public RPGCharacter GetFastestCharacter(out CombatCharacter _combatCharacter)
+	public RPGCharacter GetFastestCharacter(out CharacterModel _model)
 	{
 		RPGCharacter character = null;
-		_combatCharacter = null;
+		_model = null;
 		int speed = 0;
 
 		for (int i = 0; i < rpgParty.Length; i++)
@@ -51,7 +51,7 @@ public class RPGPartyManager : MonoBehaviour, IManager
 
 		if (character != null)
 		{
-			_combatCharacter = CombatCharacterManager.GetCharacter(character);
+			_model = CombatCharacterManager.GetCharacter(character);
 		}
 
 		return character;
@@ -59,8 +59,8 @@ public class RPGPartyManager : MonoBehaviour, IManager
 	#endregion
 
 	#region RPG Character (In Combat)
-	[SerializeField] private CombatCharacter _currentCombatCharacter;
-	public CombatCharacter CurrentCombatCharacter
+	[SerializeField] private CharacterModel _currentCombatCharacter;
+	public CharacterModel CurrentCombatCharacter
 	{
 		get
 		{
@@ -74,7 +74,7 @@ public class RPGPartyManager : MonoBehaviour, IManager
 
 				if (value != null)
 				{
-					CombatUIManager.UpdateToCurrentCharacter(value.Model.transform, RPG_Data.RPG_Party.Ally);
+					CombatUIManager.UpdateToCurrentCharacter(value, RPG_Data.RPG_Party.Ally);
 				}
 			}
 		}
@@ -107,7 +107,7 @@ public class RPGPartyManager : MonoBehaviour, IManager
     public void InitializeParty()
     {
         // First character will always be the fastest character
-        CurrentCharacter = GetFastestCharacter(out CombatCharacter combatChar);
+        CurrentCharacter = GetFastestCharacter(out CharacterModel combatChar);
 		CurrentCombatCharacter = combatChar;
 		
 		CustomLog.Log($"Fastest Character Update: {CurrentCharacter.GetCharacterStat().GetName()}");

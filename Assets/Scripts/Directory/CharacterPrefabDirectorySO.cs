@@ -4,46 +4,71 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using RoboRyanTron.SearchableEnum;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 [Serializable]
-public class CombatCharacter
+public class CharacterAssetReference
 {
     [SerializeField, SearchableEnum] private Character_ID id = Character_ID.NULL;
-    [SerializeField] private GameObject mainObject;
-    [SerializeField] private GameObject model;
-    [SerializeField] private Animator anim;
+    [SerializeField] private AssetReference assetRef;
 
     public Character_ID ID => id;
-    public GameObject MainObject => mainObject;
-    public GameObject Model => model;
-    public Animator Anim => anim;
+    public AssetReference AssetRef => assetRef;
 
-    public CombatCharacter(Character_ID _id = Character_ID.NULL)
+    public bool IsSameID(Character_ID _id)
+    {
+        return id == _id;
+    }
+
+    public CharacterAssetReference(Character_ID _id = Character_ID.NULL)
     {
         id = _id;
-        mainObject = null;
+        assetRef = null;
+    }
+}
+
+public class CharacterModel
+{
+    [SerializeField, SearchableEnum] private Character_ID id = Character_ID.NULL;
+    [SerializeField] private GameObject model;
+    [SerializeField] private Animator anim;
+    [SerializeField] private bool isUsing = false;
+
+    public Character_ID ID => id;
+    public GameObject Model => model;
+    public Animator Anim => anim;
+    public bool IsUsing => isUsing;
+
+    public CharacterModel(Character_ID _id = Character_ID.NULL)
+    {
+        id = _id;
         model = null;
         anim = null;
     }
 
-    public CombatCharacter(Character_ID _id, GameObject _mainObj, GameObject _model, Animator _anim)
+    public CharacterModel(Character_ID _id, GameObject _model)
     {
         id = _id;
-        mainObject = _mainObj;
         model = _model;
-        anim = _anim;
+        anim = _model.GetComponent<Animator>();
     }
 
     public bool IsSameCharacter(Character_ID _id)
     {
         return id == _id;
     }
+
+    public void Enable(bool _enable)
+	{
+        isUsing = _enable;
+	}
 }
 
 [CreateAssetMenu(fileName = "Character Prefab Directory", menuName = "ScriptableObjects/Directory/Character", order = 1)]
 public class CharacterPrefabDirectorySO : PrefabDirectorySO
 {
-    [SerializeField] private CombatCharacter[] charactersDirectory;
+    [SerializeField] private CharacterAssetReference[] charactersDirectory;
 
     public override bool HasDirectory()
     {
@@ -55,11 +80,11 @@ public class CharacterPrefabDirectorySO : PrefabDirectorySO
 	{
         IEnumerable<Character_ID> ids = Utility.GetTypeElements<Character_ID>();
 
-        charactersDirectory = new CombatCharacter[ids.Count()];
+        charactersDirectory = new CharacterAssetReference[ids.Count()];
 
         for (int i = 0; i < charactersDirectory.Length; i++)
         {
-            charactersDirectory[i] = new CombatCharacter(ids.ElementAt(i));
+            charactersDirectory[i] = new CharacterAssetReference(ids.ElementAt(i));
         }
     }
 
@@ -69,7 +94,7 @@ public class CharacterPrefabDirectorySO : PrefabDirectorySO
 		{
             IEnumerable<Character_ID> ids = Utility.GetTypeElements<Character_ID>();
 
-            CombatCharacter[] tempDir = new CombatCharacter[ids.Count()];
+            CharacterAssetReference[] tempDir = new CharacterAssetReference[ids.Count()];
 
             for (int i = 0; i < tempDir.Length; i++)
             {
@@ -77,10 +102,10 @@ public class CharacterPrefabDirectorySO : PrefabDirectorySO
                 Character_ID id = ids.ElementAt(i);
 
                 // Find and compare ID in the directory array
-                CombatCharacter existingDir = Array.Find(charactersDirectory, x => x.IsSameCharacter(id));
+                CharacterAssetReference existingDir = Array.Find(charactersDirectory, x => x.IsSameID(id));
 
                 // Replace the element in the new array with the element from the old array
-                tempDir[i] = existingDir ?? new CombatCharacter(id);
+                tempDir[i] = existingDir ?? new CharacterAssetReference(id);
             }
 
             charactersDirectory = tempDir;
@@ -102,7 +127,9 @@ public class CharacterPrefabDirectorySO : PrefabDirectorySO
                 charIDs.Add(character.ID);
 			}
 
-            Utility.IsArrayContainAllTypeElements(charIDs.ToArray(), out List<Character_ID> hey);
+            Utility.IsArrayContainAllEnumElements(charIDs.ToArray(), out List<Character_ID> missingElementList);
+
+            missingElementList.ForEach(x => Debug.LogWarning($"Missing element: {x} in the SO"));
 		}
 		else
 		{
@@ -111,12 +138,12 @@ public class CharacterPrefabDirectorySO : PrefabDirectorySO
     }
 #endif
 
-    public CombatCharacter GetCharacter(Character_ID _id)
+    public CharacterAssetReference GetCharacter(Character_ID _id)
     {
-        return charactersDirectory.Single(x => x.IsSameCharacter(_id));
+        return charactersDirectory.Single(x => x.IsSameID(_id));
     }
 
-    public CombatCharacter GetCharacter(RPGCharacter _rpgCharacter)
+    public CharacterAssetReference GetCharacter(RPGCharacter _rpgCharacter)
     {
         if (_rpgCharacter == null)
         {
@@ -126,6 +153,27 @@ public class CharacterPrefabDirectorySO : PrefabDirectorySO
 
         Character_ID id = _rpgCharacter.GetCharacterStat().GetID();
 
-        return charactersDirectory.Single(x => x.IsSameCharacter(id));
+        return charactersDirectory.Single(x => x.IsSameID(id));
     }
+
+    public CharacterModel LoadCharacter(Character_ID _id)
+	{
+        CharacterAssetReference characterAsset = GetCharacter(_id);
+
+        if (characterAsset != null)
+		{
+            var model = characterAsset.AssetRef.LoadAssetAsync<GameObject>();
+
+            CharacterModel character = new CharacterModel(_id);
+            return null;
+
+        }
+        else
+            return null;
+	}
+
+    private void AssetLoaded(AsyncOperationHandle<GameObject> _op)
+	{
+
+	}
 }

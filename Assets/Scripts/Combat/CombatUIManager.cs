@@ -79,12 +79,17 @@ public class CombatUIManager : MonoBehaviour, IManager
 		}
 	}
 
-	public static void UpdateToCurrentCharacter(Transform _transform, RPG_Party _party)
+	public static void UpdateToCurrentCharacter(CharacterModel _character, RPG_Party _party)
 	{
-		if (instance)
+		if (instance && _character != null)
 		{
-			instance.CharacterHighlight.SetParent(_transform);
-			instance.CharacterHighlight.position = new Vector3(_transform.position.x, 0.01f, _transform.position.z);
+			if (_character.Model)
+			{
+				instance.CharacterHighlight.SetParent(_character.Model.transform);
+
+				//instance.CharacterHighlight.position = new Vector3(_character.Model.transform.x, 0.01f, _transform.position.z);
+			}
+
 			instance.CharacterHighlight.SetActive(true);
 		}
 	}

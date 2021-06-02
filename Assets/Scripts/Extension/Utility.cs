@@ -22,24 +22,46 @@ public static class Utility
         return Enum.GetValues(typeof(T)).Cast<T>();
     }
 
-    public static bool IsArrayContainAllTypeElements<T>(T[] _enumArr, out List<T> _missingElements) where T : Enum
+    public static bool IsArrayContainAllEnumElements<T>(T[] _enumArr, out List<T> _missingElements) where T : Enum
 	{
+        // Prepare new list for storing new elements
         _missingElements = new List<T>();
 
-        IEnumerable<T> enums = GetTypeElements<T>();
-
+        // Prepare string builder to debug log
         StringBuilder builder = new StringBuilder();
+
+        // Get all enum elements
+        IEnumerable<T> enums = GetTypeElements<T>();
         
         // Check sequence
-        builder.Append(Enumerable.SequenceEqual(enums, _enumArr) ? "Correct element sequence" : $"Wrong sequence order for type: {typeof(T)}");
+        builder.Append(Enumerable.SequenceEqual(enums, _enumArr) ? $"Correct element sequence for {typeof(T)}\n" : $"Wrong sequence order for type: {typeof(T)}\n");
 
-        foreach(var value in enums)
+        bool isArrayCorrect = true;
+
+        foreach (var value in enums)
 		{
-            // Fix this SINGLE
-            builder.Append(_enumArr.Single(x => _enumArr.Contains(value)) != null ? "No Duplication" : $"Found Duplicated value");
+            // Find all matching elements
+            T[] temp = Array.FindAll(_enumArr, x => x.Equals(value));
+
+            // Add element to the list if the array do not have that element
+            if (IsNullOrEmpty(temp))
+			{
+                _missingElements.Add(value);
+				isArrayCorrect = false;
+                builder.Append($"Added {value}\n");
+			}
+
+            // Found duplicated value
+            else if (temp.Length > 1)
+            {
+                isArrayCorrect = false;
+                builder.Append($"Found Duplicated value: {value}\n");
+            }
         }
 
-        return false;
+        Debug.Log(builder.ToString());
+
+        return isArrayCorrect;
 	}
 
     public static void SetActive(this Transform _trans, bool _active)
@@ -48,5 +70,10 @@ public static class Utility
 		{
             _trans.gameObject.SetActive(_active);
 		}
+	}
+
+    public static bool IsNullOrEmpty(this Array _array)
+	{
+        return _array == null || _array.Length == 0;
 	}
 }

@@ -14,14 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charactersDirectory:
   - id: 0
-    mainObject: {fileID: 0}
-    model: {fileID: 0}
-    anim: {fileID: 0}
+    assetRef:
+      m_AssetGUID: 367e467ab8df09b46b9a17433cf8343f
+      m_SubObjectName: 
+      m_SubObjectType: 
   - id: 1
-    mainObject: {fileID: 0}
-    model: {fileID: 0}
-    anim: {fileID: 0}
+    assetRef:
+      m_AssetGUID: 3afbb5fb939b2974fadefbd41a531ed0
+      m_SubObjectName: 
+      m_SubObjectType: 
   - id: 2
-    mainObject: {fileID: 0}
-    model: {fileID: 7833011577465805116, guid: de833d7e4385062469ecd37bd41bcd23, type: 3}
-    anim: {fileID: 0}
+    assetRef:
+      m_AssetGUID: 3afbb5fb939b2974fadefbd41a531ed0
+      m_SubObjectName: 
+      m_SubObjectType: 
