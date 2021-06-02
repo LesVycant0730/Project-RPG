@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using RoboRyanTron.SearchableEnum;
 using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
+using System.Threading.Tasks;
 
 [Serializable]
 public class CharacterAssetReference
@@ -156,24 +156,20 @@ public class CharacterPrefabDirectorySO : PrefabDirectorySO
         return charactersDirectory.Single(x => x.IsSameID(id));
     }
 
-    public CharacterModel LoadCharacter(Character_ID _id)
+    public async Task<CharacterModel> LoadCharacter(Character_ID _id)
 	{
         CharacterAssetReference characterAsset = GetCharacter(_id);
 
         if (characterAsset != null)
 		{
-            var model = characterAsset.AssetRef.LoadAssetAsync<GameObject>();
+            var op = await AddressablesUtility.LoadAsset<GameObject>(characterAsset.AssetRef, (handle) =>
+            {
 
-            CharacterModel character = new CharacterModel(_id);
-            return null;
+            });
 
+            return new CharacterModel(_id, op);
         }
         else
             return null;
-	}
-
-    private void AssetLoaded(AsyncOperationHandle<GameObject> _op)
-	{
-
 	}
 }
