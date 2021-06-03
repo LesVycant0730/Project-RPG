@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using System;
-using System.Threading.Tasks;
 
 public static class AddressablesUtility
 {
@@ -16,11 +14,6 @@ public static class AddressablesUtility
     {
         Addressables.InitializeAsync().Completed += (obj) => { isInitialized = true; };
     }
-
-    public async static void AddressableAction<TObject>(Task<TObject> _action)
-	{
-        var handle = await _action;
-	}
 
     public async static Task<TObject> LoadAsset<TObject>(AssetReference _asset, Action<AsyncOperationHandle<TObject>> _action)
     {

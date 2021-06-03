@@ -47,7 +47,7 @@ public class CombatCharacterManager : MonoBehaviour, IManager
             else
 			{
                 // Update Library
-                CharacterAssetReference asset = instance.characterDirectorySO.GetCharacter(_rpgCharacter.GetCharacterStat().GetID());
+                CharacterAssetReference asset = instance.characterDirectorySO.GetCharacter(_rpgCharacter.CharacterStat.GetID());
 
                 if (asset != null)
                 {

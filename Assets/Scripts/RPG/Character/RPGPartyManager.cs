@@ -40,7 +40,7 @@ public class RPGPartyManager : MonoBehaviour, IManager
 			}
 			else
 			{
-				int charSpeed = loopChar.GetCharacterStat().GetSpeed();
+				int charSpeed = loopChar.CharacterStat.GetSpeed();
 
 				if (speed == charSpeed || charSpeed > speed)
 				{
@@ -100,6 +100,11 @@ public class RPGPartyManager : MonoBehaviour, IManager
 
     public async void InitializeParty()
     {
+		foreach (var party in rpgParty)
+		{
+			await party.InitializePartyMembers();
+		}
+
         // First character will always be the fastest character
         CurrentCharacter = GetFastestCharacter();
 
@@ -108,18 +113,18 @@ public class RPGPartyManager : MonoBehaviour, IManager
 			CurrentCombatCharacter = await CombatCharacterManager.GetCharacter(CurrentCharacter);
 		}
 		
-		CustomLog.Log($"Fastest Character Update: {CurrentCharacter.GetCharacterStat().GetName()}");
+		CustomLog.Log($"Fastest Character Update: {CurrentCharacter.CharacterStat.GetName()}");
 	}
 	#endregion
 
 	public void Init()
 	{
+		InitializeParty();
 
 	}
 
 	public void Run()
 	{
-		InitializeParty();
 	}
 
 	public void Exit()

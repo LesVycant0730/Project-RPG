@@ -5,6 +5,7 @@ using System;
 
 public sealed class CombatAnimationManager : MonoBehaviour, IManager
 {
+	private static CombatAnimationManager instance;
 	public CombatAnimationStatus CurrentAnimationStatus { get; private set; } = CombatAnimationStatus.Idle;
 
 	[SerializeField] private AnimationCombat AnimationCombatRef;
@@ -22,14 +23,14 @@ public sealed class CombatAnimationManager : MonoBehaviour, IManager
 			return;
 		}
 
-		print("Init Combat Animation Manager");
+		instance = this;
 
-		animList.ForEach(x => UpdateTrigger(x, CombatAnimationStatus.Battle_Start));
+		print("Init Combat Animation Manager");
 	}
 
 	public void Run()
 	{
-
+		animList.ForEach(x => UpdateTrigger(x, CombatAnimationStatus.Battle_Start));
 	}
 
 	public void Exit()
@@ -43,6 +44,29 @@ public sealed class CombatAnimationManager : MonoBehaviour, IManager
 		print("Exit Combat Animation Manager");
 
 		animList.ForEach(x => UpdateTrigger(x, CombatAnimationStatus.Idle));
+		animList.Clear();
+		instance = null;
+	}
+	#endregion
+
+	#region Animation Reference
+	public static void AddAnimator(Animator _anim)
+	{
+		if (instance)
+		{
+			if (!instance.animList.Contains(_anim))
+			{
+				instance.animList.Add(_anim);
+			}
+		}
+	}
+	
+	public void RemoveAnimator(Animator _anim)
+	{
+		if (instance)
+		{
+			instance.animList.Remove(_anim);
+		}
 	}
 	#endregion
 

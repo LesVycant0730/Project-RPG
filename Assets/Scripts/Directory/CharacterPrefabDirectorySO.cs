@@ -2,69 +2,8 @@ using RPG_Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
-using RoboRyanTron.SearchableEnum;
-using UnityEngine.AddressableAssets;
 using System.Threading.Tasks;
-
-[Serializable]
-public class CharacterAssetReference
-{
-    [SerializeField, SearchableEnum] private Character_ID id = Character_ID.NULL;
-    [SerializeField] private AssetReference assetRef;
-
-    public Character_ID ID => id;
-    public AssetReference AssetRef => assetRef;
-
-    public bool IsSameID(Character_ID _id)
-    {
-        return id == _id;
-    }
-
-    public CharacterAssetReference(Character_ID _id = Character_ID.NULL)
-    {
-        id = _id;
-        assetRef = null;
-    }
-}
-
-[Serializable]
-public class CharacterModel
-{
-    [SerializeField, SearchableEnum] private Character_ID id = Character_ID.NULL;
-    [SerializeField] private GameObject model;
-    [SerializeField] private Animator anim;
-    [SerializeField] private bool isUsing = false;
-
-    public Character_ID ID => id;
-    public GameObject Model => model;
-    public Animator Anim => anim;
-    public bool IsUsing => isUsing;
-
-    public CharacterModel(Character_ID _id = Character_ID.NULL)
-    {
-        id = _id;
-        model = null;
-        anim = null;
-    }
-
-    public CharacterModel(Character_ID _id, GameObject _model)
-    {
-        id = _id;
-        model = _model;
-        anim = _model.GetComponent<Animator>();
-    }
-
-    public bool IsSameCharacter(Character_ID _id)
-    {
-        return id == _id;
-    }
-
-    public void Enable(bool _enable)
-	{
-        isUsing = _enable;
-	}
-}
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "Character Prefab Directory", menuName = "ScriptableObjects/Directory/Character", order = 1)]
 public class CharacterPrefabDirectorySO : PrefabDirectorySO
@@ -152,7 +91,7 @@ public class CharacterPrefabDirectorySO : PrefabDirectorySO
             return null;
         }
 
-        Character_ID id = _rpgCharacter.GetCharacterStat().GetID();
+        Character_ID id = _rpgCharacter.CharacterStat.GetID();
 
         return charactersDirectory.Single(x => x.IsSameID(id));
     }
@@ -165,8 +104,7 @@ public class CharacterPrefabDirectorySO : PrefabDirectorySO
 		{
             GameObject go = await AddressablesUtility.LoadAsset(characterAsset.AssetRef, Vector3.zero, Quaternion.identity, null, (handle) =>
             {
-                Debug.Log($"Instantiated game object from {characterAsset.AssetRef}");
-                characterAsset.AssetRef.ReleaseAsset();
+                Debug.Log($"Instantiated game object: {characterAsset.AssetRef}");
             });
 
             return new CharacterModel(_id, go);

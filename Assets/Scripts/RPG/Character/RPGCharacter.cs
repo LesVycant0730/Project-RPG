@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using RPG_Data;
+using System.Threading.Tasks;
 
 [Serializable]
 public class RPGCharacter
@@ -18,6 +19,8 @@ public class RPGCharacter
 	// The separate class reference for RPG Stat, the information that will be modified and referred throughout but will not be saved.
 	[SerializeField] private RPGCharacterInfo characterInfo;
 
+	[SerializeField] private CharacterModel characterModel;
+
 	/// <summary>
 	/// <para> Setup character stat (Prohibited to modify except on actual stat allocation/upgrades) </para>
 	/// <para> Setup character stat info (Allowed to modify in any scenarios, combat, UI etc.) </para>
@@ -32,13 +35,20 @@ public class RPGCharacter
 		characterInfo = new RPGCharacterInfo(_stat);
 	}
 
+	public void SetModel(CharacterModel _model)
+	{
+		characterModel = _model;
+	}
+
 	public RPG_Party GetCharacterParty => characterPartyType;
 
-	public RPGStat GetCharacterStatSO => characterStatSO;
+	public RPGStat CharacterStatSO => characterStatSO;
 
-	public RPGStat GetCharacterStat() => characterStat;
+	public RPGStat CharacterStat => characterStat;
 
-	public RPGCharacterInfo GetCharacterStatInfo() => characterInfo;
+	public RPGCharacterInfo CharacterStatInfo => characterInfo;
+
+	public CharacterModel CharacterModel => characterModel;
 }
 
 [Serializable]
@@ -74,6 +84,15 @@ public class RPGParty
 		PType = _type;
 	}
 
+	public async Task InitializePartyMembers()
+	{
+		foreach (var character in partyCharacters)
+		{
+			character.SetModel(await CombatCharacterManager.GetCharacter(character));
+			CombatAnimationManager.AddAnimator(character.CharacterModel.Anim);
+		}
+	}
+
 	public void AddPartyMember(RPGCharacter _character, out PartyAction _status)
 	{
 		if (partyCharacters.Contains(_character))
@@ -98,7 +117,7 @@ public class RPGParty
 			}
 			else
 			{
-				Debug.Log("Add Character: " + _character.GetCharacterStat().name);
+				Debug.Log("Add Character: " + _character.CharacterStat.name);
 				_status = PartyAction.Success;
 				partyCharacters.Add(_character);
 			}
@@ -116,7 +135,7 @@ public class RPGParty
 
 		if (partyCharacters.Contains(_character))
 		{
-			Debug.Log("Remove Character: " + _character.GetCharacterStat().name);
+			Debug.Log("Remove Character: " + _character.CharacterStat.name);
 			_status = PartyAction.Success;
 			partyCharacters.Remove(_character);
 		}
@@ -130,14 +149,14 @@ public class RPGParty
 	{
 		partyCharacters.ForEach(character =>
 		{
-			RPGStat stat = _useCache ? character.GetCharacterStatSO : null;
+			RPGStat stat = _useCache ? character.CharacterStatSO : null;
 
 			switch (PType)
 			{
 				case PartyType.Ally:
 
 					if (!_useCache)
-						stat = CharacterLibrary.GetPlayer(character.GetCharacterStatInfo().characterID);
+						stat = CharacterLibrary.GetPlayer(character.CharacterStatInfo.characterID);
 
 					character.SetCharacter((RPGStat_Player)stat, RPG_Party.Ally);
 					break;
@@ -145,7 +164,7 @@ public class RPGParty
 				case PartyType.Enemy:
 
 					if (!_useCache)
-						stat = CharacterLibrary.GetEnemy(character.GetCharacterStatInfo().characterID);
+						stat = CharacterLibrary.GetEnemy(character.CharacterStatInfo.characterID);
 
 					character.SetCharacter(stat, RPG_Party.Enemy);
 					break;
@@ -153,7 +172,7 @@ public class RPGParty
 				default:
 
 					if (!_useCache)
-						stat = CharacterLibrary.GetEnemy(character.GetCharacterStatInfo().characterID);
+						stat = CharacterLibrary.GetEnemy(character.CharacterStatInfo.characterID);
 
 					character.SetCharacter(stat, RPG_Party.Neutral);
 					break;
@@ -183,7 +202,7 @@ public class RPGParty
 
 		for (int i = 0; i < partyCharacters.Count; i++)
 		{
-			int characterSpeed = partyCharacters[i].GetCharacterStat().GetSpeed();
+			int characterSpeed = partyCharacters[i].CharacterStat.GetSpeed();
 
 			// If character speed is move than current speed, set it as the highest
 			if (characterSpeed > _speed)
