@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class RPGPartyManager : MonoBehaviour, IManager
 {
@@ -24,10 +25,9 @@ public class RPGPartyManager : MonoBehaviour, IManager
 	#region RPG Character
 	[SerializeField] public RPGCharacter CurrentCharacter { get; private set; }
 
-	public RPGCharacter GetFastestCharacter(out CharacterModel _model)
+	public RPGCharacter GetFastestCharacter()
 	{
 		RPGCharacter character = null;
-		_model = null;
 		int speed = 0;
 
 		for (int i = 0; i < rpgParty.Length; i++)
@@ -48,12 +48,6 @@ public class RPGPartyManager : MonoBehaviour, IManager
 				}
 			}
 		}
-
-		if (character != null)
-		{
-			_model = CombatCharacterManager.GetCharacter(character);
-		}
-
 		return character;
 	}
 	#endregion
@@ -104,11 +98,15 @@ public class RPGPartyManager : MonoBehaviour, IManager
 		} 
 	}
 
-    public void InitializeParty()
+    public async void InitializeParty()
     {
         // First character will always be the fastest character
-        CurrentCharacter = GetFastestCharacter(out CharacterModel combatChar);
-		CurrentCombatCharacter = combatChar;
+        CurrentCharacter = GetFastestCharacter();
+
+		if (CurrentCharacter != null)
+		{
+			CurrentCombatCharacter = await CombatCharacterManager.GetCharacter(CurrentCharacter);
+		}
 		
 		CustomLog.Log($"Fastest Character Update: {CurrentCharacter.GetCharacterStat().GetName()}");
 	}

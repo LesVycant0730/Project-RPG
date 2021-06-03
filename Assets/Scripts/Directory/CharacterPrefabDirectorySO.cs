@@ -28,6 +28,7 @@ public class CharacterAssetReference
     }
 }
 
+[Serializable]
 public class CharacterModel
 {
     [SerializeField, SearchableEnum] private Character_ID id = Character_ID.NULL;
@@ -162,12 +163,13 @@ public class CharacterPrefabDirectorySO : PrefabDirectorySO
 
         if (characterAsset != null)
 		{
-            var op = await AddressablesUtility.LoadAsset<GameObject>(characterAsset.AssetRef, (handle) =>
+            GameObject go = await AddressablesUtility.LoadAsset(characterAsset.AssetRef, Vector3.zero, Quaternion.identity, null, (handle) =>
             {
-
+                Debug.Log($"Instantiated game object from {characterAsset.AssetRef}");
+                characterAsset.AssetRef.ReleaseAsset();
             });
 
-            return new CharacterModel(_id, op);
+            return new CharacterModel(_id, go);
         }
         else
             return null;

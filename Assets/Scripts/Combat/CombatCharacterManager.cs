@@ -1,8 +1,8 @@
 ﻿using RPG_Data;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using System.Linq;
 using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 public class CombatCharacterManager : MonoBehaviour, IManager
 {
@@ -24,53 +24,42 @@ public class CombatCharacterManager : MonoBehaviour, IManager
         }
     }
 
-    public static CharacterModel GetCharacter(RPGCharacter _rpgCharacter)
+    public async static Task<CharacterModel> GetCharacter(RPGCharacter _rpgCharacter)
 	{
         if (_rpgCharacter == null)
 		{
-            CustomLog.Log("Attempt to Get Character from an empty reference.");
-            return null;
+            throw new Exception("Attempt to Get Character from an empty reference.");
 		}
 
         if (instance != null)
         {
-
-            //return instance.characterDirectorySO.GetCharacter(_rpgCharacter.GetCharacterStat().GetID());
-            return null;
-        }
-        else
-        {
-            return null;
-        }
-    }
-
-    private CharacterModel GetCharacterModel(RPGCharacter _rpgCharacter)
-	{
-        if (Utility.IsNullOrEmpty(characterArr) || _rpgCharacter == null)
-		{
-            Debug.LogWarning("Attempt to create character from an empty, null array or empty RPGCharacter reference.");
-            return null;
-		}
-
-        // Get the instantiated model in character array
-        CharacterModel model = characterArr.Single(x => x.IsSameCharacter(_rpgCharacter.GetCharacterStat().GetID()));
-
-        if (model != null)
-		{
-            return model;
-		}
-        else
-		{
-            CharacterAssetReference asset = characterDirectorySO.GetCharacter(_rpgCharacter.GetCharacterStat().GetID());
-
-            if (asset != null)
+            if (Utility.IsNullOrEmpty(instance.characterArr))
 			{
-               //await asset.AssetRef.LoadAssetAsync();
-			}
+                throw new Exception("Attempt to create character from an empty or null array");
+            }
 
-            return null;
+            CharacterModel model =/* instance.characterArr.Single(x => x.IsSameCharacter(_rpgCharacter.GetCharacterStat().GetID()));*/ null;
 
+            if (model != null)
+            {
+                return model;
+            }
+            else
+			{
+                // Update Library
+                CharacterAssetReference asset = instance.characterDirectorySO.GetCharacter(_rpgCharacter.GetCharacterStat().GetID());
+
+                if (asset != null)
+                {
+                    CharacterModel newModel = await instance.characterDirectorySO.LoadCharacter(asset.ID);
+                    instance.characterArr[(int)asset.ID] = newModel;
+
+                    return newModel;
+                }
+            }
         }
+
+        return null;
     }
 
 	public void Init()
