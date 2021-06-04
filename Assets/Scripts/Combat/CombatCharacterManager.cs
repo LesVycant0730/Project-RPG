@@ -38,7 +38,8 @@ public class CombatCharacterManager : MonoBehaviour, IManager
                 throw new Exception("Attempt to create character from an empty or null array");
             }
 
-            CharacterModel model =/* instance.characterArr.Single(x => x.IsSameCharacter(_rpgCharacter.GetCharacterStat().GetID()));*/ null;
+            // Fix this and animation
+            CharacterModel model = Array.Find(instance.characterArr, x => x.IsSameCharacter(_rpgCharacter.CharacterStat.GetID()));
 
             if (model != null)
             {
