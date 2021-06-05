@@ -2,6 +2,7 @@
 using System.Linq;
 using UnityEngine;
 using System.Threading.Tasks;
+using RPG_Data;
 
 public class RPGPartyManager : MonoBehaviour, IManager
 {
@@ -9,14 +10,14 @@ public class RPGPartyManager : MonoBehaviour, IManager
 	[SerializeField]
     private RPGParty[] rpgParty = new RPGParty[]
     {
-        new RPGParty(RPGParty.PartyType.Ally),
-        new RPGParty(RPGParty.PartyType.Enemy),
-        new RPGParty(RPGParty.PartyType.Neutral)
+        new RPGParty(RPG_Party.Ally),
+        new RPGParty(RPG_Party.Enemy),
+        new RPGParty(RPG_Party.Neutral)
     };
 
     public RPGParty CurrentParty { get; private set; }
 
-    public RPGParty GetParty(RPGParty.PartyType _type)
+    public RPGParty GetParty(RPG_Party _type)
 	{
         return rpgParty.SingleOrDefault(rpgParty => rpgParty.PType == _type);
 	}
@@ -76,7 +77,7 @@ public class RPGPartyManager : MonoBehaviour, IManager
 	#endregion
 
 	#region Party Action
-	public void AddActionToParty(RPGParty.PartyType _type, Action _action)
+	public void AddActionToParty(RPG_Party _type, Action _action)
 	{
         RPGParty party = GetParty(_type);
 
@@ -86,7 +87,7 @@ public class RPGPartyManager : MonoBehaviour, IManager
         }
     }
 
-    public void ActivateParty(RPGParty.PartyType _type)
+    public void ActivateParty(RPG_Party _type)
 	{
         RPGParty party = GetParty(_type);
 
@@ -137,9 +138,9 @@ public class RPGPartyManager : MonoBehaviour, IManager
 	{
 		rpgParty = new RPGParty[]
 		{
-			new RPGParty(RPGParty.PartyType.Ally),
-			new RPGParty(RPGParty.PartyType.Enemy),
-			new RPGParty(RPGParty.PartyType.Neutral)
+			new RPGParty(RPG_Party.Ally),
+			new RPGParty(RPG_Party.Enemy),
+			new RPGParty(RPG_Party.Neutral)
 		};
 	}
 

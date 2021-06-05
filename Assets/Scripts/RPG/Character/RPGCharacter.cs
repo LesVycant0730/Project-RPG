@@ -49,6 +49,18 @@ public class RPGCharacter
 	public RPGCharacterInfo CharacterStatInfo => characterInfo;
 
 	public CharacterModel CharacterModel => characterModel;
+	public string Name
+	{
+		get
+		{
+			if (characterStat != null)
+			{
+				return characterStat.name;
+			}
+
+			return "NULL";
+		}
+	}
 }
 
 [Serializable]
@@ -63,23 +75,16 @@ public class RPGParty
 		Failed
 	}
 
-	public enum PartyType
-	{
-		Ally,
-		Enemy,
-		Neutral
-	}
-
 	public const int MIN_PARTY_NUMBER = 1;
 	public const int MAX_PARTY_NUMBER = 4;
 
 	[SerializeField] private List<RPGCharacter> partyCharacters = new List<RPGCharacter>();
 	
-	public PartyType PType { get; private set; }
+	public RPG_Party PType { get; private set; }
 
 	public Action OnPartyActive;
 
-	public RPGParty(PartyType _type)
+	public RPGParty(RPG_Party _type)
 	{
 		PType = _type;
 	}
@@ -153,7 +158,7 @@ public class RPGParty
 
 			switch (PType)
 			{
-				case PartyType.Ally:
+				case RPG_Party.Ally:
 
 					if (!_useCache)
 						stat = CharacterLibrary.GetPlayer(character.CharacterStatInfo.characterID);
@@ -161,7 +166,7 @@ public class RPGParty
 					character.SetCharacter((RPGStat_Player)stat, RPG_Party.Ally);
 					break;
 
-				case PartyType.Enemy:
+				case RPG_Party.Enemy:
 
 					if (!_useCache)
 						stat = CharacterLibrary.GetEnemy(character.CharacterStatInfo.characterID);

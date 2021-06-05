@@ -3,28 +3,38 @@ using UnityEngine;
 
 public class AquaMaterial : MonoBehaviour
 {
-    private MeshRenderer mesh;
+    private Renderer mesh;
 
-	[Header ("Setting")]
-	[SerializeField] private float offset;
+	[Header ("Setting (Update)")]
 	[SerializeField] private float updateDelay = 1.0f;
-	[SerializeField] private Vector2 initialOffset;
-	[SerializeField] private Vector2 maxOffset;
 	[SerializeField] private AnimationCurve updateCurve;
+
+	[Header("Setting (Offset)")]
+	[SerializeField] private Vector2 offsetMin;
+	[SerializeField] private Vector2 offsetMax;
+
+	private Coroutine AquaUpdate = null;
 
 	private void Awake()
 	{
-		mesh = GetComponent<MeshRenderer>();
-		Vector2 tempOffset = mesh.material.GetTextureOffset("_MainTex");
-		initialOffset = tempOffset - new Vector2(offset, offset);
-		maxOffset = tempOffset + new Vector2(offset, offset);
+		mesh = GetComponent<Renderer>();
 	}
 
-	IEnumerator Start()
+	private void OnEnable()
+	{
+		if (AquaUpdate != null)
+		{
+			StopCoroutine(AquaUpdate);
+		}
+
+		AquaUpdate = StartCoroutine(AquaMatUpdate());
+	}
+
+	IEnumerator AquaMatUpdate()
 	{
 		while (true)
 		{
-			mesh.material.SetTextureOffset("_MainTex", Vector2.Lerp(initialOffset, maxOffset, updateCurve.Evaluate(Time.time / updateDelay)));
+			mesh.material.SetTextureOffset("_MainTex", Vector2.Lerp(offsetMin, offsetMax, updateCurve.Evaluate(Time.time / updateDelay)));
 			yield return null;
 		}
 	}

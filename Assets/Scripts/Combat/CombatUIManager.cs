@@ -87,10 +87,15 @@ public class CombatUIManager : MonoBehaviour, IManager
 			{
 				instance.CharacterHighlight.SetParent(_character.Model.transform);
 
-				//instance.CharacterHighlight.position = new Vector3(_character.Model.transform.x, 0.01f, _transform.position.z);
+				Vector3 pos = new Vector3(_character.Model.transform.position.x, 0.01f, _character.Model.transform.position.z);
+
+				instance.CharacterHighlight.position = pos;
+
+				instance.highlightSprite.color = RPGParty.PartyColor(_party);
 			}
 
-			instance.CharacterHighlight.SetActive(true);
+			instance.CharacterHighlight.SetActive(_character.Model != null);
+
 		}
 	}
 

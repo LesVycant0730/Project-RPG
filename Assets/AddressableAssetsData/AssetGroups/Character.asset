@@ -32,8 +32,8 @@ MonoBehaviour:
     - enemy
     - test
     - character
-    m_MainAsset: {fileID: 2330888530264325612, guid: 3afbb5fb939b2974fadefbd41a531ed0, type: 3}
-    m_TargetAsset: {fileID: 2330888530264325612, guid: 3afbb5fb939b2974fadefbd41a531ed0, type: 3}
+    m_MainAsset: {fileID: 6501022549900931463, guid: 3afbb5fb939b2974fadefbd41a531ed0, type: 3}
+    m_TargetAsset: {fileID: 6501022549900931463, guid: 3afbb5fb939b2974fadefbd41a531ed0, type: 3}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 7b3dc9c4ae71d264d81f1a85a56fe186, type: 2}
   m_SchemaSet:

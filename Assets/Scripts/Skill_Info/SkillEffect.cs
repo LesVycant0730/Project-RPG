@@ -6,7 +6,9 @@ using UnityEngine;
 [Serializable]
 public abstract class SkillEffect
 {
+#pragma warning disable CS0414
 	[SerializeField] private bool canOverrideSkillType = false;
+#pragma warning restore CS0414
 
 	[ConditionalHide (nameof(canOverrideSkillType), HideInInspector = false, Inverse = true)]
 	public Skill_Effect_Type skillType;

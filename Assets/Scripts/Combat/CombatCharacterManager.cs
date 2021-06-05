@@ -30,6 +30,8 @@ public class CombatCharacterManager : MonoBehaviour, IManager
 		}
 	}
 
+    public static event Action<CharacterModel, RPG_Party> OnNewModelAdded;
+
     public static CharacterAssetReference GetCharacter(Character_ID _id)
 	{
         if (instance != null)
@@ -51,21 +53,24 @@ public class CombatCharacterManager : MonoBehaviour, IManager
 
         if (instance != null)
         {
-            CharacterModel model = Array.Find(instance.CharacterArr, x => x.IsUsing);
+            Character_ID id = _rpgCharacter.CharacterStat.GetID();
+            CharacterModel model = Array.Find(instance.CharacterArr, x => x.IsSameCharacter(id));
 
-            if (model != null)
+            if (model != null && !model.IsUsing)
             {
                 return model;
             }
             else
 			{
-                // Update Library
                 CharacterAssetReference asset = instance.characterDirectorySO.GetCharacter(_rpgCharacter.CharacterStat.GetID());
 
                 if (asset != null)
                 {
                     CharacterModel newModel = await instance.characterDirectorySO.LoadCharacter(asset.ID);
+
                     instance.CharacterArr[(int)asset.ID] = newModel;
+
+                    OnNewModelAdded?.Invoke(newModel, _rpgCharacter.GetCharacterParty);
 
                     return newModel;
                 }
