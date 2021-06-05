@@ -10,7 +10,25 @@ public class CombatCharacterManager : MonoBehaviour, IManager
 
     [SerializeField] private CharacterPrefabDirectorySO characterDirectorySO;
 
-    [SerializeField] private CharacterModel[] characterArr;
+    [SerializeField] private CharacterModel[] _characterArr;
+
+    private CharacterModel[] CharacterArr
+	{
+        get
+		{
+            if (Utility.IsNullOrEmpty(_characterArr))
+			{
+                _characterArr = new CharacterModel[Utility.GetEnumLength<Character_ID>()];
+
+                for (int i = 0; i < _characterArr.Length; i++)
+				{
+                    _characterArr[i] = new CharacterModel((Character_ID)i);
+				}
+            }
+
+            return _characterArr;
+		}
+	}
 
     public static CharacterAssetReference GetCharacter(Character_ID _id)
 	{
@@ -33,13 +51,7 @@ public class CombatCharacterManager : MonoBehaviour, IManager
 
         if (instance != null)
         {
-            if (Utility.IsNullOrEmpty(instance.characterArr))
-			{
-                throw new Exception("Attempt to create character from an empty or null array");
-            }
-
-            // Fix this and animation
-            CharacterModel model = Array.Find(instance.characterArr, x => x.IsSameCharacter(_rpgCharacter.CharacterStat.GetID()));
+            CharacterModel model = Array.Find(instance.CharacterArr, x => x.IsUsing);
 
             if (model != null)
             {
@@ -53,7 +65,7 @@ public class CombatCharacterManager : MonoBehaviour, IManager
                 if (asset != null)
                 {
                     CharacterModel newModel = await instance.characterDirectorySO.LoadCharacter(asset.ID);
-                    instance.characterArr[(int)asset.ID] = newModel;
+                    instance.CharacterArr[(int)asset.ID] = newModel;
 
                     return newModel;
                 }
@@ -66,8 +78,6 @@ public class CombatCharacterManager : MonoBehaviour, IManager
 	public void Init()
 	{
         instance = this;
-
-        characterArr = new CharacterModel[Utility.GetEnumLength<Character_ID>()];
     }
 
     public void Run()

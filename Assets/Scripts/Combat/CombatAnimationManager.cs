@@ -10,7 +10,7 @@ public sealed class CombatAnimationManager : MonoBehaviour, IManager
 
 	[SerializeField] private AnimationCombat AnimationCombatRef;
 
-	[SerializeField] private List<Animator> animList;
+	[SerializeField] private List<Animator> animList = new List<Animator>();
 
 	private Coroutine AnimationCor = null;
 
@@ -30,7 +30,7 @@ public sealed class CombatAnimationManager : MonoBehaviour, IManager
 
 	public void Run()
 	{
-		animList.ForEach(x => UpdateTrigger(x, CombatAnimationStatus.Battle_Start));
+		//animList.ForEach(x => UpdateTrigger(x, CombatAnimationStatus.Battle_Start));
 	}
 
 	public void Exit()
@@ -50,13 +50,18 @@ public sealed class CombatAnimationManager : MonoBehaviour, IManager
 	#endregion
 
 	#region Animation Reference
-	public static void AddAnimator(Animator _anim)
+	public static void AddAnimator(Animator _anim, bool _runDefault = true)
 	{
 		if (instance)
 		{
 			if (!instance.animList.Contains(_anim))
 			{
 				instance.animList.Add(_anim);
+			}
+
+			if (_runDefault)
+			{
+				UpdateTrigger(_anim, CombatAnimationStatus.Battle_Start);
 			}
 		}
 	}
@@ -106,11 +111,21 @@ public sealed class CombatAnimationManager : MonoBehaviour, IManager
 	/// <summary>
 	/// Trigger animator from parameter based on CombatAnimationStatus enum.
 	/// </summary>
-	private void UpdateTrigger(Animator _anim, CombatAnimationStatus _status)
+	public static void UpdateTrigger(Animator _anim, CombatAnimationStatus _status)
 	{
-		string animTrigger = AnimationCombatRef.GetAnimationTrigger(_status);
+		if (instance)
+		{
+			string animTrigger = instance.AnimationCombatRef.GetAnimationTrigger(_status);
 
-		_anim?.SetTrigger(animTrigger);
+			if (_anim)
+			{
+				_anim.SetTrigger(animTrigger);
+			}
+			else
+			{
+				Debug.LogWarning("Attempt to trigger empty animator");
+			}
+		}
 	}
 	#endregion
 }
