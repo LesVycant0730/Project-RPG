@@ -26,28 +26,33 @@ public class CharacterAssetReference
 }
 
 [Serializable]
-public class CharacterModel
+public class Character
 {
     [SerializeField, SearchableEnum] private Character_ID id = Character_ID.NULL;
+    [SerializeField, SearchableEnum] private RPG_Party party = RPG_Party.Ally;
     [SerializeField] private GameObject model;
     [SerializeField] private Animator anim;
-    [SerializeField] private bool isUsing = false;
+    [SerializeField] private bool isUsing = true;
 
     public Character_ID ID => id;
+    public RPG_Party Party => party;
     public GameObject Model => model;
     public Animator Anim => anim;
     public bool IsUsing => isUsing;
 
-    public CharacterModel(Character_ID _id = Character_ID.NULL)
+    public Character(Character_ID _id = Character_ID.NULL, RPG_Party _party = RPG_Party.Neutral)
     {
         id = _id;
+        party = _party;
         model = null;
         anim = null;
+        isUsing = true;
     }
 
-    public CharacterModel(Character_ID _id, GameObject _model)
+    public Character(Character_ID _id, RPG_Party _party, GameObject _model)
     {
         id = _id;
+        party = _party;
         model = _model;
         anim = _model.GetComponent<Animator>();
         isUsing = true;
@@ -57,6 +62,11 @@ public class CharacterModel
     {
         return id == _id;
     }
+
+    public bool IsRegistered()
+	{
+        return model != null && IsUsing;
+	}
 
     public void Enable()
     {

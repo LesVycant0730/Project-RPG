@@ -1,8 +1,7 @@
-﻿using System;
+﻿using RPG_Data;
+using System;
 using System.Linq;
 using UnityEngine;
-using System.Threading.Tasks;
-using RPG_Data;
 
 public class RPGPartyManager : MonoBehaviour, IManager
 {
@@ -49,13 +48,14 @@ public class RPGPartyManager : MonoBehaviour, IManager
 				}
 			}
 		}
+
 		return character;
 	}
 	#endregion
 
 	#region RPG Character (In Combat)
-	[SerializeField] private CharacterModel _currentCombatCharacter;
-	public CharacterModel CurrentCombatCharacter
+	[SerializeField] private Character _currentCombatCharacter;
+	public Character CurrentCombatCharacter
 	{
 		get
 		{
@@ -69,7 +69,7 @@ public class RPGPartyManager : MonoBehaviour, IManager
 
 				if (value != null)
 				{
-					CombatUIManager.UpdateToCurrentCharacter(value, RPG_Data.RPG_Party.Ally);
+					CombatUIManager.UpdateToCurrentCharacter(value, value.Party);
 				}
 			}
 		}

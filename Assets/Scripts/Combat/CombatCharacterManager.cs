@@ -1,8 +1,7 @@
 ﻿using RPG_Data;
-using UnityEngine;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class CombatCharacterManager : MonoBehaviour, IManager
 {
@@ -10,19 +9,19 @@ public class CombatCharacterManager : MonoBehaviour, IManager
 
     [SerializeField] private CharacterPrefabDirectorySO characterDirectorySO;
 
-    [SerializeField] private CharacterModel[] _characterArr;
+    [SerializeField] private Character[] _characterArr;
 
-    private CharacterModel[] CharacterArr
+    private Character[] CharacterArr
 	{
         get
 		{
             if (Utility.IsNullOrEmpty(_characterArr))
 			{
-                _characterArr = new CharacterModel[Utility.GetEnumLength<Character_ID>()];
+                _characterArr = new Character[Utility.GetEnumLength<Character_ID>()];
 
                 for (int i = 0; i < _characterArr.Length; i++)
 				{
-                    _characterArr[i] = new CharacterModel((Character_ID)i);
+                    _characterArr[i] = new Character((Character_ID)i);
 				}
             }
 
@@ -30,7 +29,7 @@ public class CombatCharacterManager : MonoBehaviour, IManager
 		}
 	}
 
-    public static event Action<CharacterModel, RPG_Party> OnNewModelAdded;
+    public static event Action<Character, RPG_Party> OnNewCharacterAdded;
 
     public static CharacterAssetReference GetCharacter(Character_ID _id)
 	{
@@ -44,7 +43,7 @@ public class CombatCharacterManager : MonoBehaviour, IManager
         }
     }
 
-    public async static Task<CharacterModel> GetCharacter(RPGCharacter _rpgCharacter)
+    public async static Task<Character> GetCharacter(RPGCharacter _rpgCharacter)
 	{
         if (_rpgCharacter == null)
 		{
@@ -54,11 +53,11 @@ public class CombatCharacterManager : MonoBehaviour, IManager
         if (instance != null)
         {
             Character_ID id = _rpgCharacter.CharacterStat.GetID();
-            CharacterModel model = Array.Find(instance.CharacterArr, x => x.IsSameCharacter(id));
-
-            if (model != null && !model.IsUsing)
+            Character character = Array.Find(instance.CharacterArr, x => x.IsSameCharacter(id));
+            
+            if (character != null && character.IsRegistered())
             {
-                return model;
+                return character;
             }
             else
 			{
@@ -66,13 +65,13 @@ public class CombatCharacterManager : MonoBehaviour, IManager
 
                 if (asset != null)
                 {
-                    CharacterModel newModel = await instance.characterDirectorySO.LoadCharacter(asset.ID);
+                    Character newCharacter = await instance.characterDirectorySO.LoadCharacter(asset.ID, _rpgCharacter.GetCharacterParty);
 
-                    instance.CharacterArr[(int)asset.ID] = newModel;
+                    instance.CharacterArr[(int)asset.ID] = newCharacter;  
 
-                    OnNewModelAdded?.Invoke(newModel, _rpgCharacter.GetCharacterParty);
+                    OnNewCharacterAdded?.Invoke(newCharacter, _rpgCharacter.GetCharacterParty);
 
-                    return newModel;
+                    return newCharacter;
                 }
             }
         }

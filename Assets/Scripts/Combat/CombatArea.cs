@@ -1,15 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using RPG_Data;
+using UnityEngine;
 
 public class CombatArea : MonoBehaviour
 {
     [SerializeField, Header ("Player")] private Transform playerArea;
 	[SerializeField] private Vector3 playerPosDefault, playerPosOffset;
+	[SerializeField] private Vector3 playerRotationDefault;
 
     [SerializeField, Header ("Enemy")] private Transform enemyArea;
 	[SerializeField] private Vector3 enemyPosDefault, enemyPosOffset;
+	[SerializeField] private Vector3 enemyRotationDefault;
 
 #if UNITY_EDITOR
 	[SerializeField, Header ("Gizmos")] private bool drawGizmos = true;
@@ -36,28 +36,29 @@ public class CombatArea : MonoBehaviour
 
 	private void Awake()
 	{
-		CombatCharacterManager.OnNewModelAdded += SetPosition;
+		CombatCharacterManager.OnNewCharacterAdded += SetPosition;
 	}
 
 	private void OnDestroy()
 	{
-		CombatCharacterManager.OnNewModelAdded -= SetPosition;
+		CombatCharacterManager.OnNewCharacterAdded -= SetPosition;
 	}
 
-	public void SetPosition(CharacterModel _char, RPG_Party _type)
+	public void SetPosition(Character _char, RPG_Party _type)
 	{
 		Transform _model = _char.Model.transform;
 
-		print("Invoke");
 		switch (_type)
 		{
 			case RPG_Party.Ally:
 				_model.SetParent(playerArea);
-				_model.position = playerPosDefault + (playerPosOffset * _model.GetSiblingIndex());
+				_model.localPosition = playerPosDefault + (playerPosOffset * _model.GetSiblingIndex());
+				_model.localRotation = Quaternion.Euler(playerRotationDefault);
 				break;
 			case RPG_Party.Enemy:
 				_model.SetParent(enemyArea);
-				_model.position = enemyPosDefault + (enemyPosOffset * _model.GetSiblingIndex());
+				_model.localPosition = enemyPosDefault + (enemyPosOffset * _model.GetSiblingIndex());
+				_model.localRotation = Quaternion.Euler(enemyRotationDefault);
 				break;
 			default:
 				break;

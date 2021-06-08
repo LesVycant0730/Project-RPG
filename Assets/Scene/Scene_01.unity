@@ -521,56 +521,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 34341f40650df7e4cbad63f165011a87, type: 2}
   enemyInfos:
   - {fileID: 11400000, guid: 4b74c164614e8184cb6aad70364dc8fc, type: 2}
---- !u!1 &410365160
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 410365162}
-  - component: {fileID: 410365161}
-  m_Layer: 0
-  m_Name: Dummy
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!95 &410365161
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 410365160}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: d37aa6fddba089345bdc4f2056f6fed0, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!4 &410365162
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 410365160}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.0497767, y: 2.0022357, z: 0.45044836}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &426307382
 GameObject:
   m_ObjectHideFlags: 0
@@ -945,34 +895,33 @@ MonoBehaviour:
         model: {fileID: 0}
         anim: {fileID: 0}
         isUsing: 0
-  - partyCharacters:
-    - characterPartyType: 1
-      characterStatSO: {fileID: 11400000, guid: 4b74c164614e8184cb6aad70364dc8fc, type: 2}
-      characterStat: {fileID: 11400000, guid: 4b74c164614e8184cb6aad70364dc8fc, type: 2}
+    - characterPartyType: 0
+      characterStatSO: {fileID: 11400000, guid: 34341f40650df7e4cbad63f165011a87, type: 2}
+      characterStat: {fileID: 11400000, guid: 34341f40650df7e4cbad63f165011a87, type: 2}
       characterInfo:
-        characterName: Dummy
-        characterClass: Cleric
-        characterID: 1
-        health: 9999
-        stamina: 9999
-        damagePhysical: 1
-        damageMagical: 1
-        criticalRate: 1
-        criticalDamage: 1
-        defensePhysical: 1
-        defenseMagical: 1
+        characterName: Kachujin
+        characterClass: Leader
+        characterID: 0
+        health: 100
+        stamina: 100
+        damagePhysical: 10
+        damageMagical: 10
+        criticalRate: 10
+        criticalDamage: 10
+        defensePhysical: 10
+        defenseMagical: 10
         accuracy: 0.7
         evasion: 0.05
         resistance: 0.1
         speed: 5
-        unlockedSkills: 050000000b000000
+        unlockedSkills: 04000000120000001a000000210000002a000000
       characterModel:
         id: 0
         model: {fileID: 0}
         anim: {fileID: 0}
         isUsing: 0
   - partyCharacters:
-    - characterPartyType: 2
+    - characterPartyType: 1
       characterStatSO: {fileID: 11400000, guid: 4b74c164614e8184cb6aad70364dc8fc, type: 2}
       characterStat: {fileID: 11400000, guid: 4b74c164614e8184cb6aad70364dc8fc, type: 2}
       characterInfo:

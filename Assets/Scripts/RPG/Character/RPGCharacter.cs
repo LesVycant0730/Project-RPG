@@ -19,7 +19,7 @@ public class RPGCharacter
 	// The separate class reference for RPG Stat, the information that will be modified and referred throughout but will not be saved.
 	[SerializeField] private RPGCharacterInfo characterInfo;
 
-	[SerializeField] private CharacterModel characterModel;
+	[SerializeField] private Character character;
 
 	/// <summary>
 	/// <para> Setup character stat (Prohibited to modify except on actual stat allocation/upgrades) </para>
@@ -35,9 +35,9 @@ public class RPGCharacter
 		characterInfo = new RPGCharacterInfo(_stat);
 	}
 
-	public void SetModel(CharacterModel _model)
+	public void SetModel(Character _character)
 	{
-		characterModel = _model;
+		character = _character;
 	}
 
 	public RPG_Party GetCharacterParty => characterPartyType;
@@ -48,7 +48,7 @@ public class RPGCharacter
 
 	public RPGCharacterInfo CharacterStatInfo => characterInfo;
 
-	public CharacterModel CharacterModel => characterModel;
+	public Character Character => character;
 	public string Name
 	{
 		get
@@ -91,10 +91,15 @@ public class RPGParty
 
 	public async Task InitializePartyMembers()
 	{
+		if (PType == RPG_Party.Neutral)
+		{
+			return;
+		}
+
 		foreach (var character in partyCharacters)
 		{
 			character.SetModel(await CombatCharacterManager.GetCharacter(character));
-			CombatAnimationManager.AddAnimator(character.CharacterModel.Anim);
+			CombatAnimationManager.AddAnimator(character.Character.Anim);
 		}
 	}
 

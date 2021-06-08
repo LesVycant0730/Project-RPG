@@ -79,7 +79,7 @@ public class CombatUIManager : MonoBehaviour, IManager
 		}
 	}
 
-	public static void UpdateToCurrentCharacter(CharacterModel _character, RPG_Party _party)
+	public static void UpdateToCurrentCharacter(Character _character, RPG_Party _party)
 	{
 		if (instance && _character != null)
 		{
