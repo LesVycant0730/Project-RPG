@@ -76,4 +76,11 @@ public static class Utility
 	{
         return _array == null || _array.Length == 0;
 	}
+
+    public static IEnumerator<bool> WaitForAnimation(this Animator _anim, Action _action)
+	{
+        yield return false;
+
+        _action?.Invoke();
+	}
 }

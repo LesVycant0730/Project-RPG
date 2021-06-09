@@ -1,11 +1,11 @@
 fileFormatVersion: 2
 guid: a251b039d5b8aa94a97b57e27538922e
 ModelImporter:
-  serializedVersion: 20101
+  serializedVersion: 20200
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: CastSpell
+    second: CastSpell01
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -35,7 +35,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: CastSpell
+      name: CastSpell01
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
@@ -127,6 +127,7 @@ ModelImporter:
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
   additionalBone: 0
   userData: 
   assetBundleName: 

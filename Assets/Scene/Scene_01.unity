@@ -151,7 +151,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &120875981
 GameObject:
@@ -327,7 +327,7 @@ Transform:
   m_Children:
   - {fileID: 1761509836}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &230561672
 GameObject:
@@ -503,7 +503,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &344764680
 MonoBehaviour:
@@ -792,6 +792,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 696938708}
   m_CullTransparentMesh: 0
+--- !u!1001 &698529790
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 745873155604853288, guid: 367e467ab8df09b46b9a17433cf8343f, type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 745873155604853288, guid: 367e467ab8df09b46b9a17433cf8343f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 745873155604853288, guid: 367e467ab8df09b46b9a17433cf8343f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 745873155604853288, guid: 367e467ab8df09b46b9a17433cf8343f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 745873155604853288, guid: 367e467ab8df09b46b9a17433cf8343f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 745873155604853288, guid: 367e467ab8df09b46b9a17433cf8343f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 745873155604853288, guid: 367e467ab8df09b46b9a17433cf8343f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 745873155604853288, guid: 367e467ab8df09b46b9a17433cf8343f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 745873155604853288, guid: 367e467ab8df09b46b9a17433cf8343f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 745873155604853288, guid: 367e467ab8df09b46b9a17433cf8343f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 745873155604853288, guid: 367e467ab8df09b46b9a17433cf8343f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 745873155604853295, guid: 367e467ab8df09b46b9a17433cf8343f, type: 3}
+      propertyPath: m_Name
+      value: Kachujin
+      objectReference: {fileID: 0}
+    - target: {fileID: 745873155604853295, guid: 367e467ab8df09b46b9a17433cf8343f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 367e467ab8df09b46b9a17433cf8343f, type: 3}
 --- !u!1 &707933430
 GameObject:
   m_ObjectHideFlags: 0
@@ -890,8 +951,9 @@ MonoBehaviour:
         resistance: 0.1
         speed: 5
         unlockedSkills: 04000000120000001a000000210000002a000000
-      characterModel:
+      character:
         id: 0
+        party: 0
         model: {fileID: 0}
         anim: {fileID: 0}
         isUsing: 0
@@ -915,8 +977,9 @@ MonoBehaviour:
         resistance: 0.1
         speed: 5
         unlockedSkills: 04000000120000001a000000210000002a000000
-      characterModel:
+      character:
         id: 0
+        party: 0
         model: {fileID: 0}
         anim: {fileID: 0}
         isUsing: 0
@@ -941,13 +1004,16 @@ MonoBehaviour:
         resistance: 0.1
         speed: 5
         unlockedSkills: 050000000b000000
-      characterModel:
+      character:
         id: 0
+        party: 0
         model: {fileID: 0}
         anim: {fileID: 0}
         isUsing: 0
+  - partyCharacters: []
   _currentCombatCharacter:
     id: 0
+    party: 0
     model: {fileID: 0}
     anim: {fileID: 0}
     isUsing: 0
@@ -2807,7 +2873,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1381425992
 GameObject:
@@ -2857,9 +2923,11 @@ MonoBehaviour:
   playerArea: {fileID: 280847256}
   playerPosDefault: {x: 0, y: 0, z: 0}
   playerPosOffset: {x: -2.5, y: 0, z: 0}
+  playerRotationDefault: {x: 0, y: 0, z: 0}
   enemyArea: {fileID: 641220524}
   enemyPosDefault: {x: 0, y: 0, z: 0}
   enemyPosOffset: {x: 3, y: 0, z: 0}
+  enemyRotationDefault: {x: 0, y: 180, z: 0}
   drawGizmos: 1
   gizmosSize: {x: 1, y: 2, z: 1}
 --- !u!1 &1449888223
@@ -4156,7 +4224,7 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 2087640900}
-  actionType: 6
+  actionType: 1
 --- !u!114 &2087640900
 MonoBehaviour:
   m_ObjectHideFlags: 0

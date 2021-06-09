@@ -65,10 +65,19 @@ public class CombatCharacterManager : MonoBehaviour, IManager
 
                 if (asset != null)
                 {
-                    Character newCharacter = await instance.characterDirectorySO.LoadCharacter(asset.ID, _rpgCharacter.GetCharacterParty);
+                    // Character Party
+                    RPG_Party party = _rpgCharacter.GetCharacterParty;
 
+                    // Get Position and Rotation based on the party
+                    Vector3 pos = CombatArea.GetPositionAndRotation(party, out Quaternion rot);
+
+                    // Load a new character
+                    Character newCharacter = await instance.characterDirectorySO.LoadCharacter(asset.ID, party, pos, rot);
+
+                    // Update loaded character reference to the array
                     instance.CharacterArr[(int)asset.ID] = newCharacter;  
 
+                    // Invoke action for new added character
                     OnNewCharacterAdded?.Invoke(newCharacter, _rpgCharacter.GetCharacterParty);
 
                     return newCharacter;

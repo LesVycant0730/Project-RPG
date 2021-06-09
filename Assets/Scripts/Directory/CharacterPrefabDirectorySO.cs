@@ -96,13 +96,13 @@ public class CharacterPrefabDirectorySO : PrefabDirectorySO
         return charactersDirectory.Single(x => x.IsSameID(id));
     }
 
-    public async Task<Character> LoadCharacter(Character_ID _id, RPG_Party _party)
+    public async Task<Character> LoadCharacter(Character_ID _id, RPG_Party _party, Vector3 _pos, Quaternion _rot)
 	{
         CharacterAssetReference characterAsset = GetCharacter(_id);
 
         if (characterAsset != null)
 		{
-            GameObject go = await AddressablesUtility.LoadAsset(characterAsset.AssetRef, Vector3.zero, Quaternion.identity, null, (handle) =>
+            GameObject go = await AddressablesUtility.LoadAsset(characterAsset.AssetRef, _pos, _rot, null, (handle) =>
             {
                 Debug.Log($"Instantiated game object: {_id}");
             });

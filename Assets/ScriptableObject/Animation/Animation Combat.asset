@@ -20,7 +20,7 @@ MonoBehaviour:
   - status: 1
     animTrigger: 
   - status: 2
-    animTrigger: T_CombatIdle
+    animTrigger: T_CombatIdle01
   - status: 3
     animTrigger: 
   - status: 4
@@ -28,11 +28,11 @@ MonoBehaviour:
   - status: 5
     animTrigger: 
   - status: 6
-    animTrigger: 
+    animTrigger: T_NormalKick01
   - status: 7
-    animTrigger: T_CombatCastSpell
+    animTrigger: T_CastFire01
   - status: 8
-    animTrigger: 
+    animTrigger: T_CastSpell01
   - status: 9
     animTrigger: 
   - status: 10

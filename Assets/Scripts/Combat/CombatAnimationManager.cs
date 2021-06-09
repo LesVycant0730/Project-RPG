@@ -115,11 +115,11 @@ public sealed class CombatAnimationManager : MonoBehaviour, IManager
 	{
 		if (instance)
 		{
-			string animTrigger = instance.AnimationCombatRef.GetAnimationTrigger(_status);
+			string animClip = instance.AnimationCombatRef.GetAnimationTrigger(_status);
 
 			if (_anim)
 			{
-				_anim.SetTrigger(animTrigger);
+				_anim.CrossFade(animClip, 0.02f);
 			}
 			else
 			{

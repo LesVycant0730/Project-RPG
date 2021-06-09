@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class CombatArea : MonoBehaviour
 {
+	private static CombatArea instance;
     [SerializeField, Header ("Player")] private Transform playerArea;
 	[SerializeField] private Vector3 playerPosDefault, playerPosOffset;
 	[SerializeField] private Vector3 playerRotationDefault;
@@ -36,33 +37,60 @@ public class CombatArea : MonoBehaviour
 
 	private void Awake()
 	{
-		CombatCharacterManager.OnNewCharacterAdded += SetPosition;
+		instance = this;
+		//CombatCharacterManager.OnNewCharacterAdded += SetPositionAndRotation;
 	}
 
 	private void OnDestroy()
 	{
-		CombatCharacterManager.OnNewCharacterAdded -= SetPosition;
+		//CombatCharacterManager.OnNewCharacterAdded -= SetPositionAndRotation;
 	}
 
-	public void SetPosition(Character _char, RPG_Party _type)
+	public static void SetPositionAndRotation(Character _char, RPG_Party _type)
 	{
+		if (instance == null)
+			return;
+
 		Transform _model = _char.Model.transform;
+
+		_model.position = GetPositionAndRotation(_type, out Quaternion newRot);
+		_model.rotation = newRot;
+		_model.SetParent(instance.GetParent(_type));
+	}
+
+	public static Vector3 GetPositionAndRotation(RPG_Party _type, out Quaternion _rot)
+	{
+		_rot = Quaternion.identity;
+
+		if (instance == null)
+			return Vector3.zero;
 
 		switch (_type)
 		{
 			case RPG_Party.Ally:
-				_model.SetParent(playerArea);
-				_model.localPosition = playerPosDefault + (playerPosOffset * _model.GetSiblingIndex());
-				_model.localRotation = Quaternion.Euler(playerRotationDefault);
-				break;
+				_rot = Quaternion.Euler(instance.playerRotationDefault);
+				return instance.playerPosDefault + (instance.playerPosOffset * instance.playerArea.childCount);
 			case RPG_Party.Enemy:
-				_model.SetParent(enemyArea);
-				_model.localPosition = enemyPosDefault + (enemyPosOffset * _model.GetSiblingIndex());
-				_model.localRotation = Quaternion.Euler(enemyRotationDefault);
-				break;
+				_rot = Quaternion.Euler(instance.enemyRotationDefault);
+				return instance.enemyPosDefault + (instance.enemyPosOffset * instance.enemyArea.childCount);
 			default:
 				break;
 		}
+
+		return Vector3.zero;
+	}
+
+	public Transform GetParent(RPG_Party _type)
+	{
+		switch (_type)
+		{
+			case RPG_Party.Ally:
+				return playerArea;
+			case RPG_Party.Enemy:
+				return enemyArea;
+		}
+
+		return null;
 	}
 
 	[ContextMenu ("Adjust")]

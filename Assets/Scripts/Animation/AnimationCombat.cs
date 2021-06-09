@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using AnimationTypes;
 using System;
-using AnimationTypes;
+using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "Animation Combat", menuName = "ScriptableObjects/Animation/Combat", order = 1)]
 public class AnimationCombat : Animation
@@ -11,10 +11,8 @@ public class AnimationCombat : Animation
 	private struct AnimationDict
 	{
 		public CombatAnimationStatus status;
-		public string animTrigger;
+		public string animClip;
 	}
-
-	private Type animType = typeof(CombatAnimationStatus);
 
 	[SerializeField, ConditionalHide (HideInInspector = false, Inverse = true)] 
 	private int animationCounts;
@@ -37,6 +35,6 @@ public class AnimationCombat : Animation
 
 	public override string GetAnimationTrigger(CombatAnimationStatus _status)
 	{
-		return animationArray.Single(x => x.status == _status).animTrigger; 
+		return animationArray.Single(x => x.status == _status).animClip; 
 	}
 }

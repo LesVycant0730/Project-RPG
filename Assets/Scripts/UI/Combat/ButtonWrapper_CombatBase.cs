@@ -2,10 +2,11 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using RoboRyanTron.SearchableEnum;
 
 public class ButtonWrapper_CombatBase : Selectable
 {
-	[Space (10), SerializeField]
+	[Space (10), SerializeField, SearchableEnum]
 	private Combat_Action actionType;
 
 	protected ActionManager Action_M => ActionManager.Instance;
