@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using UnityEngine;
+using System.Collections;
 
 public class RPGPartyManager : MonoBehaviour, IManager
 {
@@ -120,8 +121,10 @@ public class RPGPartyManager : MonoBehaviour, IManager
 
 	public void Init()
 	{
+		CombatAction.Action_Next += UpdateCombatState;
+		//CombatAction.Action_Prev += UpdateCombatState;
+		//CombatAction.Action_Reset += ResetCombatState;
 		InitializeParty();
-
 	}
 
 	public void Run()
@@ -130,6 +133,7 @@ public class RPGPartyManager : MonoBehaviour, IManager
 
 	public void Exit()
 	{
+		CombatAction.Action_Next -= UpdateCombatState;
 		CurrentCharacter = null;
 		CurrentCombatCharacter = null;
 	}
@@ -142,6 +146,14 @@ public class RPGPartyManager : MonoBehaviour, IManager
 			new RPGParty(RPG_Party.Enemy),
 			new RPGParty(RPG_Party.Neutral)
 		};
+	}
+
+	private void UpdateCombatState(Combat_Action _action)
+	{
+		if (CurrentCombatCharacter != null)
+		{
+			CurrentCombatCharacter.CombatAnimate(AnimationTypes.CombatAnimationStatus.Normal_Attack);
+		}
 	}
 
 	public void DefaultPartySOStats(bool _useCache)

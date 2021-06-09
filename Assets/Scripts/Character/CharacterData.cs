@@ -78,6 +78,14 @@ public class Character
         isUsing = false;
     }
 
+    public void CombatAnimate(AnimationTypes.CombatAnimationStatus _status)
+	{
+        if (anim)
+		{
+            CombatAnimationManager.Test(anim, _status, null);
+		}
+	}
+
     public void Resume()
     {
         if (anim)

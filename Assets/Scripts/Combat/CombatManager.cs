@@ -49,7 +49,7 @@ public sealed class CombatManager : MonoBehaviour, IManager
 		{
 			case Combat_Action.Default:
 				break;
-			case Combat_Action.Target_Selection_Enemy:
+			case Combat_Action.Target_Attack:
 				break;
 			default:
 				break;

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using AnimationTypes;
 using System;
@@ -43,7 +44,7 @@ public sealed class CombatAnimationManager : MonoBehaviour, IManager
 
 		print("Exit Combat Animation Manager");
 
-		animList.ForEach(x => UpdateTrigger(x, CombatAnimationStatus.Idle));
+		animList.ForEach(x => UpdateAnimation(x, CombatAnimationStatus.Idle));
 		animList.Clear();
 		instance = null;
 	}
@@ -61,7 +62,7 @@ public sealed class CombatAnimationManager : MonoBehaviour, IManager
 
 			if (_runDefault)
 			{
-				UpdateTrigger(_anim, CombatAnimationStatus.Battle_Start);
+				UpdateAnimation(_anim, CombatAnimationStatus.Battle_Start);
 			}
 		}
 	}
@@ -111,7 +112,7 @@ public sealed class CombatAnimationManager : MonoBehaviour, IManager
 	/// <summary>
 	/// Trigger animator from parameter based on CombatAnimationStatus enum.
 	/// </summary>
-	public static void UpdateTrigger(Animator _anim, CombatAnimationStatus _status)
+	public static void UpdateAnimation(Animator _anim, CombatAnimationStatus _status)
 	{
 		if (instance)
 		{
@@ -119,13 +120,40 @@ public sealed class CombatAnimationManager : MonoBehaviour, IManager
 
 			if (_anim)
 			{
-				_anim.CrossFade(animClip, 0.02f);
+				_anim.CrossFadeInFixedTime(animClip, 0.25f);
 			}
 			else
 			{
 				Debug.LogWarning("Attempt to trigger empty animator");
 			}
 		}
+	}
+
+	public static void Test(Animator _anim, CombatAnimationStatus _status, Action _action)
+	{
+		if (instance)
+		{
+			instance.StartCoroutine(IsAnimationSucceed(_anim, _status, _action));
+		}
+	}
+
+	public static IEnumerator IsAnimationSucceed(Animator _anim, CombatAnimationStatus _status, Action _action)
+	{
+		if (instance)
+		{
+			string animClip = instance.AnimationCombatRef.GetAnimationTrigger(_status);
+
+			if (_anim)
+			{
+				_anim.CrossFadeInFixedTime(animClip, 0.25f);
+				yield return _anim.WaitForAnimation(animClip, _action);
+			}
+			else
+			{
+				Debug.LogWarning("Attempt to trigger empty animator");
+			}
+		}
+
 	}
 	#endregion
 }

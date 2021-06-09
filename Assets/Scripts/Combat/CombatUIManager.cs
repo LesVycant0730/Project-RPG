@@ -131,7 +131,7 @@ public class CombatUIManager : MonoBehaviour, IManager
 				CombatDefaultUIAction();
 				return;
 			case Combat_Action.Target_Attack:
-				break;
+				return;
 			case Combat_Action.Skill_Selection:
 				break;
 			case Combat_Action.Item_Selection:

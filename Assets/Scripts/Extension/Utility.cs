@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 using System.Text;
@@ -77,9 +78,12 @@ public static class Utility
         return _array == null || _array.Length == 0;
 	}
 
-    public static IEnumerator<bool> WaitForAnimation(this Animator _anim, Action _action)
+    public static IEnumerator WaitForAnimation(this Animator _anim, string _clipName, Action _action)
 	{
-        yield return false;
+        yield return new WaitUntil(() => _anim.GetCurrentAnimatorStateInfo(0).IsName(_clipName));
+        yield return new WaitUntil(() => !_anim.GetCurrentAnimatorStateInfo(0).IsName(_clipName));
+
+        Debug.Log("Yay boi");
 
         _action?.Invoke();
 	}
