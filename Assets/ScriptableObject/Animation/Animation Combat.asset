@@ -16,28 +16,28 @@ MonoBehaviour:
   animationCounts: 13
   animationArray:
   - status: 0
-    animTrigger: T_CombatStart
+    animClip: Fight_Idle_01
   - status: 1
-    animTrigger: 
+    animClip: Idle_01
   - status: 2
-    animTrigger: T_CombatIdle01
+    animClip: Idle_01
   - status: 3
-    animTrigger: 
+    animClip: 
   - status: 4
-    animTrigger: 
+    animClip: 
   - status: 5
-    animTrigger: 
+    animClip: 
   - status: 6
-    animTrigger: T_NormalKick01
+    animClip: Normal_Attack_01
   - status: 7
-    animTrigger: T_CastFire01
+    animClip: Cast_Fire
   - status: 8
-    animTrigger: T_CastSpell01
+    animClip: Cast_Spell_01
   - status: 9
-    animTrigger: 
+    animClip: 
   - status: 10
-    animTrigger: 
+    animClip: 
   - status: 11
-    animTrigger: 
+    animClip: 
   - status: 12
-    animTrigger: 
+    animClip: 

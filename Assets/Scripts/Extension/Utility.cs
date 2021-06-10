@@ -83,8 +83,6 @@ public static class Utility
         yield return new WaitUntil(() => _anim.GetCurrentAnimatorStateInfo(0).IsName(_clipName));
         yield return new WaitUntil(() => !_anim.GetCurrentAnimatorStateInfo(0).IsName(_clipName));
 
-        Debug.Log("Yay boi");
-
         _action?.Invoke();
 	}
 }

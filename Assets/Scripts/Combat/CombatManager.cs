@@ -1,7 +1,7 @@
 ﻿using RPG_Data;
 using UnityEngine;
 
-public sealed class CombatManager : MonoBehaviour, IManager
+public sealed class CombatManager : GameplayBaseManager
 {
     public static CombatManager Instance { get; private set; }
 
@@ -12,29 +12,28 @@ public sealed class CombatManager : MonoBehaviour, IManager
 	private static RPGAction OnTargetAlly;
 	private static RPGAction OnTargetEnemy;
 
-	private void Awake()
+	protected override void Awake()
 	{
+		base.Awake();
 		Instance = this;
 	}
 
-	public void Init()
+	protected override void Init()
 	{
-		print("Init combat manager");
-
+		base.Init();
 		CombatAction.Action_Next += UpdateCombatState;
 		CombatAction.Action_Prev += UpdateCombatState;
 		CombatAction.Action_Reset += ResetCombatState;
 	}
 
-	public void Run()
+	protected override void Run()
 	{
-		
+		base.Run();
 	}
 
-	public void Exit()
+	protected override void Exit()
 	{
-		print("Exit combat manager");
-
+		base.Exit();
 		CombatAction.Action_Next -= UpdateCombatState;
 		CombatAction.Action_Prev -= UpdateCombatState;
 		CombatAction.Action_Reset -= ResetCombatState;

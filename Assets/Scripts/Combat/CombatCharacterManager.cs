@@ -3,7 +3,7 @@ using System;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class CombatCharacterManager : MonoBehaviour, IManager
+public class CombatCharacterManager : GameplayBaseManager
 {
     private static CombatCharacterManager instance;
 
@@ -88,18 +88,20 @@ public class CombatCharacterManager : MonoBehaviour, IManager
         return null;
     }
 
-	public void Init()
+    protected override void Init()
 	{
+        base.Init();
         instance = this;
+        print("Init");
     }
 
-    public void Run()
+    protected override void Run()
 	{
-        
+        base.Run();
 	}
 
-	public void Exit()
+    protected override void Exit()
 	{
-        
+		base.Exit();
 	}
 }

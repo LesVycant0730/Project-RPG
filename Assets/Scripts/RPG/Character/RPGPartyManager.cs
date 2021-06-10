@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using System.Collections;
 
-public class RPGPartyManager : MonoBehaviour, IManager
+public class RPGPartyManager : GameplayBaseManager
 {
 	#region RPG Party
 	[SerializeField]
@@ -100,7 +100,7 @@ public class RPGPartyManager : MonoBehaviour, IManager
 		} 
 	}
 
-    public async void InitializeParty()
+    private async void SetupParty()
     {
 		foreach (var party in rpgParty)
 		{
@@ -117,25 +117,41 @@ public class RPGPartyManager : MonoBehaviour, IManager
 		
 		CustomLog.Log($"Fastest Character Update: {CurrentCharacter.CharacterStat.GetName()}");
 	}
+
+	private void UnloadParty()
+	{
+		foreach (var party in rpgParty)
+		{
+			party.UnloadPartyMembers();
+		}
+
+		CurrentCharacter = null;
+		CurrentCombatCharacter = null;
+	}
 	#endregion
 
-	public void Init()
+	protected override void Init()
 	{
+		base.Init();
+
 		CombatAction.Action_Next += UpdateCombatState;
 		//CombatAction.Action_Prev += UpdateCombatState;
 		//CombatAction.Action_Reset += ResetCombatState;
-		InitializeParty();
 	}
 
-	public void Run()
+	protected override void Run()
 	{
+		base.Run();
+		SetupParty();
 	}
 
-	public void Exit()
+	protected override void Exit()
 	{
+		base.Exit();
+
 		CombatAction.Action_Next -= UpdateCombatState;
-		CurrentCharacter = null;
-		CurrentCombatCharacter = null;
+
+		UnloadParty();
 	}
 
 	private void Reset()

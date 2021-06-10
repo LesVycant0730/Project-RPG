@@ -19,7 +19,15 @@ public class RPGCharacter
 	// The separate class reference for RPG Stat, the information that will be modified and referred throughout but will not be saved.
 	[SerializeField] private RPGCharacterInfo characterInfo;
 
+	// The character object reference
 	[SerializeField] private Character character;
+
+	public RPG_Party GetCharacterParty => characterPartyType;
+	public RPGStat CharacterStatSO => characterStatSO;
+	public RPGStat CharacterStat => characterStat;
+	public RPGCharacterInfo CharacterStatInfo => characterInfo;
+	public Character Character => character;
+	public string Name => characterStat != null ? characterStat.name : "NULL";
 
 	/// <summary>
 	/// <para> Setup character stat (Prohibited to modify except on actual stat allocation/upgrades) </para>
@@ -38,28 +46,6 @@ public class RPGCharacter
 	public void SetModel(Character _character)
 	{
 		character = _character;
-	}
-
-	public RPG_Party GetCharacterParty => characterPartyType;
-
-	public RPGStat CharacterStatSO => characterStatSO;
-
-	public RPGStat CharacterStat => characterStat;
-
-	public RPGCharacterInfo CharacterStatInfo => characterInfo;
-
-	public Character Character => character;
-	public string Name
-	{
-		get
-		{
-			if (characterStat != null)
-			{
-				return characterStat.name;
-			}
-
-			return "NULL";
-		}
 	}
 }
 
@@ -100,6 +86,14 @@ public class RPGParty
 		{
 			character.SetModel(await CombatCharacterManager.GetCharacter(character));
 			CombatAnimationManager.AddAnimator(character.Character.Anim);
+		}
+	}
+
+	public void UnloadPartyMembers()
+	{
+		foreach (var character in partyCharacters)
+		{
+			character.SetModel(null);
 		}
 	}
 

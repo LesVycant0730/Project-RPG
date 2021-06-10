@@ -2,7 +2,7 @@
 using System;
 using UnityEngine;
 
-public class CombatUIManager : MonoBehaviour, IManager
+public class CombatUIManager : GameplayBaseManager
 {
 	private static CombatUIManager instance;
 
@@ -29,21 +29,25 @@ public class CombatUIManager : MonoBehaviour, IManager
 	public static event Action<bool> OnSelectNormalAction;
 
 	#region Interface
-	public void Init()
+	protected override void Init()
 	{
+		base.Init();
+
 		instance = this;
 		CombatAction.Action_Next += CombatUIAction;
 		CombatAction.Action_Prev += CombatUIAction;
 		CombatAction.Action_Reset += CombatDefaultUIAction;
 	}
 
-	public void Run()
+	protected override void Run()
 	{
-
+		base.Run();
 	}
 
-	public void Exit()
+	protected override void Exit()
 	{
+		base.Exit();
+
 		CombatAction.Action_Next -= CombatUIAction;
 		CombatAction.Action_Prev -= CombatUIAction;
 		CombatAction.Action_Reset -= CombatDefaultUIAction;

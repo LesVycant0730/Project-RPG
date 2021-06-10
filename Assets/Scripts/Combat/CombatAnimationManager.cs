@@ -4,7 +4,7 @@ using UnityEngine;
 using AnimationTypes;
 using System;
 
-public sealed class CombatAnimationManager : MonoBehaviour, IManager
+public sealed class CombatAnimationManager : GameplayBaseManager
 {
 	private static CombatAnimationManager instance;
 	public CombatAnimationStatus CurrentAnimationStatus { get; private set; } = CombatAnimationStatus.Idle;
@@ -16,8 +16,10 @@ public sealed class CombatAnimationManager : MonoBehaviour, IManager
 	private Coroutine AnimationCor = null;
 
 	#region Start/End
-	public void Init()
+	protected override void Init()
 	{
+		base.Init();
+
 		if (AnimationCombatRef == null)
 		{
 			Debug.LogError("Missing combat animation reference.");
@@ -25,24 +27,22 @@ public sealed class CombatAnimationManager : MonoBehaviour, IManager
 		}
 
 		instance = this;
-
-		print("Init Combat Animation Manager");
 	}
 
-	public void Run()
+	protected override void Run()
 	{
-		//animList.ForEach(x => UpdateTrigger(x, CombatAnimationStatus.Battle_Start));
+		base.Run();
 	}
 
-	public void Exit()
+	protected override void Exit()
 	{
+		base.Exit();
+
 		if (AnimationCombatRef == null)
 		{
 			Debug.LogError("Missing combat animation reference.");
 			return;
 		}
-
-		print("Exit Combat Animation Manager");
 
 		animList.ForEach(x => UpdateAnimation(x, CombatAnimationStatus.Idle));
 		animList.Clear();
