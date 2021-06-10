@@ -13,27 +13,52 @@ public class CombatController : MonoBehaviour
 
 	private void Awake()
 	{
-		RPGPartyManager.OnCharacterTurn += StartCombat;
+		RPGPartyManager.OnCharacterTurn += CheckTurn;
 	}
 
 	private void OnDestroy()
 	{
-		RPGPartyManager.OnCharacterTurn -= StartCombat;
+		RPGPartyManager.OnCharacterTurn -= CheckTurn;
 	}
 
-	public void StartCombat(Character _char, RPG_Data.RPG_Party _party)
+	public void CheckTurn(Character _char, RPG_Data.RPG_Party _party)
 	{
 		currentCharacter = _char;
 
-		if (_char != null && _party == RPG_Data.RPG_Party.Enemy)
+		if (_char != null)
 		{
-			if (CombatCor != null)
+			// If Player, combat action will require manual input
+			if (_party == RPG_Data.RPG_Party.Ally)
 			{
-				StopCoroutine(CombatCor);
+				return;
 			}
-
-			CombatCor = StartCoroutine(CombatAction());
+			// If Enemy, combat action will automated
+			else
+			{
+				CombatActionCoroutine();
+			}
 		}
+	}
+
+	public void PlayerAction()
+	{
+		if (currentCharacter != null)
+		{
+			if (currentCharacter.Party == RPG_Data.RPG_Party.Ally)
+			{
+				CombatActionCoroutine();
+			}
+		}
+	}
+
+	private void CombatActionCoroutine()
+	{
+		if (CombatCor != null)
+		{
+			StopCoroutine(CombatCor);
+		}
+
+		CombatCor = StartCoroutine(CombatAction());
 	}
 
 	private IEnumerator CombatAction()
@@ -41,12 +66,13 @@ public class CombatController : MonoBehaviour
 		if (currentCharacter == null)
 			throw new Exception("Attempt to trigger combat from null character reference");
 
-		CombatAnimationStatus randAnim = (CombatAnimationStatus)UnityEngine.Random.Range(0, Utility.GetEnumLength<CombatAnimationStatus>());
+		CombatAnimationStatus randAnim = (CombatAnimationStatus)UnityEngine.Random.Range((int)CombatAnimationStatus.Normal_Attack, (int)CombatAnimationStatus.Spell_Ally + 1);
 
-		yield return CombatAnimationManager.WaitForAnimation(currentCharacter.Anim, randAnim, () =>
+		yield return CombatAnimationManager.AnimateProcess(currentCharacter.Anim, randAnim, () =>
 		{
-			Debug.Log("hey hey");
 			OnTurnEnd?.Invoke();
+
+			// Add action feedback here
 		});
 
 	}

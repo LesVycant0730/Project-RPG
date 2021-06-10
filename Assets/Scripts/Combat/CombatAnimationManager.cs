@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Collections;
-using UnityEngine;
-using AnimationTypes;
+﻿using AnimationTypes;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public sealed class CombatAnimationManager : GameplayBaseManager
 {
@@ -130,7 +130,7 @@ public sealed class CombatAnimationManager : GameplayBaseManager
 	}
 
 
-	public static IEnumerator WaitForAnimation(Animator _anim, CombatAnimationStatus _status, Action _action)
+	public static IEnumerator AnimateProcess(Animator _anim, CombatAnimationStatus _status, Action _actionOnAnimEnd)
 	{
 		if (instance)
 		{
@@ -138,8 +138,8 @@ public sealed class CombatAnimationManager : GameplayBaseManager
 
 			if (_anim)
 			{
-				_anim.CrossFadeInFixedTime(animClip, 0.25f);
-				yield return _anim.WaitForAnimation(animClip, _action);
+				_anim.CrossFadeInFixedTime(!string.IsNullOrEmpty(animClip) ? animClip : "Fight_Idle_01", 0.25f);
+				yield return _anim.WaitForAnimation(animClip, _actionOnAnimEnd);
 			}
 			else
 			{

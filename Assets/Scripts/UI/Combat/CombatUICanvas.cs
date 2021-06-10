@@ -41,9 +41,9 @@ public class CombatUICanvas : MonoBehaviour
 		}
     }
 
-	#region Button Holder
-	[SerializeField] private ButtonWrapper_CombatBase[] normalActionButtons;
-
+    #region Button Holder
+    [SerializeField] private Selectable[] demoActionButtons;
+    [SerializeField] private ButtonWrapper_CombatBase[] normalActionButtons;
     [SerializeField] private CombatUIHolder[] holders;
     [SerializeField] private List<CombatUIHolder> activeHolders = new List<CombatUIHolder>();
     #endregion
@@ -137,5 +137,7 @@ public class CombatUICanvas : MonoBehaviour
         textCombatTurn.gameObject.SetActive(_char != null);
         textCombatTurn.color = _party == RPG_Party.Ally ? Color.blue : Color.red;
         textCombatTurn.text = _party == RPG_Party.Ally ? "Player Turn" : "Enemy Turn";
+
+        Array.ForEach(demoActionButtons, x => x.interactable = _party == RPG_Party.Ally);
 	}
 }

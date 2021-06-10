@@ -3370,7 +3370,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Test Combat Action
+  m_Text: Random Combat Action
 --- !u!222 &1527002739
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3599,6 +3599,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85264ce591be35a4d98c67a693e77c7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  demoActionButtons:
+  - {fileID: 829435262}
+  - {fileID: 1775489007}
+  - {fileID: 2087640899}
   normalActionButtons:
   - {fileID: 992029247}
   - {fileID: 1041291722}
@@ -3607,7 +3611,7 @@ MonoBehaviour:
   - {fileID: 696938710}
   - {fileID: 1775489007}
   - {fileID: 946981799}
-  - {fileID: 2087640899}
+  - {fileID: 0}
   holders:
   - actionType: 0
     holder: {fileID: 966936091}
@@ -4638,7 +4642,7 @@ GameObject:
   - component: {fileID: 2087640900}
   - component: {fileID: 2087640899}
   m_Layer: 5
-  m_Name: Button_TestCombatAction
+  m_Name: Button_RandomCombatAction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4673,7 +4677,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2087640897}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40411165edaf63c44b8ac4ee4a2c92a6, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -4705,7 +4709,21 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 2087640900}
-  actionType: 1
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1144775271}
+        m_TargetAssemblyTypeName: CombatController, Assembly-CSharp
+        m_MethodName: PlayerAction
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2087640900
 MonoBehaviour:
   m_ObjectHideFlags: 0
