@@ -2,7 +2,6 @@
 using System;
 using System.Linq;
 using UnityEngine;
-using System.Collections;
 
 public class RPGPartyManager : GameplayBaseManager
 {
@@ -21,6 +20,8 @@ public class RPGPartyManager : GameplayBaseManager
 	{
         return rpgParty.SingleOrDefault(rpgParty => rpgParty.PType == _type);
 	}
+
+	public static event Action<Character, RPG_Party> OnCharacterTurn;
 	#endregion
 
 	#region RPG Character
@@ -35,7 +36,7 @@ public class RPGPartyManager : GameplayBaseManager
 		{
 			RPGCharacter loopChar = rpgParty[i].GetFastestCharacter();
 
-			if (loopChar == null)
+			if (loopChar == null || CurrentCharacter == loopChar)
 			{
 				continue;
 			}
@@ -70,14 +71,14 @@ public class RPGPartyManager : GameplayBaseManager
 
 				if (value != null)
 				{
-					CombatUIManager.UpdateToCurrentCharacter(value, value.Party);
+					OnCharacterTurn?.Invoke(value, value.Party);
 				}
 			}
 		}
 	}
 	#endregion
 
-	#region Party Action
+	#region Party Action (Unused)
 	public void AddActionToParty(RPG_Party _type, Action _action)
 	{
         RPGParty party = GetParty(_type);
@@ -99,22 +100,30 @@ public class RPGPartyManager : GameplayBaseManager
             CurrentParty.SetPartyActive();
 		} 
 	}
+	#endregion
 
-    private async void SetupParty()
-    {
+	#region Party Action
+	[ContextMenu("Test")]
+	private async void SetupParty()
+	{
 		foreach (var party in rpgParty)
 		{
 			await party.InitializePartyMembers();
 		}
 
-        // First character will always be the fastest character
-        CurrentCharacter = GetFastestCharacter();
+		UpdateCharacterTurn();
+	}
+
+	private async void UpdateCharacterTurn()
+	{
+		// First character will always be the fastest character
+		CurrentCharacter = GetFastestCharacter();
 
 		if (CurrentCharacter != null)
 		{
 			CurrentCombatCharacter = await CombatCharacterManager.GetCharacter(CurrentCharacter);
 		}
-		
+
 		CustomLog.Log($"Fastest Character Update: {CurrentCharacter.CharacterStat.GetName()}");
 	}
 
@@ -130,10 +139,12 @@ public class RPGPartyManager : GameplayBaseManager
 	}
 	#endregion
 
+
 	protected override void Init()
 	{
 		base.Init();
 
+		CombatController.OnTurnEnd += UpdateCharacterTurn;
 		CombatAction.Action_Next += UpdateCombatState;
 		//CombatAction.Action_Prev += UpdateCombatState;
 		//CombatAction.Action_Reset += ResetCombatState;
@@ -149,6 +160,7 @@ public class RPGPartyManager : GameplayBaseManager
 	{
 		base.Exit();
 
+		CombatController.OnTurnEnd -= UpdateCharacterTurn;
 		CombatAction.Action_Next -= UpdateCombatState;
 
 		UnloadParty();
@@ -168,7 +180,7 @@ public class RPGPartyManager : GameplayBaseManager
 	{
 		if (CurrentCombatCharacter != null)
 		{
-			CurrentCombatCharacter.CombatAnimate(AnimationTypes.CombatAnimationStatus.Normal_Attack);
+			//CurrentCombatCharacter.CombatAnimate(AnimationTypes.CombatAnimationStatus.Normal_Attack);
 		}
 	}
 

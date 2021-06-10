@@ -22,11 +22,15 @@ public class RPGCharacter
 	// The character object reference
 	[SerializeField] private Character character;
 
+	// The character UI reference
+	[SerializeField] private CharacterStatusUI characterUI;
+
 	public RPG_Party GetCharacterParty => characterPartyType;
 	public RPGStat CharacterStatSO => characterStatSO;
 	public RPGStat CharacterStat => characterStat;
 	public RPGCharacterInfo CharacterStatInfo => characterInfo;
 	public Character Character => character;
+	public CharacterStatusUI CharacterUI => characterUI;
 	public string Name => characterStat != null ? characterStat.name : "NULL";
 
 	/// <summary>
@@ -46,6 +50,11 @@ public class RPGCharacter
 	public void SetModel(Character _character)
 	{
 		character = _character;
+	}
+
+	public void SetUI(CharacterStatusUI _UI)
+	{
+		characterUI = _UI;
 	}
 }
 

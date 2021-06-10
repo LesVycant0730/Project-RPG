@@ -49,8 +49,12 @@ public class CombatUICanvas : MonoBehaviour
     #endregion
 
     #region Description Holder
-    [SerializeField] private Text descriptionText;
+    [SerializeField] private Text textDescription;
 	private StringBuilder descriptionBuilder = new StringBuilder();
+    #endregion
+
+    #region Combat Header
+    [SerializeField] private Text textCombatTurn;
 	#endregion
 
 
@@ -107,7 +111,7 @@ public class CombatUICanvas : MonoBehaviour
 	{
         if (_description == string.Empty)
 		{
-            descriptionText.text = string.Empty;
+            textDescription.text = string.Empty;
 		}
         else
 		{
@@ -119,12 +123,19 @@ public class CombatUICanvas : MonoBehaviour
             descriptionBuilder.Clear();
             descriptionBuilder.Append(_description);
 
-            descriptionText.text = descriptionBuilder.ToString();
+            textDescription.text = descriptionBuilder.ToString();
         }
 	}
 
     public void ClearDescriptionBox()
 	{
-        descriptionText.text = string.Empty;
+        textDescription.text = string.Empty;
+	}
+
+	public void OnTurnUpdate(Character _char, RPG_Party _party)
+	{
+        textCombatTurn.gameObject.SetActive(_char != null);
+        textCombatTurn.color = _party == RPG_Party.Ally ? Color.blue : Color.red;
+        textCombatTurn.text = _party == RPG_Party.Ally ? "Player Turn" : "Enemy Turn";
 	}
 }

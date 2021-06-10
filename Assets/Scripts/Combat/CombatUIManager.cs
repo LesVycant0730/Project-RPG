@@ -34,6 +34,11 @@ public class CombatUIManager : GameplayBaseManager
 		base.Init();
 
 		instance = this;
+		
+		// Party Action
+		RPGPartyManager.OnCharacterTurn += UpdateToCurrentCharacter;
+
+		// Combat UI Action
 		CombatAction.Action_Next += CombatUIAction;
 		CombatAction.Action_Prev += CombatUIAction;
 		CombatAction.Action_Reset += CombatDefaultUIAction;
@@ -48,6 +53,10 @@ public class CombatUIManager : GameplayBaseManager
 	{
 		base.Exit();
 
+		// Party Action
+		RPGPartyManager.OnCharacterTurn -= UpdateToCurrentCharacter;
+
+		// Combat UI Action
 		CombatAction.Action_Next -= CombatUIAction;
 		CombatAction.Action_Prev -= CombatUIAction;
 		CombatAction.Action_Reset -= CombatDefaultUIAction;
@@ -83,24 +92,25 @@ public class CombatUIManager : GameplayBaseManager
 		}
 	}
 
-	public static void UpdateToCurrentCharacter(Character _character, RPG_Party _party)
+	private void UpdateToCurrentCharacter(Character _character, RPG_Party _party)
 	{
-		if (instance && _character != null)
+		if (_character != null)
 		{
 			if (_character.Model)
 			{
-				instance.CharacterHighlight.SetParent(_character.Model.transform);
+				CharacterHighlight.SetParent(_character.Model.transform);
 
 				Vector3 pos = new Vector3(_character.Model.transform.position.x, 0.01f, _character.Model.transform.position.z);
 
-				instance.CharacterHighlight.position = pos;
+				CharacterHighlight.position = pos;
 
-				instance.highlightSprite.color = RPGParty.PartyColor(_party);
+				highlightSprite.color = RPGParty.PartyColor(_party);
 			}
 
-			instance.CharacterHighlight.SetActive(_character.Model != null);
-
+			CharacterHighlight.SetActive(_character.Model != null);
 		}
+
+		canvas.OnTurnUpdate(_character, _party);
 	}
 
 	public static void DisableUpdate()

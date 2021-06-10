@@ -26,6 +26,15 @@ MonoBehaviour:
     - ally
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: b0262d59d8fc5604e84a8b6e59b00b2c
+    m_Address: EnemyStatusUI.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - character
+    - ui
+    - enemy
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 7b3dc9c4ae71d264d81f1a85a56fe186, type: 2}
   m_SchemaSet:

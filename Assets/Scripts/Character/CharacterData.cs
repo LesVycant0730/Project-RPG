@@ -82,7 +82,7 @@ public class Character
 	{
         if (anim)
 		{
-            CombatAnimationManager.Test(anim, _status, null);
+            CombatAnimationManager.UpdateAnimation(anim, _status);
 		}
 	}
 

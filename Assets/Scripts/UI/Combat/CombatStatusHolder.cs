@@ -1,20 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class CombatStatusHolder : MonoBehaviour
+public class CombatStatusHolder : GameplayBaseManager
 {
     [SerializeField] private GameObject[] holders;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	protected override void Awake()
+	{
+		base.Awake();
+		ToggleHolders(false);
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	protected override void Init()
+	{
+		base.Init();
+		ToggleHolders(true);
+	}
+
+	protected override void Exit()
+	{
+		base.Exit();
+		ToggleHolders(false);
+	}
+
+	private void ToggleHolders(bool _enabled)
+	{
+		foreach (var obj in holders)
+		{
+			if (obj)
+				obj.SetActive(_enabled);
+		}
+	}
 }

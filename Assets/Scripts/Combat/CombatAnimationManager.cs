@@ -129,15 +129,8 @@ public sealed class CombatAnimationManager : GameplayBaseManager
 		}
 	}
 
-	public static void Test(Animator _anim, CombatAnimationStatus _status, Action _action)
-	{
-		if (instance)
-		{
-			instance.StartCoroutine(IsAnimationSucceed(_anim, _status, _action));
-		}
-	}
 
-	public static IEnumerator IsAnimationSucceed(Animator _anim, CombatAnimationStatus _status, Action _action)
+	public static IEnumerator WaitForAnimation(Animator _anim, CombatAnimationStatus _status, Action _action)
 	{
 		if (instance)
 		{
