@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class PlayerStatusUI : CharacterStatusUI
 {
 	public override void Enable()
@@ -19,8 +15,8 @@ public class PlayerStatusUI : CharacterStatusUI
 		base.UpdateName(_name);
 	}
 
-	public override void UpdateHealth(float _current, float _max)
+	public override void UpdateInfo(RPGCharacterInfo _info)
 	{
-		base.UpdateHealth(_current, _max);
+		base.UpdateInfo(_info);
 	}
 }

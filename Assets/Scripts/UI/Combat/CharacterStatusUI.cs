@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,11 +25,11 @@ public class CharacterStatusUI : MonoBehaviour
 		textName.text = _name;
 	}
 
-	public virtual void UpdateHealth(float _current, float _max)
+	public virtual void UpdateInfo(RPGCharacterInfo _info)
 	{
-		float percentage = _current / _max;
+		float percentage = (float)_info.currentHealth / _info.maxHealth;
 
-		textHealth.text = _current.ToString();
+		textHealth.text = _info.currentHealth.ToString();
 		textHealth.color = (percentage > 0.3f) ? Color.white : Color.red;
 
 		imageHealth.fillAmount = percentage; 

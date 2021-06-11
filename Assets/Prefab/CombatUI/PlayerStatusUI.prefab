@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 358541763110307328}
   - component: {fileID: 962592493682147036}
   m_Layer: 5
-  m_Name: PlayerStatus
+  m_Name: PlayerStatusUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -127,9 +127,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd0d18899be326f4fb4b00586c062c31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  txt_Name: {fileID: 8457689921965667039}
-  img_Health: {fileID: 5643372709876681916}
-  txt_Health: {fileID: 5362655393010323327}
+  textName: {fileID: 8457689921965667039}
+  imageHealth: {fileID: 5643372709876681916}
+  textHealth: {fileID: 5362655393010323327}
 --- !u!1 &6486564262298238810
 GameObject:
   m_ObjectHideFlags: 0

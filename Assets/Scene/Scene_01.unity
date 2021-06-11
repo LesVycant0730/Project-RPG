@@ -937,9 +937,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cde50c5119fc59848b1be6596811d23e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holders:
-  - {fileID: 387276791}
-  - {fileID: 488205943}
+  playerHolders: []
+  enemyHolders: []
 --- !u!1 &426307382
 GameObject:
   m_ObjectHideFlags: 0
@@ -1520,8 +1519,10 @@ MonoBehaviour:
         characterName: Kachujin
         characterClass: Leader
         characterID: 0
-        health: 100
-        stamina: 100
+        maxHealth: 0
+        currentHealth: 0
+        maxStamina: 0
+        currentStamina: 0
         damagePhysical: 10
         damageMagical: 10
         criticalRate: 10
@@ -1548,8 +1549,10 @@ MonoBehaviour:
         characterName: Dummy
         characterClass: Cleric
         characterID: 1
-        health: 9999
-        stamina: 9999
+        maxHealth: 0
+        currentHealth: 0
+        maxStamina: 0
+        currentStamina: 0
         damagePhysical: 1
         damageMagical: 1
         criticalRate: 1
@@ -1773,6 +1776,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 738082106}
   m_CullTransparentMesh: 0
+--- !u!114 &750302985 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 962592493682147036, guid: bc4c2d90b0aac4343af3b5b97c826dea, type: 3}
+  m_PrefabInstance: {fileID: 1576610419}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd0d18899be326f4fb4b00586c062c31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &760354713
 GameObject:
   m_ObjectHideFlags: 0
@@ -3148,6 +3162,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1144775270}
   - component: {fileID: 1144775271}
+  - component: {fileID: 1144775272}
   m_Layer: 0
   m_Name: CombatControllerDemo
   m_TagString: Untagged
@@ -3181,6 +3196,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af4a358b9da559043b2115b8f0b05b0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  calculator: {fileID: 1144775272}
+--- !u!114 &1144775272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1144775269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 637ed540ed7a9d444a6419807bde1c52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxAccuracyNeeded: 1
+  maxNormalAttackDamage: 50
+  maxNormalSpellDamage: 150
+  maxFireSpellDamage: 200
+  maxHealSpellValue: 200
 --- !u!1 &1154408098
 GameObject:
   m_ObjectHideFlags: 0
@@ -3411,6 +3444,17 @@ MonoBehaviour:
   rotLerp: 0
   camRotOffset: 0
   camRotSmooth: 0.15
+--- !u!114 &1192573539 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6566422392071406412, guid: b0262d59d8fc5604e84a8b6e59b00b2c, type: 3}
+  m_PrefabInstance: {fileID: 1757091050183243431}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8688648251b62624d8109c3ad5b760d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1236264240
 GameObject:
   m_ObjectHideFlags: 0
@@ -4233,6 +4277,10 @@ MonoBehaviour:
     holder: {fileID: 0}
   activeHolders: []
   textDescription: {fileID: 925230670}
+  playerStatusUI:
+  - {fileID: 750302985}
+  enemyStatusUI:
+  - {fileID: 1192573539}
   textCombatTurn: {fileID: 1877688704}
 --- !u!1 &1659124955
 GameObject:
@@ -4714,7 +4762,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817d0f2e0ef525f4ea2a6d2e63b6b83c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLoggingEnabled: 1
+  isLoggingEnabled: 0
 --- !u!1 &1775489005
 GameObject:
   m_ObjectHideFlags: 0

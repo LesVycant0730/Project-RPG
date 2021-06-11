@@ -71,6 +71,7 @@ public class CombatUIManager : GameplayBaseManager
 	}
 	#endregion
 
+	#region Global Methods
 	public static void OnCombatActionEnter(Combat_Action _action)
 	{
 		if (instance)
@@ -111,6 +112,23 @@ public class CombatUIManager : GameplayBaseManager
 		}
 	}
 
+	public static void UpdateCharacterStatusUI(RPGCharacter _character)
+	{
+		if (instance)
+		{
+			instance.canvas.UpdateCharacterInfo(_character);
+		}
+	}
+
+	public static void DisableUpdate()
+	{
+		if (instance)
+		{
+			instance.CharacterHighlight.SetActive(false);
+		}
+	}
+	#endregion
+
 	private void UpdateToCurrentCharacter(RPGCharacter _character, RPG_Party _party)
 	{
 		if (_character != null)
@@ -134,13 +152,6 @@ public class CombatUIManager : GameplayBaseManager
 		canvas.OnTurnUpdate(_character.Character, _party);
 	}
 
-	public static void DisableUpdate()
-	{
-		if (instance)
-		{
-			instance.CharacterHighlight.SetActive(false);
-		}
-	}
 
 	private void CombatUIAction(Combat_Action _actionType)
 	{

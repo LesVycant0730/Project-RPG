@@ -127,7 +127,7 @@ public abstract class RPGStat : ScriptableObject
 }
 
 [System.Serializable]
-public struct RPGCharacterInfo
+public class RPGCharacterInfo
 {
 	[SerializeField, ConditionalHide(false)] public string characterName;
 	[SerializeField, ConditionalHide(false)] public string characterClass;
@@ -136,8 +136,10 @@ public struct RPGCharacterInfo
 	[Header("[HP/SP]")]
 	[Space(10)]
 
-	[SerializeField, Range(1, 9999), ConditionalHide(false)] public int health;
-	[SerializeField, Range(1, 9999), ConditionalHide(false)] public int stamina;
+	[SerializeField, Range(1, 9999), ConditionalHide(false)] public int maxHealth;
+	[SerializeField, Range(1, 9999), ConditionalHide(false)] public int currentHealth;
+	[SerializeField, Range(1, 9999), ConditionalHide(false)] public int maxStamina;
+	[SerializeField, Range(1, 9999), ConditionalHide(false)] public int currentStamina;
 
 	[Header("[Damage]")]
 	[Space(10)]
@@ -170,8 +172,11 @@ public struct RPGCharacterInfo
 		characterClass = _stat.GetClassName();
 		characterID = _stat.GetID();
 
-		health = _stat.GetHealth();
-		stamina = _stat.GetStamina();
+		maxHealth = _stat.GetHealth();
+		maxStamina = _stat.GetStamina();
+
+		currentHealth = maxHealth;
+		currentStamina = maxStamina;
 
 		damagePhysical = _stat.GetPhyDamage();
 		damageMagical = _stat.GetMagDamage();
@@ -188,5 +193,19 @@ public struct RPGCharacterInfo
 		speed = _stat.GetSpeed();
 
 		unlockedSkills = _stat.GetSkillList();
+	}
+
+	public void AddHealth(int _value)
+	{
+		currentHealth = Mathf.Clamp(currentHealth + _value, 0, maxHealth);
+	}
+
+	public void SubtractHealth(int _value, out bool _isEmpty)
+	{
+		currentHealth = Mathf.Clamp(currentHealth - _value, 0, maxHealth);
+
+		_isEmpty = currentHealth <= 0;
+
+		Debug.Log($"Health: {currentHealth}");
 	}
 }

@@ -8,7 +8,6 @@ public class CombatController : MonoBehaviour
 	[SerializeField] private CombatCalculator calculator;
 
 	private RPGCharacter currentCharacter;
-	private RPGCharacter targetCharacter;
 
 	private Coroutine CombatCor = null;
 
@@ -106,23 +105,39 @@ public class CombatController : MonoBehaviour
 		// When hit
 		if (isHit)
 		{
-			RPGCharacter opponent = RPGPartyManager.GetRandomOpponent(currentCharacter.CharacterParty);
+			// Check if it's healing status
+			int actionValue = calculator.GetValue(_status, out bool isTargetingOpponent);
 
-			//opponent.Charact
-
-			// Target Charater Animation Process
-			yield return CombatAnimationManager.AnimateProcess(opponent.Character.Anim, CombatAnimationStatus.Damaged, () =>
+			if (isTargetingOpponent)
 			{
-				OnTurnEnd?.Invoke();
+				// Get Random Opponent from opposite party
+				RPGCharacter opponent = RPGPartyManager.GetRandomOpponent(currentCharacter.CharacterParty);
 
-				// Add action feedback here
-			});
+				// Subtract opponent health
+				opponent.CharacterStatInfo.SubtractHealth(actionValue, out bool isEmpty);
+
+				// Update UI for the opponent
+				CombatUIManager.UpdateCharacterStatusUI(opponent);
+
+				// Target Charater Animation Process
+				yield return CombatAnimationManager.AnimateProcess(opponent.Character.Anim, isEmpty ? CombatAnimationStatus.Fainted : CombatAnimationStatus.Damaged, () =>
+				{
+					// Add action feedback here
+				});
+			}
+			else
+			{
+				// Add healing value to current character health
+				currentCharacter.CharacterStatInfo.AddHealth(actionValue);
+			}
 		}
 		// When missed
 		else
 		{
 			Debug.Log("Action missed");
-			OnTurnEnd?.Invoke();
 		}
+
+		// End action on this turn
+		OnTurnEnd?.Invoke();
 	}
 }

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: Kachujin
   characterID: 0
-  health: 100
+  health: 1000
   stamina: 100
   damagePhysical: 10
   damageMagical: 10
@@ -22,7 +22,7 @@ MonoBehaviour:
   criticalDamage: 10
   defensePhysical: 10
   defenseMagical: 10
-  accuracy: 0.7
+  accuracy: 0.9
   evasion: 0.05
   resistance: 0.1
   speed: 5

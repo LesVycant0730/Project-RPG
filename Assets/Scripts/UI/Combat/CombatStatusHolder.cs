@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class CombatStatusHolder : GameplayBaseManager
 {
-    [SerializeField] private GameObject[] holders;
+    [SerializeField] private GameObject[] playerHolders;
+    [SerializeField] private GameObject[] enemyHolders;
 
 	protected override void Awake()
 	{
@@ -24,7 +25,13 @@ public class CombatStatusHolder : GameplayBaseManager
 
 	private void ToggleHolders(bool _enabled)
 	{
-		foreach (var obj in holders)
+		foreach (var obj in playerHolders)
+		{
+			if (obj)
+				obj.SetActive(_enabled);
+		}
+
+		foreach (var obj in enemyHolders)
 		{
 			if (obj)
 				obj.SetActive(_enabled);

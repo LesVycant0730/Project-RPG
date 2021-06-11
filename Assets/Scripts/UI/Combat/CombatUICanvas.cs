@@ -42,6 +42,7 @@ public class CombatUICanvas : MonoBehaviour
     }
 
     #region Button Holder
+    [Header ("Buttons")]
     [SerializeField] private Selectable[] demoActionButtons;
     [SerializeField] private ButtonWrapper_CombatBase[] normalActionButtons;
     [SerializeField] private CombatUIHolder[] holders;
@@ -49,11 +50,19 @@ public class CombatUICanvas : MonoBehaviour
     #endregion
 
     #region Description Holder
+    [Header ("Description")]
     [SerializeField] private Text textDescription;
 	private StringBuilder descriptionBuilder = new StringBuilder();
     #endregion
 
-    #region Combat Header
+    #region Character Status
+    [Header ("Character Status")]
+    [SerializeField] private PlayerStatusUI[] playerStatusUI;
+    [SerializeField] private EnemyStatusUI[] enemyStatusUI;
+	#endregion
+
+	#region Combat Header
+    [Header ("Combat Header")]
     [SerializeField] private Text textCombatTurn;
     #endregion
 
@@ -155,7 +164,6 @@ public class CombatUICanvas : MonoBehaviour
 
 	public void OnTurnUpdate(Character _char, RPG_Party _party)
 	{
-        print($"Update {_party}");
         textCombatTurn.gameObject.SetActive(_char != null);
         textCombatTurn.color = _party == RPG_Party.Ally ? Color.blue : Color.red;
         textCombatTurn.text = _party == RPG_Party.Ally ? "Player Turn" : "Enemy Turn";
@@ -168,4 +176,28 @@ public class CombatUICanvas : MonoBehaviour
         ToggleUIHolder(Combat_Action.Demo, false, out bool _canToggle);
         Array.ForEach(demoActionButtons, x => x.interactable = false);
     }
+
+    public void UpdateCharacterInfo(RPGCharacter _character)
+	{
+        int characterIndex = RPGPartyManager.GetCharacterIndex(_character);
+
+        if (characterIndex == -1)
+            throw new Exception($"Negative Character Index");
+
+        switch (_character.CharacterParty)
+		{
+            case RPG_Party.Ally:
+                if (playerStatusUI.Length <= characterIndex)
+                    throw new Exception($"Expected Player status UI of index: {characterIndex} while the length is only {playerStatusUI.Length}");
+
+                playerStatusUI[characterIndex].UpdateInfo(_character.CharacterStatInfo);
+                break;
+            case RPG_Party.Enemy:
+                if (enemyStatusUI.Length <= characterIndex) 
+                    throw new Exception($"Expected Player status UI of index: {characterIndex} while the length is only {enemyStatusUI.Length}");
+
+                enemyStatusUI[characterIndex].UpdateInfo(_character.CharacterStatInfo);
+                break;
+		}
+	}
 }

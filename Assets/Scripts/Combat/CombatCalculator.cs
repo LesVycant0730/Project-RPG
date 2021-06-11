@@ -15,14 +15,14 @@ public class CombatCalculator : MonoBehaviour
 	}
 
 	[Header("Action")]
-	[SerializeField, Range(0.0f, 999.0f)] private float maxNormalAttackDamage = 100.0f; 
-	[SerializeField, Range(0.0f, 999.0f)] private float maxNormalSpellDamage = 150.0f;
-	[SerializeField, Range(0.0f, 999.0f)] private float maxFireSpellDamage = 200.0f;
-	[SerializeField, Range(0.0f, 999.0f)] private float maxHealSpellValue = 200.0f;
+	[SerializeField, Range(0, 999)] private int maxNormalAttackDamage = 100; 
+	[SerializeField, Range(0, 999)] private int maxNormalSpellDamage = 150;
+	[SerializeField, Range(0, 999)] private int maxFireSpellDamage = 200;
+	[SerializeField, Range(0, 999)] private int maxHealSpellValue = 200;
 
-	public float GetValue(CombatAnimationStatus _status, out bool _isSelfTarget)
+	public int GetValue(CombatAnimationStatus _status, out bool _isTargetingOpponent)
 	{
-		_isSelfTarget = _status == CombatAnimationStatus.Healed;
+		_isTargetingOpponent = _status != CombatAnimationStatus.Healed;
 
 		switch (_status)
 		{

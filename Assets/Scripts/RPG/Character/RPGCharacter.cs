@@ -47,6 +47,11 @@ public class RPGCharacter
 		characterInfo = new RPGCharacterInfo(_stat);
 	}
 
+	public void InitStat()
+	{
+		characterInfo = new RPGCharacterInfo(CharacterStat);
+	}
+
 	public void SetModel(Character _character)
 	{
 		character = _character;
@@ -93,7 +98,16 @@ public class RPGParty
 
 		foreach (var character in partyCharacters)
 		{
+			// Initialize stat from SO
+			character.InitStat();
+			
+			// Get Model from addressables
 			character.SetModel(await CombatCharacterManager.GetCharacter(character));
+
+			// Update Character UI reference
+			CombatUIManager.UpdateCharacterStatusUI(character);
+
+			// Add animator into a list reference
 			CombatAnimationManager.AddAnimator(character.Character.Anim);
 		}
 	}
@@ -240,6 +254,12 @@ public class RPGParty
 
 		return partyCharacters[rand.Next(partyCharacters.Count)];
 	}
+
+	public int GetCharacterIndex(RPGCharacter _character)
+	{
+		return partyCharacters.IndexOf(_character);
+	}
+
 	public static Color PartyColor(RPG_Party _party)
 	{
 		switch (_party)

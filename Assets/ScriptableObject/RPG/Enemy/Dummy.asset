@@ -22,7 +22,7 @@ MonoBehaviour:
   criticalDamage: 1
   defensePhysical: 1
   defenseMagical: 1
-  accuracy: 0.7
+  accuracy: 0.5
   evasion: 0.05
   resistance: 0.1
   speed: 5
