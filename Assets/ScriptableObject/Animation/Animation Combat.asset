@@ -30,14 +30,14 @@ MonoBehaviour:
   - status: 6
     animClip: Normal_Attack_01
   - status: 7
-    animClip: Cast_Fire
+    animClip: Cast_Fire_01
   - status: 8
     animClip: Cast_Spell_01
   - status: 9
     animClip: 
   - status: 10
-    animClip: 
+    animClip: React_Damaged_01
   - status: 11
-    animClip: 
+    animClip: Cast_Heal_01
   - status: 12
-    animClip: 
+    animClip: React_Fainted_01

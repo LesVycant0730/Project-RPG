@@ -66,7 +66,7 @@ public class CombatCharacterManager : GameplayBaseManager
                 if (asset != null)
                 {
                     // Character Party
-                    RPG_Party party = _rpgCharacter.GetCharacterParty;
+                    RPG_Party party = _rpgCharacter.CharacterParty;
 
                     // Get Position and Rotation based on the party
                     Vector3 pos = CombatArea.GetPositionAndRotation(party, out Quaternion rot);
@@ -78,7 +78,7 @@ public class CombatCharacterManager : GameplayBaseManager
                     instance.CharacterArr[(int)asset.ID] = newCharacter;  
 
                     // Invoke action for new added character
-                    OnNewCharacterAdded?.Invoke(newCharacter, _rpgCharacter.GetCharacterParty);
+                    OnNewCharacterAdded?.Invoke(newCharacter, _rpgCharacter.CharacterParty);
 
                     return newCharacter;
                 }

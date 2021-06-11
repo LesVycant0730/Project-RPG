@@ -55,10 +55,10 @@ public class CombatUICanvas : MonoBehaviour
 
     #region Combat Header
     [SerializeField] private Text textCombatTurn;
-	#endregion
+    #endregion
 
-
-	private void OnValidate()
+#if UNITY_EDITOR
+    private void OnValidate()
     {
         if (holders == null)
         {
@@ -71,6 +71,24 @@ public class CombatUICanvas : MonoBehaviour
                 holders[i] = new CombatUIHolder((Combat_Action)i, null);
             }
         }
+    }
+#endif
+
+	private void Awake()
+	{
+        OnCombatDefault();
+	}
+
+	public void OnCombatToggle(bool _enabled)
+	{
+        Array.ForEach(demoActionButtons, x => x.interactable = _enabled);
+    }
+
+    public void OnCombatDefault()
+	{
+        demoActionButtons[0].interactable = true;
+        demoActionButtons[1].interactable = false;
+        demoActionButtons[2].interactable = false;
     }
 
     public void ToggleUIHolder(Combat_Action _actionType, bool _enabled, out bool CanToggle)
@@ -88,7 +106,7 @@ public class CombatUICanvas : MonoBehaviour
             activeHolders.Clear();
 
             // Update active status on holder
-            holder.Enable();
+            
 
             // Update current active holder list
             if (_enabled)
@@ -97,13 +115,16 @@ public class CombatUICanvas : MonoBehaviour
 				{
                     activeHolders.Add(holder);
 				}
-			}
+
+                holder.Enable();
+            }
             else
 			{
                 activeHolders.Remove(holder);
+                holder.Disable();
 			}
 
-            CanToggle = true;
+			CanToggle = true;
         }
     }
 
@@ -134,10 +155,17 @@ public class CombatUICanvas : MonoBehaviour
 
 	public void OnTurnUpdate(Character _char, RPG_Party _party)
 	{
+        print($"Update {_party}");
         textCombatTurn.gameObject.SetActive(_char != null);
         textCombatTurn.color = _party == RPG_Party.Ally ? Color.blue : Color.red;
         textCombatTurn.text = _party == RPG_Party.Ally ? "Player Turn" : "Enemy Turn";
 
         Array.ForEach(demoActionButtons, x => x.interactable = _party == RPG_Party.Ally);
 	}
+
+    public void DisableActionButtons()
+	{
+        ToggleUIHolder(Combat_Action.Demo, false, out bool _canToggle);
+        Array.ForEach(demoActionButtons, x => x.interactable = false);
+    }
 }

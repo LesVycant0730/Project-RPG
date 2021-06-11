@@ -61,6 +61,9 @@ MonoBehaviour:
   - current: 15
     next: 16
     previous: 0
+  - current: 17
+    next: 16
+    previous: 16
   - current: 16
     next: 16
-    previous: 0
+    previous: 16

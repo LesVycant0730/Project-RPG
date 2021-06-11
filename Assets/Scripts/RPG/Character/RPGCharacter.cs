@@ -25,7 +25,7 @@ public class RPGCharacter
 	// The character UI reference
 	[SerializeField] private CharacterStatusUI characterUI;
 
-	public RPG_Party GetCharacterParty => characterPartyType;
+	public RPG_Party CharacterParty => characterPartyType;
 	public RPGStat CharacterStatSO => characterStatSO;
 	public RPGStat CharacterStat => characterStat;
 	public RPGCharacterInfo CharacterStatInfo => characterInfo;
@@ -234,6 +234,12 @@ public class RPGParty
 		return character;
 	}
 
+	public RPGCharacter GetAnyCharacter()
+	{
+		System.Random rand = new System.Random();
+
+		return partyCharacters[rand.Next(partyCharacters.Count)];
+	}
 	public static Color PartyColor(RPG_Party _party)
 	{
 		switch (_party)

@@ -5,23 +5,29 @@ using System;
 
 public class CombatController : MonoBehaviour
 {
-	private Character currentCharacter;
+	[SerializeField] private CombatCalculator calculator;
+
+	private RPGCharacter currentCharacter;
+	private RPGCharacter targetCharacter;
 
 	private Coroutine CombatCor = null;
 
 	public static event Action OnTurnEnd;
+	public static event Action<CombatAnimationStatus> OnPlayerAction;
 
 	private void Awake()
 	{
 		RPGPartyManager.OnCharacterTurn += CheckTurn;
+		OnPlayerAction += PlayerAction;
 	}
 
 	private void OnDestroy()
 	{
 		RPGPartyManager.OnCharacterTurn -= CheckTurn;
+		OnPlayerAction -= PlayerAction;
 	}
 
-	public void CheckTurn(Character _char, RPG_Data.RPG_Party _party)
+	public void CheckTurn(RPGCharacter _char, RPG_Data.RPG_Party _party)
 	{
 		currentCharacter = _char;
 
@@ -35,45 +41,88 @@ public class CombatController : MonoBehaviour
 			// If Enemy, combat action will automated
 			else
 			{
-				CombatActionCoroutine();
+				CombatAnimationStatus randAnim = (CombatAnimationStatus)UnityEngine.Random.Range((int)CombatAnimationStatus.Normal_Attack, (int)CombatAnimationStatus.Spell_Ally + 1);
+
+				CombatActionCoroutine(randAnim);
 			}
 		}
 	}
 
-	public void PlayerAction()
+	// Called in Button only
+	public void RandomCombatAction()
+	{
+		CombatAnimationStatus[] randAnimArr = new CombatAnimationStatus[]
+		{
+			CombatAnimationStatus.Normal_Attack, CombatAnimationStatus.Spell_Ally,
+			CombatAnimationStatus.Spell_Attack, CombatAnimationStatus.Healed
+		};
+
+		CombatAnimationStatus randAnim = randAnimArr[UnityEngine.Random.Range(0, randAnimArr.Length)];
+
+		PlayerAction(randAnim);
+	}
+
+	public static void InvokePlayerAction(CombatAnimationStatus _status)
+	{
+		OnPlayerAction?.Invoke(_status);
+	}
+
+	private void PlayerAction(CombatAnimationStatus _status)
 	{
 		if (currentCharacter != null)
 		{
-			if (currentCharacter.Party == RPG_Data.RPG_Party.Ally)
+			if (currentCharacter.CharacterParty == RPG_Data.RPG_Party.Ally)
 			{
-				CombatActionCoroutine();
+				// Disable UI
+				CombatUIManager.OnCombatActionRegistered();
+
+				CombatActionCoroutine(_status);
 			}
 		}
 	}
 
-	private void CombatActionCoroutine()
+	private void CombatActionCoroutine(CombatAnimationStatus _status)
 	{
 		if (CombatCor != null)
 		{
 			StopCoroutine(CombatCor);
 		}
 
-		CombatCor = StartCoroutine(CombatAction());
+		CombatCor = StartCoroutine(CombatSimulation(_status));
 	}
 
-	private IEnumerator CombatAction()
+	// Only for simulating combat with animation and feedback used in demonstration 
+	private IEnumerator CombatSimulation(CombatAnimationStatus _status)
 	{
 		if (currentCharacter == null)
 			throw new Exception("Attempt to trigger combat from null character reference");
 
-		CombatAnimationStatus randAnim = (CombatAnimationStatus)UnityEngine.Random.Range((int)CombatAnimationStatus.Normal_Attack, (int)CombatAnimationStatus.Spell_Ally + 1);
+		// Current Character Animation Process
+		yield return CombatAnimationManager.AnimateProcess(currentCharacter.Character.Anim, _status, null);
 
-		yield return CombatAnimationManager.AnimateProcess(currentCharacter.Anim, randAnim, () =>
+		// Get skill
+		bool isHit = calculator.IsHit(currentCharacter.CharacterStat.GetAccuracy());
+
+		// When hit
+		if (isHit)
 		{
+			RPGCharacter opponent = RPGPartyManager.GetRandomOpponent(currentCharacter.CharacterParty);
+
+			//opponent.Charact
+
+			// Target Charater Animation Process
+			yield return CombatAnimationManager.AnimateProcess(opponent.Character.Anim, CombatAnimationStatus.Damaged, () =>
+			{
+				OnTurnEnd?.Invoke();
+
+				// Add action feedback here
+			});
+		}
+		// When missed
+		else
+		{
+			Debug.Log("Action missed");
 			OnTurnEnd?.Invoke();
-
-			// Add action feedback here
-		});
-
+		}
 	}
 }

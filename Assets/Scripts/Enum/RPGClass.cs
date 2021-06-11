@@ -123,8 +123,11 @@
         Disabled,
 
         // Empty
-        NONE
-	}
+        NONE,
+
+        // Demo
+        Demo
+    }
 
     public enum RPG_Party
 	{

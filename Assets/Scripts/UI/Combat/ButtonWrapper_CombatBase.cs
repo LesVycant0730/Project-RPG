@@ -14,6 +14,9 @@ public class ButtonWrapper_CombatBase : Selectable
 	#region Pointer Update
 	public override void OnPointerDown(PointerEventData eventData)
 	{
+		if (!interactable)
+			return;
+
 		base.OnPointerDown(eventData);
 
 		Action_M.Action_Next(actionType);
@@ -21,6 +24,9 @@ public class ButtonWrapper_CombatBase : Selectable
 
 	public override void OnPointerEnter(PointerEventData eventData)
 	{
+		if (!interactable)
+			return;
+
 		base.OnPointerEnter(eventData);
 
 		OnSlotUpdate();
@@ -28,6 +34,9 @@ public class ButtonWrapper_CombatBase : Selectable
 
 	public override void OnPointerExit(PointerEventData eventData)
 	{
+		if (!interactable)
+			return;
+
 		base.OnPointerExit(eventData);
 
 		CombatUIManager.OnCombatSkillExit();

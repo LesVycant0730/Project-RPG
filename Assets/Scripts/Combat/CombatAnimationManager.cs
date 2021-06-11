@@ -13,8 +13,6 @@ public sealed class CombatAnimationManager : GameplayBaseManager
 
 	[SerializeField] private List<Animator> animList = new List<Animator>();
 
-	private Coroutine AnimationCor = null;
-
 	#region Start/End
 	protected override void Init()
 	{
@@ -73,38 +71,6 @@ public sealed class CombatAnimationManager : GameplayBaseManager
 		{
 			instance.animList.Remove(_anim);
 		}
-	}
-	#endregion
-
-	#region Combat Action
-	public void AnimUpdate_SkillOnEnemy()
-	{
-		if (AnimationCor != null)
-		{
-			return;
-		}
-
-		AnimationCor = StartCoroutine(RunAnimation(AnimationCor));
-
-	}
-
-	public void AnimUpdate_Default()
-	{
-
-	}
-
-	private IEnumerator<Action> RunAnimation(Coroutine _cor)
-	{
-		if (this != null)
-		{
-			_cor = null;
-			yield return AnimUpdate_Default;
-
-			yield break;
-		}
-
-		_cor = null;
-		yield return null;
 	}
 	#endregion
 

@@ -42,6 +42,8 @@ public class CombatUIManager : GameplayBaseManager
 		CombatAction.Action_Next += CombatUIAction;
 		CombatAction.Action_Prev += CombatUIAction;
 		CombatAction.Action_Reset += CombatDefaultUIAction;
+
+		canvas.OnCombatToggle(false);
 	}
 
 	protected override void Run()
@@ -63,6 +65,7 @@ public class CombatUIManager : GameplayBaseManager
 
 		DisableUpdate();
 		CombatDisabledUIAction();
+		canvas.OnCombatDefault();
 
 		instance = null;
 	}
@@ -73,6 +76,14 @@ public class CombatUIManager : GameplayBaseManager
 		if (instance)
 		{
 			instance.canvas.UpdateDescriptionBox(_action.ToString());
+		}
+	}
+
+	public static void OnCombatActionEnter(AnimationTypes.CombatAnimationStatus _status)
+	{
+		if (instance)
+		{
+			instance.canvas.UpdateDescriptionBox(_status.ToString());
 		}
 	}
 
@@ -92,25 +103,35 @@ public class CombatUIManager : GameplayBaseManager
 		}
 	}
 
-	private void UpdateToCurrentCharacter(Character _character, RPG_Party _party)
+	public static void OnCombatActionRegistered()
+	{
+		if (instance)
+		{
+			instance.canvas.DisableActionButtons();
+		}
+	}
+
+	private void UpdateToCurrentCharacter(RPGCharacter _character, RPG_Party _party)
 	{
 		if (_character != null)
 		{
-			if (_character.Model)
+			if (_character.Character.Model)
 			{
-				CharacterHighlight.SetParent(_character.Model.transform);
+				Transform model = _character.Character.Model.transform;
 
-				Vector3 pos = new Vector3(_character.Model.transform.position.x, 0.01f, _character.Model.transform.position.z);
+				CharacterHighlight.SetParent(model);
+
+				Vector3 pos = new Vector3(model.position.x, 0.01f, model.position.z);
 
 				CharacterHighlight.position = pos;
 
 				highlightSprite.color = RPGParty.PartyColor(_party);
 			}
 
-			CharacterHighlight.SetActive(_character.Model != null);
+			CharacterHighlight.SetActive(_character.Character.Model != null);
 		}
 
-		canvas.OnTurnUpdate(_character, _party);
+		canvas.OnTurnUpdate(_character.Character, _party);
 	}
 
 	public static void DisableUpdate()
@@ -161,6 +182,8 @@ public class CombatUIManager : GameplayBaseManager
 			case Combat_Action.Defend:
 				break;
 			case Combat_Action.Escape:
+				break;
+			case Combat_Action.Demo:
 				break;
 			default:
 				break;

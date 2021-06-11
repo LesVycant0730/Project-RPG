@@ -67,6 +67,10 @@ public class ActionManager : MonoBehaviour
 			CustomLog.Log("Run Back Action from: " + CombatManager.CurrentAction + ", to: " + prevAction);
 			action_Combat.CancelCombatAction(prevAction);
 		}
+		else if (prevAction == Combat_Action.NONE)
+		{
+			action_Combat.CancelCombatAction(prevAction);
+		}
 	}
 
 	public void ResetAction()

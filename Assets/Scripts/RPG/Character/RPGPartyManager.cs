@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class RPGPartyManager : GameplayBaseManager
 {
+	private static RPGPartyManager instance;
+
 	#region RPG Party
 	[SerializeField]
     private RPGParty[] rpgParty = new RPGParty[]
@@ -21,13 +23,13 @@ public class RPGPartyManager : GameplayBaseManager
         return rpgParty.SingleOrDefault(rpgParty => rpgParty.PType == _type);
 	}
 
-	public static event Action<Character, RPG_Party> OnCharacterTurn;
+	public static event Action<RPGCharacter, RPG_Party> OnCharacterTurn;
 	#endregion
 
 	#region RPG Character
-	[SerializeField] public RPGCharacter CurrentCharacter { get; private set; }
+	[SerializeField] public RPGCharacter CurrentRPGCharacter { get; private set; }
 
-	public RPGCharacter GetFastestCharacter()
+	private RPGCharacter GetFastestCharacter()
 	{
 		RPGCharacter character = null;
 		int speed = 0;
@@ -36,7 +38,7 @@ public class RPGPartyManager : GameplayBaseManager
 		{
 			RPGCharacter loopChar = rpgParty[i].GetFastestCharacter();
 
-			if (loopChar == null || CurrentCharacter == loopChar)
+			if (loopChar == null || CurrentRPGCharacter == loopChar)
 			{
 				continue;
 			}
@@ -52,6 +54,22 @@ public class RPGPartyManager : GameplayBaseManager
 		}
 
 		return character;
+	}
+
+	public static RPGCharacter GetRandomOpponent(RPG_Party _party)
+	{
+		if (instance == null)
+			return null;
+
+		switch (_party)
+		{
+			case RPG_Party.Ally:
+				return instance.GetParty(RPG_Party.Enemy).GetAnyCharacter();
+			case RPG_Party.Enemy:
+				return instance.GetParty(RPG_Party.Ally).GetAnyCharacter();
+		}
+
+		return null;
 	}
 	#endregion
 
@@ -71,7 +89,7 @@ public class RPGPartyManager : GameplayBaseManager
 
 				if (value != null)
 				{
-					OnCharacterTurn?.Invoke(value, value.Party);
+					OnCharacterTurn?.Invoke(CurrentRPGCharacter, value.Party);
 				}
 			}
 		}
@@ -103,7 +121,7 @@ public class RPGPartyManager : GameplayBaseManager
 	#endregion
 
 	#region Party Action
-	[ContextMenu("Test")]
+	[ContextMenu("Test Setup")]
 	private async void SetupParty()
 	{
 		foreach (var party in rpgParty)
@@ -117,14 +135,14 @@ public class RPGPartyManager : GameplayBaseManager
 	private async void UpdateCharacterTurn()
 	{
 		// First character will always be the fastest character
-		CurrentCharacter = GetFastestCharacter();
+		CurrentRPGCharacter = GetFastestCharacter();
 
-		if (CurrentCharacter != null)
+		if (CurrentRPGCharacter != null)
 		{
-			CurrentCombatCharacter = await CombatCharacterManager.GetCharacter(CurrentCharacter);
+			CurrentCombatCharacter = await CombatCharacterManager.GetCharacter(CurrentRPGCharacter);
 		}
 
-		CustomLog.Log($"Fastest Character Update: {CurrentCharacter.CharacterStat.GetName()}");
+		CustomLog.Log($"Fastest Character Update: {CurrentRPGCharacter.CharacterStat.GetName()}");
 	}
 
 	private void UnloadParty()
@@ -134,11 +152,10 @@ public class RPGPartyManager : GameplayBaseManager
 			party.UnloadPartyMembers();
 		}
 
-		CurrentCharacter = null;
+		CurrentRPGCharacter = null;
 		CurrentCombatCharacter = null;
 	}
 	#endregion
-
 
 	protected override void Init()
 	{
@@ -148,6 +165,7 @@ public class RPGPartyManager : GameplayBaseManager
 		CombatAction.Action_Next += UpdateCombatState;
 		//CombatAction.Action_Prev += UpdateCombatState;
 		//CombatAction.Action_Reset += ResetCombatState;
+		instance = this;
 	}
 
 	protected override void Run()
@@ -164,6 +182,7 @@ public class RPGPartyManager : GameplayBaseManager
 		CombatAction.Action_Next -= UpdateCombatState;
 
 		UnloadParty();
+		instance = null;
 	}
 
 	private void Reset()
