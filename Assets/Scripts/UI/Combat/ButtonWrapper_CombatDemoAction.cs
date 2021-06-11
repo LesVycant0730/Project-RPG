@@ -27,6 +27,7 @@ public class ButtonWrapper_CombatDemoAction : Selectable
 	public override void OnPointerExit(PointerEventData eventData)
 	{
 		base.OnPointerExit(eventData);
+		CombatUIManager.OnCombatActionExit();
 	}
 	#endregion
 

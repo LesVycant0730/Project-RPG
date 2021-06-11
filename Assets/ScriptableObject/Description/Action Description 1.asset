@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08925ab5b32c51a408988254882782a6, type: 3}
+  m_Name: Action Description 1
+  m_EditorClassIdentifier: 
+  combatActions:
+  - type: 17
+    description: Open Action Menu
+  demoActions:
+  - type: 6
+    description: A single-target standard kick.
+  - type: 7
+    description: Cast a weak single-target fire projectile that deal medium damage.
+  - type: 8
+    description: Cast a weak single-target magic projectile that deal small damage.
+  - type: 11
+    description: Cast a self-targeted mild healing magic to replenish small health.

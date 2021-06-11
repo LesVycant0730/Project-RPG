@@ -39,7 +39,7 @@ public class ButtonWrapper_CombatBase : Selectable
 
 		base.OnPointerExit(eventData);
 
-		CombatUIManager.OnCombatSkillExit();
+		CombatUIManager.OnCombatActionExit();
 	}
 	#endregion
 

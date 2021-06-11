@@ -66,7 +66,7 @@ public class ButtonWrapper_CombatSkill : ButtonWrapper_CombatBase
 	{
 		base.OnPointerExit(eventData);
 
-		CombatUIManager.OnCombatSkillExit();
+		CombatUIManager.OnCombatActionExit();
 	}
 
 	public override void OnPointerDown(PointerEventData eventData)

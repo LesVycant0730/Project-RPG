@@ -76,7 +76,7 @@ public class CombatUIManager : GameplayBaseManager
 	{
 		if (instance)
 		{
-			instance.canvas.UpdateDescriptionBox(_action.ToString());
+			instance.canvas.UpdateDescriptionBox(DescriptionInfoLibrary.GetDescription(_action));
 		}
 	}
 
@@ -84,7 +84,7 @@ public class CombatUIManager : GameplayBaseManager
 	{
 		if (instance)
 		{
-			instance.canvas.UpdateDescriptionBox(_status.ToString());
+			instance.canvas.UpdateDescriptionBox(DescriptionInfoLibrary.GetDescription(_status));
 		}
 	}
 
@@ -96,7 +96,7 @@ public class CombatUIManager : GameplayBaseManager
 		}
 	}
 
-	public static void OnCombatSkillExit()
+	public static void OnCombatActionExit()
 	{
 		if (instance)
 		{

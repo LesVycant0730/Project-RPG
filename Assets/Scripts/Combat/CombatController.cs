@@ -123,6 +123,7 @@ public class CombatController : MonoBehaviour
 				yield return CombatAnimationManager.AnimateProcess(opponent.Character.Anim, isEmpty ? CombatAnimationStatus.Fainted : CombatAnimationStatus.Damaged, () =>
 				{
 					// Add action feedback here
+					// Add combat log here
 				});
 			}
 			else

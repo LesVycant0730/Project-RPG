@@ -205,7 +205,5 @@ public class RPGCharacterInfo
 		currentHealth = Mathf.Clamp(currentHealth - _value, 0, maxHealth);
 
 		_isEmpty = currentHealth <= 0;
-
-		Debug.Log($"Health: {currentHealth}");
 	}
 }
