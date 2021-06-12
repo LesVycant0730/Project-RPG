@@ -4506,7 +4506,7 @@ MonoBehaviour:
     holder: {fileID: 0}
   activeHolders: []
   textDescription: {fileID: 925230670}
-  maxCombatLogCharacters: 2500
+  maxCombatLogCharacters: 3000
   combatLog: {fileID: 707874137}
   playerStatusUI:
   - {fileID: 750302985}

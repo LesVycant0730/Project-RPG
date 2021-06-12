@@ -1,8 +1,8 @@
 using AnimationTypes;
 using RPG_Data;
 using System;
-using UnityEngine;
 using TextExtension;
+using UnityEngine;
 
 namespace GameInfo
 {
@@ -95,37 +95,16 @@ namespace GameInfo
 		protected struct CombatLog
 		{
 			[SerializeField] private CombatLogType type;
-			[SerializeField, NonReorderable] private CombatLogKeywordType[] keywordTypeOrder;
+			[SerializeField, NonReorderable] private CombatLogKeyword[] keywords;
 			[SerializeField, TextArea(3, 5)] private string description;
 
 			public CombatLogType Type => type;
+			public CombatLogKeyword[] Keywords => keywords;
 			public string Description => description;
 
-			private Type GetKeywordType(CombatLogKeywordType _type)
+			public bool HasSameKeywordAmount (int _length)
 			{
-				switch (_type)
-				{
-					case CombatLogKeywordType.String:
-						return typeof(string);
-					case CombatLogKeywordType.Int:
-						return typeof(int);
-				}
-
-				return null;
-			}
-
-			public bool IsKeywordTypesCorrect(params object[] _param)
-			{
-				if (_param.Length != keywordTypeOrder.Length)
-					return false;
-
-				for (int i = 0; i < keywordTypeOrder.Length; i++)
-				{
-					if (GetKeywordType(keywordTypeOrder[i]) != _param[i].GetType())
-						return false;
-				}
-
-				return true;
+				return keywords.Length == _length;
 			}
 		}
 		#endregion
@@ -139,7 +118,7 @@ namespace GameInfo
 			CombatLog log = Array.Find(combatLogs, x => x.Type == _type);
 
 			// Check keyword types and parameter types
-			bool isKeywordCorrect = log.IsKeywordTypesCorrect(_param);
+			bool isKeywordCorrect = log.HasSameKeywordAmount(_param.Length);
 
 			if (isKeywordCorrect)
 			{
@@ -148,14 +127,11 @@ namespace GameInfo
 				// Loop through the arrays to replace the keyword by the parameter
 				for (int i = 0; i < _param.Length; i++)
 				{
-					foreach (var word in combatLogKeys)
-					{
-						if (des.Contains(word.Word))
-						{
-							des = des.Replace(word.Word, word.Replace(_param[i].ToString()));
-							break;
-						}
-					}
+					// Search the key from the established arrays in the SO
+					var key = Array.Find(combatLogKeys, x => x.Key == log.Keywords[i]);
+
+					// Replace the keyword retrieved from the array
+					des = des.Replace(key.Word, key.Replace(_param[i].ToString()));
 				}
 
 				return $"[{DateTime.Now.ToLongTimeString()}] {des}\n";
