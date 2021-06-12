@@ -32,4 +32,9 @@ public class GameplayController : MonoBehaviour
 		isInitialized = false;
 		OnManagerExit?.Invoke();
 	}
+
+	public void QuitGame()
+	{
+		Application.Quit();
+	}
 }
