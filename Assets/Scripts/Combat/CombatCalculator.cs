@@ -16,17 +16,20 @@ public class CombatCalculator : MonoBehaviour
 
 	[Header("Action")]
 	[SerializeField, Range(0, 999)] private int maxNormalAttackDamage = 100; 
+	[SerializeField, Range(0, 999)] private int maxHeavyAttackDamage = 200;
 	[SerializeField, Range(0, 999)] private int maxNormalSpellDamage = 150;
+	[SerializeField, Range(0, 999)] private int maxHeavySpellDamage = 350;
 	[SerializeField, Range(0, 999)] private int maxFireSpellDamage = 200;
 	[SerializeField, Range(0, 999)] private int maxHealSpellValue = 200;
 
-	public int GetValue(CombatAnimationStatus _status, out bool _isTargetingOpponent)
+	public int GetValue(CombatAnimationStatus _status, out bool _isTargetingOpponent, out bool isHeal)
 	{
-		_isTargetingOpponent = _status != CombatAnimationStatus.Healed;
+		_isTargetingOpponent = _status != CombatAnimationStatus.Self_Heal;
+		isHeal = _status == CombatAnimationStatus.Self_Heal;
 
 		switch (_status)
 		{
-			case CombatAnimationStatus.Normal_Kick:
+			case CombatAnimationStatus.Normal_Kick_01:
 				return maxNormalAttackDamage;
 			case CombatAnimationStatus.Magic_Missile:
 				return maxNormalSpellDamage;
@@ -34,6 +37,13 @@ public class CombatCalculator : MonoBehaviour
 				return maxFireSpellDamage;
 			case CombatAnimationStatus.Self_Heal:
 				return maxHealSpellValue;
+			case CombatAnimationStatus.Normal_Kick_02:
+				return maxHeavyAttackDamage;
+			case CombatAnimationStatus.Magic_Bomb:
+				return maxHeavySpellDamage;
+			case CombatAnimationStatus.Dance:
+				_isTargetingOpponent = Random.Range(0, 2) == 1;
+				return 9999;
 			default:
 				break;
 		}

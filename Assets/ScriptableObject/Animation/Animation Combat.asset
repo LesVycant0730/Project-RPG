@@ -18,9 +18,9 @@ MonoBehaviour:
   - status: 0
     animClip: Fight_Idle_01
   - status: 1
-    animClip: Idle_01
+    animClip: Transition_Idle_01
   - status: 2
-    animClip: Idle_01
+    animClip: Transition_Idle_01
   - status: 3
     animClip: 
   - status: 4
@@ -51,3 +51,9 @@ MonoBehaviour:
     animClip: Cast_Spell_01
   - status: 17
     animClip: Cast_Fire_01
+  - status: 18
+    animClip: Normal_Attack_02
+  - status: 19
+    animClip: Cast_Spell_02
+  - status: 20
+    animClip: Dance

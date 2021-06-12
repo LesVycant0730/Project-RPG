@@ -114,5 +114,11 @@ public sealed class CombatAnimationManager : GameplayBaseManager
 		}
 
 	}
+
+	// Used in slider UI
+	public void OnSliderValueChanged(float value)
+	{
+		animList.ForEach(x => x.speed = value);
+	}
 	#endregion
 }

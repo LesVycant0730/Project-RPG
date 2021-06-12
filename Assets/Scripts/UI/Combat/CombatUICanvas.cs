@@ -73,8 +73,12 @@ public class CombatUICanvas : MonoBehaviour
     [SerializeField] private Text textCombatTurn;
     #endregion
 
+    #region Animation
+    [SerializeField] private Text textAnimationSpeed;
+	#endregion
+
 #if UNITY_EDITOR
-    private void OnValidate()
+	private void OnValidate()
     {
         if (holders == null)
         {
@@ -93,6 +97,12 @@ public class CombatUICanvas : MonoBehaviour
 	private void Awake()
 	{
         OnCombatDefault();
+	}
+
+    // Used in slider UI
+    public void OnSliderValueChanged(float value)
+	{
+        textAnimationSpeed.text = $"Game Speed: {value:f2}";
 	}
 
 	public void OnCombatToggle(bool _enabled)
@@ -192,7 +202,6 @@ public class CombatUICanvas : MonoBehaviour
 
                         if (ch == '\n')
                         {
-                            print("Remove");
                             combatLogBuilder.Remove(0, i);
                         }
                     }

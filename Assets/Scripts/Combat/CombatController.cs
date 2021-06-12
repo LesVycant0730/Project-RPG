@@ -2,6 +2,7 @@ using System.Collections;
 using AnimationTypes;
 using UnityEngine;
 using System;
+using GameInfo;
 
 public class CombatController : MonoBehaviour
 {
@@ -40,7 +41,7 @@ public class CombatController : MonoBehaviour
 			// If Enemy, combat action will automated
 			else
 			{
-				CombatAnimationStatus randAnim = (CombatAnimationStatus)UnityEngine.Random.Range((int)CombatAnimationStatus.Normal_Kick, (int)CombatAnimationStatus.Fireball + 1);
+				CombatAnimationStatus randAnim = (CombatAnimationStatus)UnityEngine.Random.Range((int)CombatAnimationStatus.Normal_Kick_01, (int)CombatAnimationStatus.Fireball + 1);
 
 				CombatActionCoroutine(randAnim);
 			}
@@ -52,8 +53,9 @@ public class CombatController : MonoBehaviour
 	{
 		CombatAnimationStatus[] randAnimArr = new CombatAnimationStatus[]
 		{
-			CombatAnimationStatus.Normal_Kick, CombatAnimationStatus.Self_Heal,
-			CombatAnimationStatus.Magic_Missile, CombatAnimationStatus.Fireball
+			CombatAnimationStatus.Normal_Kick_01, CombatAnimationStatus.Self_Heal,
+			CombatAnimationStatus.Magic_Missile, CombatAnimationStatus.Fireball,
+			CombatAnimationStatus.Normal_Kick_02, CombatAnimationStatus.Magic_Bomb
 		};
 
 		CombatAnimationStatus randAnim = randAnimArr[UnityEngine.Random.Range(0, randAnimArr.Length)];
@@ -103,7 +105,7 @@ public class CombatController : MonoBehaviour
 		bool isHit = calculator.IsHit(currentCharacter.CharacterStat.GetAccuracy());
 
 		// Get action value
-		int actionValue = calculator.GetValue(_status, out bool isTargetingOpponent);
+		int actionValue = calculator.GetValue(_status, out bool isTargetingOpponent, out bool isHeal);
 
 		// Get Random Opponent from opposite party
 		RPGCharacter opponent = RPGPartyManager.GetRandomOpponent(currentCharacter.CharacterParty);
@@ -120,7 +122,7 @@ public class CombatController : MonoBehaviour
 				CombatUIManager.UpdateCharacterStatusUI(opponent);
 
 				// Manual Combat Log here
-				CombatUIManager.AddCombatLog(GameInfo.CombatLogType.Damage_Target, currentCharacter.Name, _status.ToString(), actionValue, opponent.Name);
+				CombatUIManager.AddCombatLog(CombatLogType.Damage_Target, currentCharacter.Name, _status.ToString(), actionValue, opponent.Name);
 
 				// Target Character Animation Process
 				yield return CombatAnimationManager.AnimateProcess(opponent.Character.Anim, isEmpty ? CombatAnimationStatus.Fainted : CombatAnimationStatus.Damaged, () =>
@@ -130,6 +132,12 @@ public class CombatController : MonoBehaviour
 					// When either one is fainted
 					if (isEmpty)
 					{
+						// Opponent fainted log
+						CombatUIManager.AddCombatLog(CombatLogType.Fainted, opponent.Name);
+
+						// Current win
+						CombatUIManager.AddCombatLog(CombatLogType.Winning, currentCharacter.Name);
+
 						// End the game
 						GameplayController.EndGame();
 					}
@@ -144,14 +152,14 @@ public class CombatController : MonoBehaviour
 				CombatUIManager.UpdateCharacterStatusUI(currentCharacter);
 
 				// Manual Combat Log here
-				CombatUIManager.AddCombatLog(GameInfo.CombatLogType.Heal_Self, currentCharacter.Name, _status.ToString(), actionValue);
+				CombatUIManager.AddCombatLog(CombatLogType.Heal_Self, currentCharacter.Name, _status.ToString(), actionValue);
 			}
 		}
 		// When missed
 		else
 		{
 			// Manual Combat Log here
-			CombatUIManager.AddCombatLog(GameInfo.CombatLogType.Missed, currentCharacter.Name, _status.ToString());
+			CombatUIManager.AddCombatLog(CombatLogType.Missed, currentCharacter.Name, _status.ToString());
 
 			// Target Character Animation Process
 			if (isTargetingOpponent)

@@ -15,6 +15,9 @@ namespace GameInfo
 		Heal_Self,
 
 		Missed,
+
+		Fainted,
+		Winning
 	}
 
 	public enum CombatLogKeywordType

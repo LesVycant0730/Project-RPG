@@ -24,6 +24,12 @@ MonoBehaviour:
     description: Cast a weak single-target magic projectile that deal small damage.
   - type: 14
     description: Cast a self-targeted mild healing magic to replenish small health.
+  - type: 18
+    description: A single-target heavy kick.
+  - type: 19
+    description: Cast a single-target magic projectile that deal heavy damage.
+  - type: 20
+    description: Desperate dance.
   combatLogKeys:
   - key: 0
     color: 6
@@ -43,6 +49,9 @@ MonoBehaviour:
   - key: 5
     color: 5
     word: '[IsFailed]'
+  - key: 5
+    color: 5
+    word: '[IsFailed]'
   combatLogs:
   - type: 0
     keywords: 00000000020000000300000001000000
@@ -56,3 +65,9 @@ MonoBehaviour:
   - type: 4
     keywords: 0000000002000000
     description: '[Player01] missed his [ActionName].'
+  - type: 5
+    keywords: 01000000
+    description: '[Target01] has fainted.'
+  - type: 6
+    keywords: 00000000
+    description: '[Player01] win the battle.'
