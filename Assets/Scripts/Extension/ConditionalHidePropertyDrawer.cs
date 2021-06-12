@@ -5,6 +5,7 @@ using System.Collections.Generic;
 //Original version of the ConditionalHideAttribute created by Brecht Lecluyse (www.brechtos.com)
 //Modified by: -
 
+#if UNITY_EDITOR
 [CustomPropertyDrawer(typeof(ConditionalHideAttribute))]
 public class ConditionalHidePropertyDrawer : PropertyDrawer
 {
@@ -195,3 +196,4 @@ public class ConditionalHidePropertyDrawer : PropertyDrawer
         }
     }
 }
+#endif

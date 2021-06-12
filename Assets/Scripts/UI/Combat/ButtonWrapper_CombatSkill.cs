@@ -37,7 +37,7 @@ public class ButtonWrapper_CombatSkill : ButtonWrapper_CombatBase
 	}
 	#endregion
 
-	protected override void OnValidate()
+	protected void OnValidate()
 	{
 		if (textButton == null)
 		{

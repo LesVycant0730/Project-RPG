@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace RoboRyanTron.SearchableEnum.Editor
 {
+#if UNITY_EDITOR
     /// <summary>
     /// A popup window that displays a list of options and may use a search
     /// string to filter the displayed content. 
@@ -358,4 +359,5 @@ namespace RoboRyanTron.SearchableEnum.Editor
         }
         #endregion -- GUI -----------------------------------------------------
     }
+#endif
 }

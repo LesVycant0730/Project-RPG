@@ -70,4 +70,7 @@ MonoBehaviour:
     description: '[Target01] has fainted.'
   - type: 6
     keywords: 00000000
+    description: '[Player01] jinxed himself and lost the battle.'
+  - type: 7
+    keywords: 00000000
     description: '[Player01] win the battle.'

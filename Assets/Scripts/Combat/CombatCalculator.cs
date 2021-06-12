@@ -22,14 +22,13 @@ public class CombatCalculator : MonoBehaviour
 	[SerializeField, Range(0, 999)] private int maxFireSpellDamage = 200;
 	[SerializeField, Range(0, 999)] private int maxHealSpellValue = 200;
 
-	public int GetValue(CombatAnimationStatus _status, out bool _isTargetingOpponent, out bool isHeal)
+	public int GetValue(CombatAnimationStatus _status, out bool _isTargetingOpponent)
 	{
 		_isTargetingOpponent = _status != CombatAnimationStatus.Self_Heal;
-		isHeal = _status == CombatAnimationStatus.Self_Heal;
 
 		switch (_status)
 		{
-			case CombatAnimationStatus.Normal_Kick_01:
+			case CombatAnimationStatus.Normal_Kick:
 				return maxNormalAttackDamage;
 			case CombatAnimationStatus.Magic_Missile:
 				return maxNormalSpellDamage;
@@ -37,12 +36,11 @@ public class CombatCalculator : MonoBehaviour
 				return maxFireSpellDamage;
 			case CombatAnimationStatus.Self_Heal:
 				return maxHealSpellValue;
-			case CombatAnimationStatus.Normal_Kick_02:
+			case CombatAnimationStatus.Heavy_Kick:
 				return maxHeavyAttackDamage;
 			case CombatAnimationStatus.Magic_Bomb:
 				return maxHeavySpellDamage;
 			case CombatAnimationStatus.Dance:
-				_isTargetingOpponent = Random.Range(0, 2) == 1;
 				return 9999;
 			default:
 				break;

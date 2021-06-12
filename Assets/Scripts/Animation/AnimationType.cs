@@ -27,11 +27,11 @@ namespace AnimationTypes
 		Damaged, Healed, Fainted, Dodged,
 
 		// Demo
-		Self_Heal, Normal_Kick_01, Magic_Missile,
+		Self_Heal, Normal_Kick, Magic_Missile,
 		Fireball,
 
 		// Demo 2
-		Normal_Kick_02, Magic_Bomb,
+		Heavy_Kick, Magic_Bomb,
 
 		// Extra
 		Dance

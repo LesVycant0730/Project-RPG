@@ -219,6 +219,7 @@ public class RPGPartyManager : GameplayBaseManager
 		}
 	}
 
+#if UNITY_EDITOR
 	public void DefaultPartySOStats(bool _useCache)
 	{
 		Array.ForEach(rpgParty, party => 
@@ -228,4 +229,5 @@ public class RPGPartyManager : GameplayBaseManager
 
 		UnityEditor.EditorUtility.SetDirty(this);
 	}
+#endif
 }

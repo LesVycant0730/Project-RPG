@@ -17,6 +17,7 @@ namespace GameInfo
 		Missed,
 
 		Fainted,
+		Jinxed,
 		Winning
 	}
 

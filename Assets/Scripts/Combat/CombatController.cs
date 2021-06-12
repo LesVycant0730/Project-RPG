@@ -41,7 +41,7 @@ public class CombatController : MonoBehaviour
 			// If Enemy, combat action will automated
 			else
 			{
-				CombatAnimationStatus randAnim = (CombatAnimationStatus)UnityEngine.Random.Range((int)CombatAnimationStatus.Normal_Kick_01, (int)CombatAnimationStatus.Fireball + 1);
+				CombatAnimationStatus randAnim = (CombatAnimationStatus)UnityEngine.Random.Range((int)CombatAnimationStatus.Normal_Kick, (int)CombatAnimationStatus.Fireball + 1);
 
 				CombatActionCoroutine(randAnim);
 			}
@@ -53,9 +53,9 @@ public class CombatController : MonoBehaviour
 	{
 		CombatAnimationStatus[] randAnimArr = new CombatAnimationStatus[]
 		{
-			CombatAnimationStatus.Normal_Kick_01, CombatAnimationStatus.Self_Heal,
+			CombatAnimationStatus.Normal_Kick, CombatAnimationStatus.Self_Heal,
 			CombatAnimationStatus.Magic_Missile, CombatAnimationStatus.Fireball,
-			CombatAnimationStatus.Normal_Kick_02, CombatAnimationStatus.Magic_Bomb
+			CombatAnimationStatus.Heavy_Kick, CombatAnimationStatus.Magic_Bomb
 		};
 
 		CombatAnimationStatus randAnim = randAnimArr[UnityEngine.Random.Range(0, randAnimArr.Length)];
@@ -105,10 +105,11 @@ public class CombatController : MonoBehaviour
 		bool isHit = calculator.IsHit(currentCharacter.CharacterStat.GetAccuracy());
 
 		// Get action value
-		int actionValue = calculator.GetValue(_status, out bool isTargetingOpponent, out bool isHeal);
+		int actionValue = calculator.GetValue(_status, out bool isTargetingOpponent);
 
-		// Get Random Opponent from opposite party
-		RPGCharacter opponent = RPGPartyManager.GetRandomOpponent(currentCharacter.CharacterParty);
+		// Get Random Opponent from opposite party or
+		// Random on either Player or Opponent side if it's dance
+		RPGCharacter opponent = (_status == CombatAnimationStatus.Dance && UnityEngine.Random.Range(0, 2) == 1) ? currentCharacter : RPGPartyManager.GetRandomOpponent(currentCharacter.CharacterParty);
 
 		// When hit
 		if (isHit)
@@ -132,11 +133,19 @@ public class CombatController : MonoBehaviour
 					// When either one is fainted
 					if (isEmpty)
 					{
-						// Opponent fainted log
-						CombatUIManager.AddCombatLog(CombatLogType.Fainted, opponent.Name);
+						if (opponent != currentCharacter)
+						{
+							// Opponent fainted log
+							CombatUIManager.AddCombatLog(CombatLogType.Fainted, opponent.Name);
 
-						// Current win
-						CombatUIManager.AddCombatLog(CombatLogType.Winning, currentCharacter.Name);
+							// Current win
+							CombatUIManager.AddCombatLog(CombatLogType.Winning, currentCharacter.Name);
+						}
+						else
+						{
+							// Jinxed log
+							CombatUIManager.AddCombatLog(CombatLogType.Jinxed, currentCharacter.Name);
+						}
 
 						// End the game
 						GameplayController.EndGame();

@@ -7,6 +7,8 @@ using System;
 using UnityEditor;
 using UnityEngine;
 
+
+
 namespace RoboRyanTron.SearchableEnum
 {
     /// <summary>
@@ -20,6 +22,7 @@ namespace RoboRyanTron.SearchableEnum
 
 namespace RoboRyanTron.SearchableEnum.Editor
 {
+#if UNITY_EDITOR
     /// <summary>
     /// Draws the custom enum selector popup for enum fileds using the
     /// SearchableEnumAttribute.
@@ -114,4 +117,5 @@ namespace RoboRyanTron.SearchableEnum.Editor
             return false;
         }
     }
+#endif
 }
