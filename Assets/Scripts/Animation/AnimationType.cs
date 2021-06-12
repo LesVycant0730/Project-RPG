@@ -24,7 +24,11 @@ namespace AnimationTypes
 		Action_Failed, 
 		
 		// Feedback
-		Damaged, Healed, Fainted
+		Damaged, Healed, Fainted, Dodged,
+
+		// Demo
+		Self_Heal, Normal_Kick, Magic_Missile,
+		Fireball
 	}
 }
 

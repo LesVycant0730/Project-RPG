@@ -105,6 +105,7 @@ public class CombatUICanvas : MonoBehaviour
         demoActionButtons[0].interactable = true;
         demoActionButtons[1].interactable = false;
         demoActionButtons[2].interactable = false;
+        textCombatTurn.gameObject.SetActive(false);
     }
 
     public void ToggleUIHolder(Combat_Action _actionType, bool _enabled, out bool CanToggle)

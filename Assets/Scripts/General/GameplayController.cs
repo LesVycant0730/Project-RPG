@@ -3,7 +3,7 @@ using System;
 
 public class GameplayController : MonoBehaviour
 {
-	private bool isInitialized;
+	private static bool isInitialized;
 
 	public static event Action OnManagerInit;
 	public static event Action OnManagerRun;
@@ -25,5 +25,11 @@ public class GameplayController : MonoBehaviour
 		{
 			OnManagerExit?.Invoke();
 		}
+	}
+
+	public static void EndGame()
+	{
+		isInitialized = false;
+		OnManagerExit?.Invoke();
 	}
 }

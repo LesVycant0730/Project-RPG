@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: Dummy
   characterID: 1
-  health: 9999
+  health: 1500
   stamina: 9999
   damagePhysical: 1
   damageMagical: 1

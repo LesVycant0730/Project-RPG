@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 16074083}
   - component: {fileID: 16074082}
   m_Layer: 5
-  m_Name: Button_DemoSpell
+  m_Name: Button_DemoMagicMissile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -203,7 +203,7 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 16074083}
-  _status: 8
+  _status: 16
 --- !u!114 &16074083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -670,7 +670,7 @@ GameObject:
   - component: {fileID: 329397123}
   - component: {fileID: 329397122}
   m_Layer: 5
-  m_Name: Button_DemoSpellAttack
+  m_Name: Button_DemoFireball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -737,7 +737,7 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 329397123}
-  _status: 7
+  _status: 17
 --- !u!114 &329397123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -937,8 +937,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cde50c5119fc59848b1be6596811d23e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHolders: []
-  enemyHolders: []
+  playerHolders:
+  - {fileID: 387276791}
+  enemyHolders:
+  - {fileID: 488205943}
 --- !u!1 &426307382
 GameObject:
   m_ObjectHideFlags: 0
@@ -1514,7 +1516,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 5}
-  m_SizeDelta: {x: 525, y: 0}
+  m_SizeDelta: {x: 405, y: 0}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &707874137
 MonoBehaviour:
@@ -1530,7 +1532,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1548,7 +1550,7 @@ MonoBehaviour:
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 1
+    m_LineSpacing: 1.2
   m_Text: 
 --- !u!222 &707874138
 CanvasRenderer:
@@ -3008,7 +3010,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 70}
-  m_SizeDelta: {x: 540, y: 430}
+  m_SizeDelta: {x: 420, y: 430}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &998505130
 MonoBehaviour:
@@ -3074,7 +3076,7 @@ GameObject:
   - component: {fileID: 1024356042}
   - component: {fileID: 1024356041}
   m_Layer: 5
-  m_Name: Button_DemoSpellHeal
+  m_Name: Button_DemoHeal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3141,7 +3143,7 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 1024356042}
-  _status: 11
+  _status: 14
 --- !u!114 &1024356042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5817,7 +5819,7 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 2123146069}
-  _status: 6
+  _status: 15
 --- !u!114 &2123146069
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -26,13 +26,13 @@ public class CombatCalculator : MonoBehaviour
 
 		switch (_status)
 		{
-			case CombatAnimationStatus.Normal_Attack:
+			case CombatAnimationStatus.Normal_Kick:
 				return maxNormalAttackDamage;
-			case CombatAnimationStatus.Spell_Ally:
+			case CombatAnimationStatus.Magic_Missile:
 				return maxNormalSpellDamage;
-			case CombatAnimationStatus.Spell_Attack:
+			case CombatAnimationStatus.Fireball:
 				return maxFireSpellDamage;
-			case CombatAnimationStatus.Healed:
+			case CombatAnimationStatus.Self_Heal:
 				return maxHealSpellValue;
 			default:
 				break;

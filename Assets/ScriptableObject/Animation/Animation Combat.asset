@@ -41,3 +41,13 @@ MonoBehaviour:
     animClip: Cast_Heal_01
   - status: 12
     animClip: React_Fainted_01
+  - status: 13
+    animClip: React_Dodged_01
+  - status: 14
+    animClip: Cast_Heal_01
+  - status: 15
+    animClip: Normal_Attack_01
+  - status: 16
+    animClip: Cast_Spell_01
+  - status: 17
+    animClip: Cast_Fire_01
