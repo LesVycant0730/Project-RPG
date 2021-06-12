@@ -24,3 +24,35 @@ MonoBehaviour:
     description: Cast a weak single-target magic projectile that deal small damage.
   - type: 11
     description: Cast a self-targeted mild healing magic to replenish small health.
+  combatLogKeys:
+  - key: 0
+    color: 6
+    word: '[Player01]'
+  - key: 1
+    color: 5
+    word: '[Target01]'
+  - key: 2
+    color: 3
+    word: '[ActionName]'
+  - key: 3
+    color: 2
+    word: '[ActionValue]'
+  - key: 4
+    color: 2
+    word: '[IsSuccess]'
+  - key: 5
+    color: 5
+    word: '[IsFailed]'
+  combatLogs:
+  - type: 0
+    keywordTypeOrder: 00000000000000000100000000000000
+    description: '[Player01] used [ActionName] and deal [ActionValue] to [Target01].'
+  - type: 1
+    keywordTypeOrder: 000000000000000001000000
+    description: '[Player01] used [ActionName] and deal [ActionValue] to self.'
+  - type: 3
+    keywordTypeOrder: 000000000000000001000000
+    description: '[Player01] used [ActionName] and heal [ActiuonValue] HP to self.'
+  - type: 4
+    keywordTypeOrder: 0000000000000000
+    description: '[Player01] missed his [ActionName].'

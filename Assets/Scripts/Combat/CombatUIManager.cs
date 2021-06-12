@@ -104,11 +104,20 @@ public class CombatUIManager : GameplayBaseManager
 		}
 	}
 
+	public static void AddCombatLog(GameInfo.CombatLogType _type, params object[] _param)
+	{
+		if (instance)
+		{
+			instance.canvas.UpdateCombatLogBox(DescriptionInfoLibrary.GetCombatLog(_type, _param));
+		}
+	}
+
 	public static void OnCombatActionRegistered()
 	{
 		if (instance)
 		{
 			instance.canvas.DisableActionButtons();
+			instance.canvas.ClearDescriptionBox();
 		}
 	}
 

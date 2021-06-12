@@ -55,6 +55,13 @@ public class CombatUICanvas : MonoBehaviour
 	private StringBuilder descriptionBuilder = new StringBuilder();
     #endregion
 
+    #region Combat Log Holder
+    [Header("Combat Log")]
+    [SerializeField, Range(1000, 6000)] private int maxCombatLogCharacters = 2000;
+    [SerializeField] private Text combatLog;
+	private StringBuilder combatLogBuilder = new StringBuilder();
+    #endregion
+
     #region Character Status
     [Header ("Character Status")]
     [SerializeField] private PlayerStatusUI[] playerStatusUI;
@@ -139,7 +146,7 @@ public class CombatUICanvas : MonoBehaviour
 
     public void UpdateDescriptionBox(string _description = "")
 	{
-        if (_description == string.Empty)
+        if (string.IsNullOrEmpty(_description))
 		{
             textDescription.text = string.Empty;
 		}
@@ -156,6 +163,46 @@ public class CombatUICanvas : MonoBehaviour
             textDescription.text = descriptionBuilder.ToString();
         }
 	}
+
+    public void UpdateCombatLogBox(string _log = "")
+    {
+        if (string.IsNullOrEmpty(_log))
+        {
+            return;
+        }
+        else
+        {
+            if (combatLogBuilder == null)
+            {
+                combatLogBuilder = new StringBuilder();
+            }
+
+            if (combatLogBuilder.Length + _log.Length > maxCombatLogCharacters)
+			{
+                for (int i = 0; i < combatLogBuilder.Length; i++)
+                {
+                    if (combatLogBuilder.Length + _log.Length <= maxCombatLogCharacters)
+					{
+                        break;
+					}
+                    else
+					{
+                        char ch = combatLogBuilder[i];
+
+                        if (ch == '\n')
+                        {
+                            print("Remove");
+                            combatLogBuilder.Remove(0, i);
+                        }
+                    }
+				}
+			}
+
+            combatLogBuilder.Append(_log.Replace("_", " "));
+
+            combatLog.text = combatLogBuilder.ToString();
+        }
+    }
 
     public void ClearDescriptionBox()
 	{

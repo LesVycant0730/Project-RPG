@@ -123,19 +123,28 @@ public class CombatController : MonoBehaviour
 				yield return CombatAnimationManager.AnimateProcess(opponent.Character.Anim, isEmpty ? CombatAnimationStatus.Fainted : CombatAnimationStatus.Damaged, () =>
 				{
 					// Add action feedback here
-					// Add combat log here
+
+					// Manual Combat Log here
+					CombatUIManager.AddCombatLog(GameInfo.CombatLogType.Damage_Target, currentCharacter.Name, _status.ToString(), actionValue, opponent.Name);
 				});
 			}
 			else
 			{
 				// Add healing value to current character health
 				currentCharacter.CharacterStatInfo.AddHealth(actionValue);
+
+				// Update UI for the opponent
+				CombatUIManager.UpdateCharacterStatusUI(currentCharacter);
+
+				// Manual Combat Log here
+				CombatUIManager.AddCombatLog(GameInfo.CombatLogType.Heal_Self, currentCharacter.Name, _status.ToString(), actionValue);
 			}
 		}
 		// When missed
 		else
 		{
-			Debug.Log("Action missed");
+			// Manual Combat Log here
+			CombatUIManager.AddCombatLog(GameInfo.CombatLogType.Missed, currentCharacter.Name, _status.ToString());
 		}
 
 		// End action on this turn

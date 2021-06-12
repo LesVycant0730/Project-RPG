@@ -16,6 +16,6 @@ public class SkillEffect_Heal : SkillEffect
 	public override void Trigger()
 	{
 		int totalHeal = healAmount * totalInstance;
-		Debug.Log("Heal: " + healAmount + " per instance. Total Heal: " + EditorLog.ColorLog(totalHeal, LogColor.Yellow));
+		Debug.Log("Heal: " + healAmount + " per instance. Total Heal: " + LogExtension.ColorLog(totalHeal, LogColor.Yellow));
 	}
 }

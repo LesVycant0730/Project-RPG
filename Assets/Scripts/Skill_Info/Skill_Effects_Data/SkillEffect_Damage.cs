@@ -17,7 +17,7 @@ public class SkillEffect_Damage : SkillEffect
 	{
 		bool[] instances = GetAllInstanceSuccessChance(out int successHit);
 
-		Debug.Log("Max Damage per Instance: " + EditorLog.ColorLog(damageAmount, LogColor.Red) + ". Max Possible Damage: " + EditorLog.ColorLog(damageAmount * instances.Length, LogColor.Red));
-		Debug.Log("Total Successful Damage Dealt: " + EditorLog.ColorLog(damageAmount * successHit, LogColor.Red) + ". Total Missed Hit: " + EditorLog.ColorLog(instances.Length - successHit, LogColor.Red));
+		Debug.Log("Max Damage per Instance: " + LogExtension.ColorLog(damageAmount, LogColor.Red) + ". Max Possible Damage: " + LogExtension.ColorLog(damageAmount * instances.Length, LogColor.Red));
+		Debug.Log("Total Successful Damage Dealt: " + LogExtension.ColorLog(damageAmount * successHit, LogColor.Red) + ". Total Missed Hit: " + LogExtension.ColorLog(instances.Length - successHit, LogColor.Red));
 	}
 }

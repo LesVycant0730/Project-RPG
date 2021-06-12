@@ -1489,6 +1489,7 @@ GameObject:
   - component: {fileID: 707874136}
   - component: {fileID: 707874138}
   - component: {fileID: 707874137}
+  - component: {fileID: 707874139}
   m_Layer: 5
   m_Name: Text_BattleLog
   m_TagString: Untagged
@@ -1510,11 +1511,11 @@ RectTransform:
   m_Father: {fileID: 998505129}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 500, y: 200}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 5}
+  m_SizeDelta: {x: 525, y: 0}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &707874137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1537,7 +1538,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 24
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -1548,8 +1549,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: <color=red> Enemy </color> dealt <color=cyan> Player </color> around 86
-    damage.
+  m_Text: 
 --- !u!222 &707874138
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1558,6 +1558,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 707874135}
   m_CullTransparentMesh: 0
+--- !u!114 &707874139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 707874135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 0
+  m_VerticalFit: 2
 --- !u!1 &707933430
 GameObject:
   m_ObjectHideFlags: 0
@@ -2592,7 +2606,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: This is description box.
+  m_Text: 
 --- !u!222 &925230671
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2994,7 +3008,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 70}
-  m_SizeDelta: {x: 540, y: 240}
+  m_SizeDelta: {x: 540, y: 430}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &998505130
 MonoBehaviour:
@@ -3005,11 +3019,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 998505128}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalFit: 0
-  m_VerticalFit: 0
+  m_ShowMaskGraphic: 1
 --- !u!114 &998505131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4493,6 +4506,8 @@ MonoBehaviour:
     holder: {fileID: 0}
   activeHolders: []
   textDescription: {fileID: 925230670}
+  maxCombatLogCharacters: 2500
+  combatLog: {fileID: 707874137}
   playerStatusUI:
   - {fileID: 750302985}
   enemyStatusUI:
@@ -4855,7 +4870,6 @@ GameObject:
   - component: {fileID: 1746578074}
   - component: {fileID: 1746578077}
   - component: {fileID: 1746578076}
-  - component: {fileID: 1746578075}
   m_Layer: 5
   m_Name: TextHolder_Description
   m_TagString: Untagged
@@ -4883,20 +4897,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1400, y: 70}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1746578075
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1746578073}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HorizontalFit: 0
-  m_VerticalFit: 0
 --- !u!114 &1746578076
 MonoBehaviour:
   m_ObjectHideFlags: 0

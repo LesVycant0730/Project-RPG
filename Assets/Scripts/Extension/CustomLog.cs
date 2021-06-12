@@ -11,6 +11,7 @@ namespace TextExtension
         Yellow,
         Blue,
         Red,
+        Cyan
     }
 
     public static class TextModifier
@@ -39,7 +40,7 @@ namespace TextExtension
         }
     }
 
-    public static class EditorLog
+    public static class LogExtension
     {
         private static string ConvertColor(LogColor _color)
 		{
