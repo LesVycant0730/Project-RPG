@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class RPGPartyManager : GameplayBaseManager
 {
@@ -54,6 +55,25 @@ public class RPGPartyManager : GameplayBaseManager
 		}
 
 		return character;
+	}
+
+	private RPGCharacter GetRandomCharacter()
+	{
+		List<RPGCharacter> characterList = new List<RPGCharacter>
+		{
+			// Random character from ally party
+			GetParty(RPG_Party.Ally).GetAnyCharacter(),
+
+			// Random character from enemy party
+			GetParty(RPG_Party.Enemy).GetAnyCharacter()
+		};
+
+		// Remove current character from the list to prevent repeated turn
+		characterList.Remove(CurrentRPGCharacter);
+
+		System.Random rand = new System.Random();
+
+		return characterList[rand.Next(characterList.Count)];
 	}
 
 	public static RPGCharacter GetRandomOpponent(RPG_Party _party)
@@ -151,14 +171,15 @@ public class RPGPartyManager : GameplayBaseManager
 	private async void UpdateCharacterTurn()
 	{
 		// First character will always be the fastest character
-		CurrentRPGCharacter = GetFastestCharacter();
+		//CurrentRPGCharacter = GetFastestCharacter();
+
+		// Demo will use random characters
+		CurrentRPGCharacter = GetRandomCharacter();
 
 		if (CurrentRPGCharacter != null)
 		{
 			CurrentCombatCharacter = await CombatCharacterManager.GetCharacter(CurrentRPGCharacter);
 		}
-
-		CustomLog.Log($"Fastest Character Update: {CurrentRPGCharacter.CharacterStat.GetName()}");
 	}
 
 	private void UnloadParty()

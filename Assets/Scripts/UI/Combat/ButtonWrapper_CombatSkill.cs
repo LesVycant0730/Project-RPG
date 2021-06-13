@@ -37,13 +37,15 @@ public class ButtonWrapper_CombatSkill : ButtonWrapper_CombatBase
 	}
 	#endregion
 
-	protected void OnValidate()
+#if UNITY_EDITOR
+	protected override void OnValidate()
 	{
 		if (textButton == null)
 		{
 			textButton = GetComponentInChildren<Text>();
 		}
 	}
+#endif
 
 	protected override void Start()
 	{

@@ -184,9 +184,7 @@ public class CombatUICanvas : MonoBehaviour
         else
         {
             if (combatLogBuilder == null)
-            {
                 combatLogBuilder = new StringBuilder();
-            }
 
             if (combatLogBuilder.Length + _log.Length > maxCombatLogCharacters)
 			{
@@ -212,6 +210,16 @@ public class CombatUICanvas : MonoBehaviour
 
             combatLog.text = combatLogBuilder.ToString();
         }
+    }
+
+    public void ClearCombatLog()
+	{
+        if (combatLogBuilder == null)
+            combatLogBuilder = new StringBuilder();
+        else
+            combatLogBuilder.Clear();
+
+        combatLog.text = string.Empty;
     }
 
     public void ClearDescriptionBox()

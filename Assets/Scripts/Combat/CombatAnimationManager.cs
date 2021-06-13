@@ -13,6 +13,8 @@ public sealed class CombatAnimationManager : GameplayBaseManager
 
 	[SerializeField] private List<Animator> animList = new List<Animator>();
 
+	[SerializeField] private float currentAnimSpeed = 1.0f;
+
 	#region Start/End
 	protected override void Init()
 	{
@@ -53,6 +55,8 @@ public sealed class CombatAnimationManager : GameplayBaseManager
 	{
 		if (instance)
 		{
+			_anim.speed = instance.currentAnimSpeed;
+
 			if (!instance.animList.Contains(_anim))
 			{
 				instance.animList.Add(_anim);
@@ -118,6 +122,7 @@ public sealed class CombatAnimationManager : GameplayBaseManager
 	// Used in slider UI
 	public void OnSliderValueChanged(float value)
 	{
+		currentAnimSpeed = value;
 		animList.ForEach(x => x.speed = value);
 	}
 	#endregion
