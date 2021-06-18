@@ -104,7 +104,7 @@ public class CharacterPrefabDirectorySO : PrefabDirectorySO
 		{
             GameObject go = await AddressablesUtility.LoadAsset(characterAsset.AssetRef, _pos, _rot, null, (handle) =>
             {
-                Debug.Log($"Instantiated game object: {_id}");
+                CustomLog.Log($"Instantiated game object: {_id}");
             });
 
             return new Character(_id, _party, go);

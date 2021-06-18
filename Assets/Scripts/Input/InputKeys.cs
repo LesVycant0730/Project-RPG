@@ -1,10 +1,10 @@
-﻿using UnityEngine;
+﻿using UnityEngine.InputSystem;
 
 namespace RPG_Input
 {
     public enum InputType
 	{
-        Accept,
+        Enter,
         Back,
         Inspect,
         None
@@ -13,21 +13,21 @@ namespace RPG_Input
     public static class InputKeys
     {
         // Accept/Proceed Key
-        private static readonly KeyCode AcceptKey = KeyCode.Return;
-        private static readonly KeyCode AcceptKey2 = KeyCode.Space;
-        private static readonly KeyCode AcceptKey3 = KeyCode.F;
+        private static readonly Key AcceptKey = Key.Enter;
+        private static readonly Key AcceptKey2 = Key.Space;
+        private static readonly Key AcceptKey3 = Key.F;
 
         // Reject/Back Key
-        private static readonly KeyCode Back = KeyCode.Escape;
+        private static readonly Key Back = Key.Escape;
 
         // Inspect Key
-        private static readonly KeyCode Inspect = KeyCode.E;
+        private static readonly Key Inspect = Key.E;
 
         public static bool InputUpdate(out InputType _type)
 		{
             if (GetAcceptKey())
 			{
-                _type = InputType.Accept;
+                _type = InputType.Enter;
 			}
             else if (GetBackKey())
 			{
@@ -48,17 +48,20 @@ namespace RPG_Input
 
         public static bool GetAcceptKey()
 		{
-            return Input.GetKeyDown(AcceptKey) || Input.GetKeyDown(AcceptKey2) || Input.GetKeyDown(AcceptKey3);
+            return false;
+            //return Input.GetKeyDown(AcceptKey) || Input.GetKeyDown(AcceptKey2) || Input.GetKeyDown(AcceptKey3);
 		}
 
         public static bool GetBackKey()
 		{
-            return Input.GetKeyDown(Back);
+            return false;
+           // return Input.GetKeyDown(Back);
 		}
 
         public static bool GetInspectKey()
 		{
-            return Input.GetKeyDown(Inspect);
+            return false;
+            //return Input.GetKeyDown(Inspect);
 		}
     }
 }

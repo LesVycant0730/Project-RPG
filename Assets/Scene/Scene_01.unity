@@ -415,16 +415,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 120875981}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_ActionsAsset: {fileID: -944628639613478452, guid: 571a7cf5fdf373b498577a2b49beca79, type: 3}
+  m_PointAction: {fileID: -914840862810097001, guid: 571a7cf5fdf373b498577a2b49beca79, type: 3}
+  m_MoveAction: {fileID: -8268090633943836059, guid: 571a7cf5fdf373b498577a2b49beca79, type: 3}
+  m_SubmitAction: {fileID: -5703838977575032575, guid: 571a7cf5fdf373b498577a2b49beca79, type: 3}
+  m_CancelAction: {fileID: 6089555076065246344, guid: 571a7cf5fdf373b498577a2b49beca79, type: 3}
+  m_LeftClickAction: {fileID: 2776305977677418146, guid: 571a7cf5fdf373b498577a2b49beca79, type: 3}
+  m_MiddleClickAction: {fileID: 3875161238565167147, guid: 571a7cf5fdf373b498577a2b49beca79, type: 3}
+  m_RightClickAction: {fileID: -3597131201663021980, guid: 571a7cf5fdf373b498577a2b49beca79, type: 3}
+  m_ScrollWheelAction: {fileID: 7744148945597322283, guid: 571a7cf5fdf373b498577a2b49beca79, type: 3}
+  m_TrackedDevicePositionAction: {fileID: -5560078179250510648, guid: 571a7cf5fdf373b498577a2b49beca79, type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: 3264219735673160598, guid: 571a7cf5fdf373b498577a2b49beca79, type: 3}
+  m_DeselectOnBackgroundClick: 1
+  m_PointerBehavior: 0
 --- !u!114 &120875983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3002,7 +3010,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: dde9d8cff659fd649849c67b772ca7e5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

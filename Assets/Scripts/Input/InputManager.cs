@@ -6,7 +6,9 @@ namespace RPG_Input
     {
 		public static InputManager Instance { get; private set; }
 
-		private InputType _input;
+        private Input_01 input; 
+
+		[SerializeField] private InputType current;
 
         // Start is called before the first frame update
         void Awake()
@@ -18,24 +20,39 @@ namespace RPG_Input
             else
 			{
                 Instance = this;
+
+                InitializeInput();
 			}
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-            if (InputKeys.InputUpdate(out _input))
-			{
-                InputAction();
-                print("Input type: " + _input);
-			}
+		private void OnDestroy()
+		{
+            input?.Disable();
+		}
+
+		private void InitializeInput()
+		{
+            input = new Input_01();
+
+            input.Enable();
+
+            // UI Input
+            input.UICustom.EnterNext.performed += (ctx) => { InputAction(InputType.Enter); };
+            input.UICustom.BackPrevious.performed += (ctx) => { InputAction(InputType.Back); };
+
+            // Player Input
+            input.Player.InspectProceed.performed += (ctx) => { InputAction(InputType.Inspect); };
+            input.Player.ExitReject.performed += (ctx) => { InputAction(InputType.Back); };
+
         }
 
-        private void InputAction()
+        private void InputAction(InputType _input)
         {
+            current = _input;
+
             switch (_input)
 			{
-                case InputType.Accept:
+                case InputType.Enter:
                     break;
                 case InputType.Back:
                     ActionManager.Instance.Action_Back();

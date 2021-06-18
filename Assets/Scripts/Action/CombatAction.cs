@@ -40,7 +40,6 @@ public class CombatAction : RPGAction
 
 	public void RunCombatAction(Combat_Action _actionType)
 	{
-		print(_actionType);
 		InvokeActions(_actionType);
 	}
 
