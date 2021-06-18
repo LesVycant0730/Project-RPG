@@ -10,33 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Character
+  m_Name: VFX
   m_EditorClassIdentifier: 
-  m_GroupName: Character
+  m_GroupName: VFX
   m_Data:
     m_SerializedData: []
-  m_GUID: 2f01b5dfd08d7854bb8c1f3da0d80155
+  m_GUID: b20759a30b633794e9c10b9b9a0fde44
   m_SerializeEntries:
-  - m_GUID: 367e467ab8df09b46b9a17433cf8343f
-    m_Address: Kachujin
+  - m_GUID: dd21e6831d86497459801160d3bfff75
+    m_Address: Healing.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
-    - character
-    - ally
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: 3afbb5fb939b2974fadefbd41a531ed0
-    m_Address: Dummy
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - enemy
-    - test
-    - character
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    - vfx
+    m_MainAsset: {fileID: 3245453345716478813, guid: dd21e6831d86497459801160d3bfff75, type: 3}
+    m_TargetAsset: {fileID: 3245453345716478813, guid: dd21e6831d86497459801160d3bfff75, type: 3}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 7b3dc9c4ae71d264d81f1a85a56fe186, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 78ce4c51328eba140b4374f309095ade, type: 2}
-    - {fileID: 11400000, guid: bf21695cdf02d2c498147684a0041868, type: 2}
+    - {fileID: 11400000, guid: 55ab653f5b7d351439c5918878f78ae5, type: 2}
+    - {fileID: 11400000, guid: d14ea85e8c80ad049a90a48cc18104e1, type: 2}

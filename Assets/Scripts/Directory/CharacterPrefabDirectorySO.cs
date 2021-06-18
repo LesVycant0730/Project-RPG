@@ -12,7 +12,7 @@ public class CharacterPrefabDirectorySO : PrefabDirectorySO
 
     public override bool HasDirectory()
     {
-        return charactersDirectory != null && charactersDirectory.Length > 0;
+        return !Utility.IsNullOrEmpty(charactersDirectory);
     }
 
 #if UNITY_EDITOR

@@ -5,27 +5,6 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 [Serializable]
-public class CharacterAssetReference
-{
-    [SerializeField, SearchableEnum] private Character_ID id = Character_ID.NULL;
-    [SerializeField] private AssetReference assetRef;
-
-    public Character_ID ID => id;
-    public AssetReference AssetRef => assetRef;
-
-    public bool IsSameID(Character_ID _id)
-    {
-        return id == _id;
-    }
-
-    public CharacterAssetReference(Character_ID _id = Character_ID.NULL)
-    {
-        id = _id;
-        assetRef = null;
-    }
-}
-
-[Serializable]
 public class Character
 {
     [SerializeField, SearchableEnum] private Character_ID id = Character_ID.NULL;

@@ -2,21 +2,13 @@ using UnityEditor;
 using UnityEngine;
 
 [CustomEditor (typeof(CharacterPrefabDirectorySO))]
-public class SO_CharacterPrefabDirectory_Editor : Editor
+public class SO_CharacterPrefabDirectory_Editor : SO_PrefabDirectory_Editor
 {
 	public override void OnInspectorGUI()
 	{
 		CharacterPrefabDirectorySO so = (CharacterPrefabDirectorySO)target;
 
-		// Warning Zone
-		GUI.color = Color.red;
-
-		GUILayout.Box("WARNING!!! Unless you know what you're doing, PLEASE avoid adding/removing element manually, or changing the Id for the element.\n Use the provided buttons to update the elements.");
-
-		GUI.color = Color.white;
-
-		GUILayout.Space(10);	
-		//
+		base.OnInspectorGUI();
 
 		// Buttons
 		if (GUILayout.Button("Generate Full Character Array"))
@@ -46,7 +38,8 @@ public class SO_CharacterPrefabDirectory_Editor : Editor
 
 		GUILayout.Space(30);
 		
-		base.OnInspectorGUI();
+		// Draw default base inspector from editor
+		DrawDefaultInspector();
 	}
 
 	private bool GetDirectoryGenerateConfirmationDialogue()
