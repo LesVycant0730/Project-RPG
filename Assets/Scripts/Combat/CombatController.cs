@@ -82,12 +82,15 @@ public class CombatController : MonoBehaviour
 		}
 	}
 
-	private void CombatActionCoroutine(CombatAnimationStatus _status)
+	private async void CombatActionCoroutine(CombatAnimationStatus _status)
 	{
 		if (CombatCor != null)
 		{
 			StopCoroutine(CombatCor);
 		}
+
+		// Prepare asset
+		await VFXManager.GetVFX("Healing_01", currentCharacter.Character.Model.transform.position);
 
 		CombatCor = StartCoroutine(CombatSimulation(_status));
 	}

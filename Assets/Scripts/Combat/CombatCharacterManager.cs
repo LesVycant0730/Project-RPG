@@ -7,7 +7,7 @@ public class CombatCharacterManager : GameplayBaseManager
 {
     private static CombatCharacterManager instance;
 
-    [SerializeField] private CharacterPrefabDirectorySO characterDirectorySO;
+    [SerializeField] private CharacterPrefabDirectorySO directory;
 
     [SerializeField] private Character[] _characterArr;
 
@@ -35,7 +35,7 @@ public class CombatCharacterManager : GameplayBaseManager
 	{
         if (instance != null)
 		{
-            return instance.characterDirectorySO.GetCharacter(_id);
+            return instance.directory.GetCharacter(_id);
         }
         else
 		{
@@ -61,7 +61,7 @@ public class CombatCharacterManager : GameplayBaseManager
             }
             else
 			{
-                CharacterAssetReference asset = instance.characterDirectorySO.GetCharacter(_rpgCharacter.CharacterStat.GetID());
+                CharacterAssetReference asset = instance.directory.GetCharacter(_rpgCharacter.CharacterStat.GetID());
 
                 if (asset != null)
                 {
@@ -72,7 +72,7 @@ public class CombatCharacterManager : GameplayBaseManager
                     Vector3 pos = CombatArea.GetPositionAndRotation(party, out Quaternion rot);
 
                     // Load a new character
-                    Character newCharacter = await instance.characterDirectorySO.LoadCharacter(asset.ID, party, pos, rot);
+                    Character newCharacter = await instance.directory.LoadCharacter(asset.ID, party, pos, rot);
 
                     // Update loaded character reference to the array
                     instance.CharacterArr[(int)asset.ID] = newCharacter;  
@@ -92,7 +92,6 @@ public class CombatCharacterManager : GameplayBaseManager
 	{
         base.Init();
         instance = this;
-        print("Init");
     }
 
     protected override void Run()
@@ -103,5 +102,6 @@ public class CombatCharacterManager : GameplayBaseManager
     protected override void Exit()
 	{
 		base.Exit();
+        instance = null;
 	}
 }

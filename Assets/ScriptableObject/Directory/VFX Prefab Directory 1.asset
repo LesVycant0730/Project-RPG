@@ -14,12 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfxDirectory:
   - assetRef:
-      m_AssetGUID: 
+      m_AssetGUID: dd21e6831d86497459801160d3bfff75
       m_SubObjectName: 
-      m_SubObjectType: 
-    id: 
+      m_SubObjectType: UnityEngine.ComputeShader, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+    id: Default
   - assetRef:
-      m_AssetGUID: 
+      m_AssetGUID: dd21e6831d86497459801160d3bfff75
       m_SubObjectName: 
-      m_SubObjectType: 
-    id: 
+      m_SubObjectType: UnityEngine.ComputeShader, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+    id: Healing_01

@@ -18,12 +18,12 @@ MonoBehaviour:
   m_GUID: b20759a30b633794e9c10b9b9a0fde44
   m_SerializeEntries:
   - m_GUID: dd21e6831d86497459801160d3bfff75
-    m_Address: Healing.prefab
+    m_Address: VFX_Healing_01
     m_ReadOnly: 0
     m_SerializedLabels:
     - vfx
-    m_MainAsset: {fileID: 3245453345716478813, guid: dd21e6831d86497459801160d3bfff75, type: 3}
-    m_TargetAsset: {fileID: 3245453345716478813, guid: dd21e6831d86497459801160d3bfff75, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 7b3dc9c4ae71d264d81f1a85a56fe186, type: 2}
   m_SchemaSet:
