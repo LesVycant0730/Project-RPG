@@ -14,6 +14,8 @@ public class VFXManager : MonoBehaviour
 
 	private Dictionary<string, GameObject> loadedDirectory = new Dictionary<string, GameObject>();
 
+	public List<GameObject> go = new List<GameObject>();
+
 	private void Awake()
 	{
         instance = this;
@@ -28,7 +30,7 @@ public class VFXManager : MonoBehaviour
 
 			if (instance.loadedDirectory.TryGetValue(_id, out GameObject vfx))
 			{
-				return vfx;
+				return Instantiate(vfx, _pos, Quaternion.identity);
 			}
 			else
 			{
@@ -36,7 +38,7 @@ public class VFXManager : MonoBehaviour
 
 				instance.loadedDirectory.Add(_id, newVFX);
 
-				return newVFX;
+				return Instantiate(newVFX, _pos, Quaternion.identity);
 			}
 		}
 

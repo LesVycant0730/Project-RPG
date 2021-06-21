@@ -33,7 +33,6 @@ public class VFXPrefabDirectorySO : PrefabDirectorySO
 			GameObject vfx = await AddressablesUtility.LoadAsset<GameObject>(vfxAsset.AssetRef, (handle) =>
 			{
 				CustomLog.Log($"Loaded vfx: {_id}");
-				Instantiate(handle.Result);
 			});
 
 			return vfx;

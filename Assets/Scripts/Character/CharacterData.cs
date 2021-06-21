@@ -11,12 +11,16 @@ public class Character
     [SerializeField, SearchableEnum] private RPG_Party party = RPG_Party.Ally;
     [SerializeField] private GameObject model;
     [SerializeField] private Animator anim;
+    [SerializeField] private Vector3 modelCenter;
     [SerializeField] private bool isUsing = true;
+
+    [SerializeField] private CharacterActionController controller;
 
     public Character_ID ID => id;
     public RPG_Party Party => party;
     public GameObject Model => model;
     public Animator Anim => anim;
+    public Vector3 ModelCenter => modelCenter;
     public bool IsUsing => isUsing;
 
     public Character(Character_ID _id = Character_ID.NULL, RPG_Party _party = RPG_Party.Neutral)
@@ -33,8 +37,17 @@ public class Character
         id = _id;
         party = _party;
         model = _model;
+		isUsing = true;
         anim = _model.GetComponent<Animator>();
-        isUsing = true;
+		modelCenter = _model.GetComponentInChildren<SkinnedMeshRenderer>().rootBone.position;
+
+        controller = _model.GetComponent<CharacterActionController>();
+
+		// Add character action controller
+		if (controller == null)
+            controller = _model.AddComponent<CharacterActionController>();
+
+        controller.Setup(this);
     }
 
     public bool IsSameCharacter(Character_ID _id)
