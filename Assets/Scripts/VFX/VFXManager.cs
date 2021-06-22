@@ -1,10 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using RPG_Data;
-using System;
 using System.Threading.Tasks;
-using UnityEngine.VFX;
+using UnityEngine;
 
 public class VFXManager : MonoBehaviour
 {
@@ -14,7 +10,7 @@ public class VFXManager : MonoBehaviour
 
 	private Dictionary<string, GameObject> loadedDirectory = new Dictionary<string, GameObject>();
 
-	public List<GameObject> go = new List<GameObject>();
+	public List<GameObject> loadedVFXList = new List<GameObject>();
 
 	private void Awake()
 	{
@@ -38,10 +34,24 @@ public class VFXManager : MonoBehaviour
 
 				instance.loadedDirectory.Add(_id, newVFX);
 
+				GameObject go = Instantiate(newVFX, _pos, Quaternion.identity);
+
 				return Instantiate(newVFX, _pos, Quaternion.identity);
 			}
 		}
 
 		return null;
+	}
+
+	public static void AddVFX(GameObject _vfx)
+	{
+		if (instance != null && !instance.loadedVFXList.Contains(_vfx))
+			instance.loadedVFXList.Add(_vfx);
+	}
+
+	public static void RemoveVFX(GameObject _vfx)
+	{
+		if (instance != null)
+			instance.loadedVFXList.Remove(_vfx);
 	}
 }

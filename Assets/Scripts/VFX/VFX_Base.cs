@@ -9,15 +9,25 @@ public class VFX_Base : MonoBehaviour
 
     protected virtual void Awake()
     {
-        //vfx = GetComponent<VisualEffect>();
+        vfx = GetComponent<VisualEffect>();
     }
+
+    protected virtual void OnEnable()
+	{
+        VFXManager.AddVFX(gameObject);
+	}
+
+    protected virtual void OnDisable()
+	{
+        //VFXManager.addvfx
+	}
 
     void Update()
     {
         // Kill
-        if (vfx.aliveParticleCount == 0)
-        {
-            vfx.Stop();
-        }
+        //if (vfx.aliveParticleCount == 0)
+        //{
+        //    vfx.Stop();
+        //}
     }
 }

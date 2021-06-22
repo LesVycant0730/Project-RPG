@@ -92,7 +92,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Vector2, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":1.5,"y":2.5}'
+      m_SerializableObject: '{"x":1.0,"y":1.5}'
     min: -Infinity
     max: Infinity
     enumValues: []
@@ -239,7 +239,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 10000
+      m_SerializableObject: 50000
     m_Space: 2147483647
   m_Property:
     name: Rate
@@ -1349,7 +1349,7 @@ MonoBehaviour:
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 1
+  m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
   m_OutputSlots:
@@ -1582,7 +1582,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Vector2, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":1.5,"y":2.5}'
+      m_SerializableObject: '{"x":1.0,"y":1.5}'
     m_Space: 2147483647
   m_Property:
     name: o
@@ -3281,7 +3281,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 10000
+      m_SerializableObject: 1
     m_Space: 2147483647
   m_Property:
     name: LoopCount
