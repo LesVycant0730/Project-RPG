@@ -40,7 +40,6 @@ public class Character
 		isUsing = true;
         anim = _model.GetComponent<Animator>();
 		modelCenter = _model.GetComponentInChildren<SkinnedMeshRenderer>().rootBone.position;
-
         controller = _model.GetComponent<CharacterActionController>();
 
 		// Add character action controller
