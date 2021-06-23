@@ -564,6 +564,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vfx: {fileID: 1658907352}
+  id_Lifetime: 0
   skin: {fileID: 174811805}
 --- !u!1001 &1669650804
 PrefabInstance:

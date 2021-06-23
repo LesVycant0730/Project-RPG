@@ -18,7 +18,7 @@ public class CharacterActionController : MonoBehaviour
 		print("RPG Action");
 
 		// Test spawn vfx
-		await VFXManager.GetVFX("Healing_01", character.ModelCenter);
+		await VFXManager.GetVFX("Healing_Mesh_01", character);
 	}
 
 	public void Setup(Character _character)

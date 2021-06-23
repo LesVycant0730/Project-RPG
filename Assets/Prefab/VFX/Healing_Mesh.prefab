@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1504843574696847058}
   - component: {fileID: 1504843574696847059}
   - component: {fileID: 1504843574696847060}
-  - component: {fileID: 1504843574696847057}
   m_Layer: 0
   m_Name: Healing_Mesh
   m_TagString: Untagged
@@ -41,7 +40,7 @@ VisualEffect:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1504843574696847061}
   m_Enabled: 1
-  m_Asset: {fileID: 8926484042661614526, guid: 34db694251fd6a6479463a5c2ce9a050, type: 3}
+  m_Asset: {fileID: 8926484042661614526, guid: 60e5088c71c27ea48bbbe25909ad42c5, type: 3}
   m_InitialEventName: OnPlay
   m_InitialEventNameOverriden: 0
   m_StartSeed: 0
@@ -49,7 +48,10 @@ VisualEffect:
   m_ResourceVersion: 1
   m_PropertySheet:
     m_Float:
-      m_Array: []
+      m_Array:
+      - m_Value: 1
+        m_Name: Total Lifetime
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
@@ -110,15 +112,3 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &1504843574696847057
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1504843574696847061}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a15405cd1a042de4d8496c723c7dfd41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

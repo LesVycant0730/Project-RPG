@@ -9,7 +9,8 @@ public class Character
 {
     [SerializeField, SearchableEnum] private Character_ID id = Character_ID.NULL;
     [SerializeField, SearchableEnum] private RPG_Party party = RPG_Party.Ally;
-    [SerializeField] private GameObject model;
+    [SerializeField] private GameObject baseObject;
+    [SerializeField] private SkinnedMeshRenderer model;
     [SerializeField] private Animator anim;
     [SerializeField] private Vector3 modelCenter;
     [SerializeField] private bool isUsing = true;
@@ -18,7 +19,7 @@ public class Character
 
     public Character_ID ID => id;
     public RPG_Party Party => party;
-    public GameObject Model => model;
+    public SkinnedMeshRenderer Model => model;
     public Animator Anim => anim;
     public Vector3 ModelCenter => modelCenter;
     public bool IsUsing => isUsing;
@@ -32,19 +33,20 @@ public class Character
         isUsing = true;
     }
 
-    public Character(Character_ID _id, RPG_Party _party, GameObject _model)
+    public Character(Character_ID _id, RPG_Party _party, GameObject _go)
     {
         id = _id;
         party = _party;
-        model = _model;
+        baseObject = _go;
+        model = _go.GetComponentInChildren<SkinnedMeshRenderer>();
 		isUsing = true;
-        anim = _model.GetComponent<Animator>();
-		modelCenter = _model.GetComponentInChildren<SkinnedMeshRenderer>().rootBone.position;
-        controller = _model.GetComponent<CharacterActionController>();
+        anim = _go.GetComponent<Animator>();
+		modelCenter = model.rootBone.position;
+        controller = _go.GetComponent<CharacterActionController>();
 
 		// Add character action controller
 		if (controller == null)
-            controller = _model.AddComponent<CharacterActionController>();
+            controller = _go.AddComponent<CharacterActionController>();
 
         controller.Setup(this);
     }
@@ -97,15 +99,17 @@ public class Character
     {
         isUsing = false;
         anim = null;
+        model = null;
+        controller = null;
         Destroy();
     }
 
     private void Destroy()
     {
-        if (model)
+        if (baseObject)
         {
-            Addressables.ReleaseInstance(model);
-            model = null;
+            Addressables.ReleaseInstance(baseObject);
+            baseObject = null;
         }
     }
 }

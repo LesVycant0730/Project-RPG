@@ -25,3 +25,9 @@ MonoBehaviour:
       m_SubObjectType: UnityEngine.ComputeShader, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
     id: Healing_01
+  - assetRef:
+      m_AssetGUID: 1ddcc7c5f7e05a24fa42925a10c4e1b6
+      m_SubObjectName: 
+      m_SubObjectType: UnityEngine.ComputeShader, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+    id: Healing_Mesh_01

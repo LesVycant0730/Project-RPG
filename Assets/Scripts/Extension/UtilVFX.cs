@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public static class UtilVFX
 {
@@ -13,5 +14,10 @@ public static class UtilVFX
 			default:
 				return typeof(VFX_Base);
 		}
+	}
+
+	public static void AddVFXComponent(GameObject obj, VFX_Type type)
+	{
+
 	}
 }
