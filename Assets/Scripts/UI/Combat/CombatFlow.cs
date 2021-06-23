@@ -30,7 +30,7 @@ public sealed class CombatFlow : ScriptableObject
     public void ToDefault()
 	{
 #if UNITY_EDITOR
-        var actions = Utility.GetTypeElements<Combat_Action>();
+        var actions = Util.GetTypeElements<Combat_Action>();
 
         actionFlows = new CombatActionFlow[actions.Count()];
 

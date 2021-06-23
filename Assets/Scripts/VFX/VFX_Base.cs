@@ -1,33 +1,42 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
+
+public enum VFX_Type
+{
+    Standard, Mesh
+}
 
 public class VFX_Base : MonoBehaviour
 {
     [SerializeField] protected VisualEffect vfx;
+    [SerializeField] private int id_Lifetime;
+    private float currentTime;
 
     protected virtual void Awake()
     {
         vfx = GetComponent<VisualEffect>();
+        id_Lifetime = Shader.PropertyToID("Total Lifetime");
     }
 
     protected virtual void OnEnable()
 	{
-        VFXManager.AddVFX(gameObject);
+        currentTime = 0.0f;
+        VFXManager.RemoveVFX(gameObject);
 	}
 
     protected virtual void OnDisable()
 	{
-        //VFXManager.addvfx
+        VFXManager.AddVFX(gameObject);
 	}
 
-    void Update()
+    protected virtual void Update()
     {
-        // Kill
-        //if (vfx.aliveParticleCount == 0)
-        //{
-        //    vfx.Stop();
-        //}
+        // Disable when expired and zero particle count
+        if (currentTime > vfx.GetFloat(id_Lifetime) && vfx.aliveParticleCount == 0)
+        {
+            gameObject.SetActive(false);
+        }
+        else
+            currentTime += Time.deltaTime;
     }
 }

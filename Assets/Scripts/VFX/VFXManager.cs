@@ -36,7 +36,9 @@ public class VFXManager : MonoBehaviour
 
 				GameObject go = Instantiate(newVFX, _pos, Quaternion.identity);
 
-				return Instantiate(newVFX, _pos, Quaternion.identity);
+				go.AddComponent(UtilVFX.GetVFXType(VFX_Type.Mesh));
+
+				return go;
 			}
 		}
 

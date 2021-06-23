@@ -8,14 +8,14 @@ public class VFX_Mesh : VFX_Base
 	private struct MeshUpdateJob : IJobParallelFor
 	{
 		// Mesh reference
-		public NativeArray<Vector3> meshVertices;
+		public NativeArray<Vector3> verticesCurr;
 
 		// Target vertices
-		public NativeArray<Vector3> targetVertices;
+		public NativeArray<Vector3> verticesTar;
 
 		public void Execute(int index)
 		{
-			meshVertices[index] = targetVertices[index];
+			verticesCurr[index] = verticesTar[index];
 
 			// Update vertices here
 		}
@@ -24,8 +24,8 @@ public class VFX_Mesh : VFX_Base
 	[SerializeField] private SkinnedMeshRenderer skin;
 
 	// Job System
-	private NativeArray<Vector3> meshVertices, targetVertices;
-	private Mesh cloneMesh;
+	private NativeArray<Vector3> verticesCurrent, verticesTarget;
+	private Mesh meshReference, meshTarget;
 
 	private JobHandle meshUpdateJobHandle;
 	private MeshUpdateJob meshUpdateJob;
@@ -39,18 +39,20 @@ public class VFX_Mesh : VFX_Base
     {
         base.Awake();
 
+		meshReference = new Mesh();
+		meshReference.MarkDynamic();
+
 		// Set the updated mesh
-		cloneMesh = new Mesh();
-		cloneMesh.MarkDynamic();
+		meshTarget = new Mesh();
+		meshTarget.MarkDynamic();
+
+		vfx.SetMesh("Mesh", meshTarget);
 	}
 
-	private void OnEnable()
+	protected override void OnDisable()
 	{
-		vfx.SetMesh("Mesh", cloneMesh);
-	}
+		base.OnDisable();
 
-	private void OnDisable()
-	{
 		//if (source != null)
 		//{
 		//	source.Cancel();
@@ -58,8 +60,7 @@ public class VFX_Mesh : VFX_Base
 		//}
 
 		// Dispose all native arrays to prevent memory leak
-		if (meshVertices.IsCreated) meshVertices.Dispose();
-		if (targetVertices.IsCreated) targetVertices.Dispose();
+		Dispose();
 	}
 
 	public void SetMesh(SkinnedMeshRenderer _mesh)
@@ -69,35 +70,39 @@ public class VFX_Mesh : VFX_Base
 
 	private void SetMesh()
 	{
-		Mesh newMesh = new Mesh();
-
-		// Mark Dynamic the mesh
-		newMesh.MarkDynamic();
+		// Dispose before setup
+		Dispose();
 
 		// Bake the mesh from skinned reference
-		skin.BakeMesh(newMesh);
+		if (skin != null)
+			skin.BakeMesh(meshReference);
 
-		if (cloneMesh.vertices.Length != newMesh.vertices.Length)
-			cloneMesh.vertices = new Vector3[newMesh.vertices.Length];
+		if (meshTarget.vertices.Length != meshReference.vertices.Length)
+			meshTarget.vertices = new Vector3[meshReference.vertices.Length];
 
-		targetVertices = new NativeArray<Vector3>(newMesh.vertices, Allocator.TempJob);
-		meshVertices = new NativeArray<Vector3>(cloneMesh.vertices, Allocator.TempJob);
+		// Set vertices target based on mesh reference
+		verticesTarget = new NativeArray<Vector3>(meshReference.vertices, Allocator.Persistent);
+
+		// Set current vertices based on target mesh 
+		verticesCurrent = new NativeArray<Vector3>(meshTarget.vertices, Allocator.Persistent);
 	}
 
-	private void Update()
+	protected override void Update()
 	{
+		base.Update();
+
 		// Bake Mesh and set vertices array
 		SetMesh();
 
 		// Create new mesh job
 		meshUpdateJob = new MeshUpdateJob()
 		{
-			meshVertices = meshVertices,
-			targetVertices = targetVertices
+			verticesCurr = verticesCurrent,
+			verticesTar = verticesTarget
 		};
 
 		// Schedule the job and divide it to batches
-		meshUpdateJobHandle = meshUpdateJob.Schedule(targetVertices.Length, 64);
+		meshUpdateJobHandle = meshUpdateJob.Schedule(verticesTarget.Length, 64);
 	}
 
 	private void LateUpdate()
@@ -106,10 +111,15 @@ public class VFX_Mesh : VFX_Base
 		meshUpdateJobHandle.Complete();
 
 		// Set vertices
-		cloneMesh.SetVertices(meshUpdateJob.targetVertices);
+		meshTarget.SetVertices(meshUpdateJob.verticesTar);
 
-		targetVertices.Dispose();
-		meshVertices.Dispose();
+		Dispose();
+	}
+
+	private void Dispose()
+	{
+		if (verticesCurrent.IsCreated) verticesCurrent.Dispose();
+		if (verticesTarget.IsCreated) verticesTarget.Dispose();
 	}
 
 	// Original async code

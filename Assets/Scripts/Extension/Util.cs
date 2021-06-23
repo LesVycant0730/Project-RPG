@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using System.Text;
 
-public static class Utility
+public static class Util
 {
     /// <summary>
     /// Return the length from the Enum.

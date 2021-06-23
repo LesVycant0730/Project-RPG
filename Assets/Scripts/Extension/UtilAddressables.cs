@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-public static class AddressablesUtility
+public static class UtilAddressables
 {
     private static bool isInitialized = false;
     public static bool IsReady => isInitialized;

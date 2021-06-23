@@ -10,7 +10,7 @@ public class VFXPrefabDirectorySO : PrefabDirectorySO
 
 	public override bool HasDirectory()
 	{
-		return !Utility.IsNullOrEmpty(vfxDirectory);
+		return !Util.IsNullOrEmpty(vfxDirectory);
 	}
 
 	private VFXAssetReference GetVFX(string _id)
@@ -30,7 +30,7 @@ public class VFXPrefabDirectorySO : PrefabDirectorySO
 
 		if (vfxAsset != null)
 		{
-			GameObject vfx = await AddressablesUtility.LoadAsset<GameObject>(vfxAsset.AssetRef, (handle) =>
+			GameObject vfx = await UtilAddressables.LoadAsset<GameObject>(vfxAsset.AssetRef, (handle) =>
 			{
 				CustomLog.Log($"Loaded vfx: {_id}");
 			});

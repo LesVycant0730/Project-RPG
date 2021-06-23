@@ -21,7 +21,7 @@ public class AnimationCombat : Animation
 
 	public override void GenerateAnimationArray()
 	{
-		IEnumerable<CombatAnimationStatus> typeLength = Utility.GetTypeElements<CombatAnimationStatus>();
+		IEnumerable<CombatAnimationStatus> typeLength = Util.GetTypeElements<CombatAnimationStatus>();
 
 		animationCounts = typeLength.Count();
 

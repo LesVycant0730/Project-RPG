@@ -15,9 +15,9 @@ public class CombatCharacterManager : GameplayBaseManager
 	{
         get
 		{
-            if (Utility.IsNullOrEmpty(_characterArr))
+            if (Util.IsNullOrEmpty(_characterArr))
 			{
-                _characterArr = new Character[Utility.GetEnumLength<Character_ID>()];
+                _characterArr = new Character[Util.GetEnumLength<Character_ID>()];
 
                 for (int i = 0; i < _characterArr.Length; i++)
 				{
