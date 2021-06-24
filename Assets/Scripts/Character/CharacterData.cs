@@ -9,16 +9,23 @@ public class Character
 {
     [SerializeField, SearchableEnum] private Character_ID id = Character_ID.NULL;
     [SerializeField, SearchableEnum] private RPG_Party party = RPG_Party.Ally;
-    [SerializeField] private GameObject baseObject;
-    [SerializeField] private SkinnedMeshRenderer model;
-    [SerializeField] private Animator anim;
-    [SerializeField] private Vector3 modelCenter;
-    [SerializeField] private bool isUsing = true;
 
+    // The base or root object of the character holding everything
+    [SerializeField] private GameObject baseObject;
+    // The character model renderer
+    [SerializeField] private SkinnedMeshRenderer model;
+    // Is animator
+    [SerializeField] private Animator anim;
+    // The center position of the model for spawning VFX
+    [SerializeField] private Vector3 modelCenter;
+    // Is the character using in any place
+    [SerializeField] private bool isUsing = true;
+    // Character controller for running action, will only exist through AddComponent when constructing
     [SerializeField] private CharacterActionController controller;
 
     public Character_ID ID => id;
     public RPG_Party Party => party;
+    public GameObject BaseObject => baseObject;
     public SkinnedMeshRenderer Model => model;
     public Animator Anim => anim;
     public Vector3 ModelCenter => modelCenter;
@@ -41,11 +48,11 @@ public class Character
         model = _go.GetComponentInChildren<SkinnedMeshRenderer>();
 		isUsing = true;
         anim = _go.GetComponent<Animator>();
-		modelCenter = model.rootBone.position;
-        controller = _go.GetComponent<CharacterActionController>();
+        modelCenter = model.transform.position;
 
 		// Add character action controller
-		if (controller == null)
+        controller = _go.GetComponent<CharacterActionController>();
+        if (controller == null)
             controller = _go.AddComponent<CharacterActionController>();
 
         controller.Setup(this);

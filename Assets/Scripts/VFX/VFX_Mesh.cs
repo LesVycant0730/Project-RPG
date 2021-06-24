@@ -2,6 +2,7 @@ using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.Jobs;
+using System.Collections;
 
 public class VFX_Mesh : VFX_Base
 {
@@ -32,10 +33,15 @@ public class VFX_Mesh : VFX_Base
 
 	private bool isJobInitialized = false;
 
-    // Start is called before the first frame update
-    protected override void Awake()
+	// Particle Property
+	[SerializeField] private int id_Release;
+
+	// Start is called before the first frame update
+	protected override void Awake()
     {
         base.Awake();
+
+		id_Release = Shader.PropertyToID("ReleaseEffect");
 
 		meshReference = new Mesh();
 		meshReference.MarkDynamic();
@@ -49,13 +55,6 @@ public class VFX_Mesh : VFX_Base
 
 	private void OnDestroy()
 	{
-		//if (source != null)
-		//{
-		//	source.Cancel();
-		//	source.Dispose();
-		//}
-
-		// Dispose all native arrays to prevent memory leak
 		Dispose();
 	}
 
@@ -70,11 +69,9 @@ public class VFX_Mesh : VFX_Base
 		Dispose();
 
 		// Bake the mesh from skinned reference
-		if (skin != null)
-			skin.BakeMesh(meshReference);
+		skin.BakeMesh(meshReference);
 
-		if (meshTarget.vertices.Length != meshReference.vertices.Length)
-			meshTarget.vertices = new Vector3[meshReference.vertices.Length];
+		meshTarget.vertices = new Vector3[meshReference.vertices.Length];
 
 		// Set vertices target based on mesh reference
 		verticesTarget = new NativeArray<Vector3>(meshReference.vertices, Allocator.Persistent);
@@ -86,6 +83,11 @@ public class VFX_Mesh : VFX_Base
 	protected override void Update()
 	{
 		base.Update();
+
+		if (currentTime > 0.5f)
+		{
+			vfx.SetBool("ReleaseEffect", true);
+		}
 
 		// Bake Mesh and set vertices array
 		MeshUpdate();
@@ -100,6 +102,7 @@ public class VFX_Mesh : VFX_Base
 		// Schedule the job and divide it to batches
 		meshUpdateJobHandle = meshUpdateJob.Schedule(verticesTarget.Length, 64);
 
+		// TEMPORARY SOLUTION!!!
 		// Not sure why LateUpdate would run first before Update when instantiated
 		// Update job status to allow job reference to be accessed in LateUpdate
 		isJobInitialized = true;
@@ -123,6 +126,7 @@ public class VFX_Mesh : VFX_Base
 		isJobInitialized = false;
 	}
 
+	// Dispose all native arrays to prevent memory leak
 	private void Dispose()
 	{
 		// Complete the job handle

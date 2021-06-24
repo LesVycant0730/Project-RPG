@@ -2100,6 +2100,7 @@ MonoBehaviour:
       character:
         id: 0
         party: 0
+        baseObject: {fileID: 0}
         model: {fileID: 0}
         anim: {fileID: 0}
         modelCenter: {x: 0, y: 0, z: 0}
@@ -2132,6 +2133,7 @@ MonoBehaviour:
       character:
         id: 0
         party: 0
+        baseObject: {fileID: 0}
         model: {fileID: 0}
         anim: {fileID: 0}
         modelCenter: {x: 0, y: 0, z: 0}
@@ -2142,6 +2144,7 @@ MonoBehaviour:
   _currentCombatCharacter:
     id: 0
     party: 0
+    baseObject: {fileID: 0}
     model: {fileID: 0}
     anim: {fileID: 0}
     modelCenter: {x: 0, y: 0, z: 0}
@@ -5622,7 +5625,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directory: {fileID: 11400000, guid: a52717020be07874e8befc3e8c0ae1b7, type: 2}
-  go: []
 --- !u!1 &1659124955
 GameObject:
   m_ObjectHideFlags: 0

@@ -61,7 +61,10 @@ VisualEffect:
     m_Uint:
       m_Array: []
     m_Int:
-      m_Array: []
+      m_Array:
+      - m_Value: 3
+        m_Name: Loop Count
+        m_Overridden: 1
     m_Matrix4x4f:
       m_Array: []
     m_AnimationCurve:
@@ -71,7 +74,10 @@ VisualEffect:
     m_NamedObject:
       m_Array: []
     m_Bool:
-      m_Array: []
+      m_Array:
+      - m_Value: 0
+        m_Name: ReleaseEffect
+        m_Overridden: 1
 --- !u!73398921 &1504843574696847060
 VFXRenderer:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+//#define VfxDebug
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -11,7 +12,7 @@ public class VFX_Base : MonoBehaviour
 {
     [SerializeField] protected VisualEffect vfx;
     [SerializeField] private int id_Lifetime;
-    private float currentTime;
+    protected float currentTime;
 
     protected virtual void Awake()
     {
@@ -26,6 +27,8 @@ public class VFX_Base : MonoBehaviour
 
     protected virtual void Update()
     {
+#if VfxDebug
+#else
         // Disable when expired and zero particle count
         if (currentTime > vfx.GetFloat(id_Lifetime) && vfx.aliveParticleCount == 0)
         {
@@ -33,5 +36,7 @@ public class VFX_Base : MonoBehaviour
         }
         else
             currentTime += Time.deltaTime;
+#endif
     }
+
 }
