@@ -24,7 +24,7 @@ public class VFXPrefabDirectorySO : PrefabDirectorySO
 	/// <param name="_id"></param>
 	/// <param name="_pos"></param>
 	/// <returns></returns>
-	public async Task<GameObject> LoadVFX(string _id, Vector3 _pos)
+	public async Task<GameObject> LoadVFX(string _id)
 	{
 		VFXAssetReference vfxAsset = GetVFX(_id);
 

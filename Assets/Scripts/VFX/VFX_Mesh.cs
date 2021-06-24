@@ -30,9 +30,7 @@ public class VFX_Mesh : VFX_Base
 	private JobHandle meshUpdateJobHandle;
 	private MeshUpdateJob meshUpdateJob;
 
-	// Unused, ori
-    //private CancellationTokenSource source;
-    //private CancellationToken token;
+	private bool isJobInitialized = false;
 
     // Start is called before the first frame update
     protected override void Awake()
@@ -49,10 +47,8 @@ public class VFX_Mesh : VFX_Base
 		vfx.SetMesh("Mesh", meshTarget);
 	}
 
-	protected override void OnDisable()
+	private void OnDestroy()
 	{
-		base.OnDisable();
-
 		//if (source != null)
 		//{
 		//	source.Cancel();
@@ -68,7 +64,7 @@ public class VFX_Mesh : VFX_Base
 		skin = _mesh;
 	}
 
-	private void SetMesh()
+	private void MeshUpdate()
 	{
 		// Dispose before setup
 		Dispose();
@@ -92,7 +88,7 @@ public class VFX_Mesh : VFX_Base
 		base.Update();
 
 		// Bake Mesh and set vertices array
-		SetMesh();
+		MeshUpdate();
 
 		// Create new mesh job
 		meshUpdateJob = new MeshUpdateJob()
@@ -103,44 +99,36 @@ public class VFX_Mesh : VFX_Base
 
 		// Schedule the job and divide it to batches
 		meshUpdateJobHandle = meshUpdateJob.Schedule(verticesTarget.Length, 64);
+
+		// Not sure why LateUpdate would run first before Update when instantiated
+		// Update job status to allow job reference to be accessed in LateUpdate
+		isJobInitialized = true;
 	}
 
 	private void LateUpdate()
 	{
-		// Complete the job handle, must run in at LateUpdate
-		meshUpdateJobHandle.Complete();
+		if (isJobInitialized)
+		{
+			// Complete the job handle
+			meshUpdateJobHandle.Complete();
 
-		// Set vertices
-		meshTarget.SetVertices(meshUpdateJob.verticesTar);
+			// Set vertices
+			meshTarget.SetVertices(meshUpdateJob.verticesTar);
 
-		Dispose();
+			// Dispose
+			if (verticesCurrent.IsCreated) verticesCurrent.Dispose();
+			if (verticesTarget.IsCreated) verticesTarget.Dispose();
+		}
+
+		isJobInitialized = false;
 	}
 
 	private void Dispose()
 	{
+		// Complete the job handle
+		meshUpdateJobHandle.Complete();
+
 		if (verticesCurrent.IsCreated) verticesCurrent.Dispose();
 		if (verticesTarget.IsCreated) verticesTarget.Dispose();
 	}
-
-	// Original async code
-	//private async void MeshUpdate()
-	//{
-	//	source = new CancellationTokenSource();
-	//	token = source.Token;
-
-	//	while (!token.IsCancellationRequested && gameObject.activeSelf && skin != null)
-	//	{
-	//		// Bake new mesh
-	//		Mesh newMesh = new Mesh();
-	//		skin.BakeMesh(newMesh);
-
-	//		// Clone a set of vertices to a new mesh and set it to vfx graph
-	//		vfx.SetMesh("Mesh", new Mesh() { vertices = newMesh.vertices });
-
-	//		// Update delay
-	//		await Task.Delay(200);
-	//	}
-
-	//	source.Dispose();
-	//}
 }

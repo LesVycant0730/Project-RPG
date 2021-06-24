@@ -10,8 +10,6 @@ public class VFXManager : MonoBehaviour
 
 	private Dictionary<string, GameObject> loadedDirectory = new Dictionary<string, GameObject>();
 
-	public List<GameObject> loadedVFXList = new List<GameObject>();
-
 	private void Awake()
 	{
         instance = this;
@@ -24,22 +22,16 @@ public class VFXManager : MonoBehaviour
 			if (string.IsNullOrEmpty(_id))
 				_id = "Default";
 
-			if (instance.loadedDirectory.TryGetValue(_id, out GameObject vfx))
+			if (!instance.loadedDirectory.TryGetValue(_id, out GameObject vfxAsset))
 			{
-				return Instantiate(vfx, _pos, Quaternion.identity);
+				vfxAsset = await instance.directory.LoadVFX(_id);
+				instance.loadedDirectory.Add(_id, vfxAsset);
 			}
-			else
-			{
-				GameObject newVFX = await instance.directory.LoadVFX(_id, _pos);
 
-				instance.loadedDirectory.Add(_id, newVFX);
+			GameObject vfxObj = Instantiate(vfxAsset, _pos, Quaternion.identity);
+			vfxObj.AddComponent<VFX_Base>();
 
-				GameObject go = Instantiate(newVFX, _pos, Quaternion.identity);
-
-				go.AddComponent<VFX_Base>();
-
-				return go;
-			}
+			return vfxObj;
 		}
 
 		return null;
@@ -52,37 +44,20 @@ public class VFXManager : MonoBehaviour
 			if (string.IsNullOrEmpty(_id))
 				_id = "Default";
 
-			if (instance.loadedDirectory.TryGetValue(_id, out GameObject vfx))
+			if (!instance.loadedDirectory.TryGetValue(_id, out GameObject vfxAsset))
 			{
-				return Instantiate(vfx, _char.ModelCenter, Quaternion.identity);
+				vfxAsset = await instance.directory.LoadVFX(_id);
+				instance.loadedDirectory.Add(_id, vfxAsset);
 			}
-			else
-			{
-				GameObject newVFX = await instance.directory.LoadVFX(_id, _char.ModelCenter);
 
-				instance.loadedDirectory.Add(_id, newVFX);
+			GameObject vfxObj = Instantiate(vfxAsset, _char.ModelCenter, Quaternion.identity);
 
-				GameObject go = Instantiate(newVFX, _char.ModelCenter, Quaternion.identity);
+			// Add VFX Mesh component and set character skin mesh reference
+			vfxObj.AddComponent<VFX_Mesh>().SetMesh(_char.Model);
 
-				VFX_Mesh meshVFX = go.AddComponent<VFX_Mesh>();
-				meshVFX.SetMesh(_char.Model);
-
-				return go;
-			}
+			return vfxObj;
 		}
 
 		return null;
-	}
-
-	public static void AddVFX(GameObject _vfx)
-	{
-		if (instance != null && !instance.loadedVFXList.Contains(_vfx))
-			instance.loadedVFXList.Add(_vfx);
-	}
-
-	public static void RemoveVFX(GameObject _vfx)
-	{
-		if (instance != null)
-			instance.loadedVFXList.Remove(_vfx);
 	}
 }
