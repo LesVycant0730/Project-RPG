@@ -12,13 +12,13 @@ public class CharacterPrefabDirectorySO : PrefabDirectorySO
 
     public override bool HasDirectory()
     {
-        return charactersDirectory != null && charactersDirectory.Length > 0;
+        return !Util.IsNullOrEmpty(charactersDirectory);
     }
 
 #if UNITY_EDITOR
     public void EditorGenerateFullDirectoryArray()
 	{
-        IEnumerable<Character_ID> ids = Utility.GetTypeElements<Character_ID>();
+        IEnumerable<Character_ID> ids = Util.GetTypeElements<Character_ID>();
 
         charactersDirectory = new CharacterAssetReference[ids.Count()];
 
@@ -32,7 +32,7 @@ public class CharacterPrefabDirectorySO : PrefabDirectorySO
 	{
         if (charactersDirectory != null)
 		{
-            IEnumerable<Character_ID> ids = Utility.GetTypeElements<Character_ID>();
+            IEnumerable<Character_ID> ids = Util.GetTypeElements<Character_ID>();
 
             CharacterAssetReference[] tempDir = new CharacterAssetReference[ids.Count()];
 
@@ -67,7 +67,7 @@ public class CharacterPrefabDirectorySO : PrefabDirectorySO
                 charIDs.Add(character.ID);
 			}
 
-            Utility.IsArrayContainAllEnumElements(charIDs.ToArray(), out List<Character_ID> missingElementList);
+            Util.IsArrayContainAllEnumElements(charIDs.ToArray(), out List<Character_ID> missingElementList);
 
             missingElementList.ForEach(x => Debug.LogWarning($"Missing element: {x} in the SO"));
 		}
@@ -102,7 +102,7 @@ public class CharacterPrefabDirectorySO : PrefabDirectorySO
 
         if (characterAsset != null)
 		{
-            GameObject go = await AddressablesUtility.LoadAsset(characterAsset.AssetRef, _pos, _rot, null, (handle) =>
+            GameObject go = await UtilAddressables.LoadAsset(characterAsset.AssetRef, _pos, _rot, null, (handle) =>
             {
                 CustomLog.Log($"Instantiated game object: {_id}");
             });

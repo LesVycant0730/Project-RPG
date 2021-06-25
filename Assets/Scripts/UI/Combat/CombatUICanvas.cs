@@ -82,7 +82,7 @@ public class CombatUICanvas : MonoBehaviour
     {
         if (holders == null)
         {
-            int actionLength = Utility.GetEnumLength<Combat_Action>();
+            int actionLength = Util.GetEnumLength<Combat_Action>();
 
             holders = new CombatUIHolder[actionLength];
 

@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: VFX
+  m_EditorClassIdentifier: 
+  m_GroupName: VFX
+  m_Data:
+    m_SerializedData: []
+  m_GUID: b20759a30b633794e9c10b9b9a0fde44
+  m_SerializeEntries:
+  - m_GUID: dd21e6831d86497459801160d3bfff75
+    m_Address: VFX_Healing_01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - vfx
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 7b3dc9c4ae71d264d81f1a85a56fe186, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 55ab653f5b7d351439c5918878f78ae5, type: 2}
+    - {fileID: 11400000, guid: d14ea85e8c80ad049a90a48cc18104e1, type: 2}

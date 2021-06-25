@@ -31,6 +31,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8bae671aa85127247bacca681dadadea, type: 2}
   - {fileID: 11400000, guid: 18e52ac47ec307e4bafc3047c5386db6, type: 2}
   - {fileID: 11400000, guid: 694a6c5bd0dca0f449819605c92b5a6e, type: 2}
+  - {fileID: 11400000, guid: ccc0247cdf29f1e4da90e738c8686309, type: 2}
+  - {fileID: 11400000, guid: 6b94a06398821c54095a17db2b5c6308, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -77,6 +79,8 @@ MonoBehaviour:
     - enemy
     - test
     - ui
+    - vfx graph
+    - vfx
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 8f0a8655762852e4c99371bfff2798e7, type: 2}

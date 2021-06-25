@@ -5,39 +5,30 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 [Serializable]
-public class CharacterAssetReference
-{
-    [SerializeField, SearchableEnum] private Character_ID id = Character_ID.NULL;
-    [SerializeField] private AssetReference assetRef;
-
-    public Character_ID ID => id;
-    public AssetReference AssetRef => assetRef;
-
-    public bool IsSameID(Character_ID _id)
-    {
-        return id == _id;
-    }
-
-    public CharacterAssetReference(Character_ID _id = Character_ID.NULL)
-    {
-        id = _id;
-        assetRef = null;
-    }
-}
-
-[Serializable]
 public class Character
 {
     [SerializeField, SearchableEnum] private Character_ID id = Character_ID.NULL;
     [SerializeField, SearchableEnum] private RPG_Party party = RPG_Party.Ally;
-    [SerializeField] private GameObject model;
+
+    // The base or root object of the character holding everything
+    [SerializeField] private GameObject baseObject;
+    // The character model renderer
+    [SerializeField] private SkinnedMeshRenderer model;
+    // Is animator
     [SerializeField] private Animator anim;
+    // The center position of the model for spawning VFX
+    [SerializeField] private Vector3 modelCenter;
+    // Is the character using in any place
     [SerializeField] private bool isUsing = true;
+    // Character controller for running action, will only exist through AddComponent when constructing
+    [SerializeField] private CharacterActionController controller;
 
     public Character_ID ID => id;
     public RPG_Party Party => party;
-    public GameObject Model => model;
+    public GameObject BaseObject => baseObject;
+    public SkinnedMeshRenderer Model => model;
     public Animator Anim => anim;
+    public Vector3 ModelCenter => modelCenter;
     public bool IsUsing => isUsing;
 
     public Character(Character_ID _id = Character_ID.NULL, RPG_Party _party = RPG_Party.Neutral)
@@ -49,13 +40,22 @@ public class Character
         isUsing = true;
     }
 
-    public Character(Character_ID _id, RPG_Party _party, GameObject _model)
+    public Character(Character_ID _id, RPG_Party _party, GameObject _go)
     {
         id = _id;
         party = _party;
-        model = _model;
-        anim = _model.GetComponent<Animator>();
-        isUsing = true;
+        baseObject = _go;
+        model = _go.GetComponentInChildren<SkinnedMeshRenderer>();
+		isUsing = true;
+        anim = _go.GetComponent<Animator>();
+        modelCenter = model.transform.position;
+
+		// Add character action controller
+        controller = _go.GetComponent<CharacterActionController>();
+        if (controller == null)
+            controller = _go.AddComponent<CharacterActionController>();
+
+        controller.Setup(this);
     }
 
     public bool IsSameCharacter(Character_ID _id)
@@ -106,15 +106,17 @@ public class Character
     {
         isUsing = false;
         anim = null;
+        model = null;
+        controller = null;
         Destroy();
     }
 
     private void Destroy()
     {
-        if (model)
+        if (baseObject)
         {
-            Addressables.ReleaseInstance(model);
-            model = null;
+            Addressables.ReleaseInstance(baseObject);
+            baseObject = null;
         }
     }
 }
