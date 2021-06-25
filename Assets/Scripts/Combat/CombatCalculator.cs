@@ -1,5 +1,6 @@
 using AnimationTypes;
 using UnityEngine;
+using RPG_Data;
 
 /// <summary>
 /// The script only use for combat simulation and testing.
@@ -47,5 +48,10 @@ public class CombatCalculator : MonoBehaviour
 		}
 
 		return 0;
+	}
+
+	public CombatActionInfo GetResult()
+	{
+		return new CombatActionInfo();
 	}
 }

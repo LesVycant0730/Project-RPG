@@ -89,27 +89,121 @@ public class CombatController : MonoBehaviour
 			StopCoroutine(CombatCor);
 		}
 
-		CombatCor = StartCoroutine(CombatSimulation(_status));
+		//CombatCor = StartCoroutine(CombatSimulation(_status));
 	}
 
 	// Only for simulating combat with animation and feedback used in demonstration 
-	private IEnumerator CombatSimulation(CombatAnimationStatus _status)
+	//private IEnumerator CombatSimulation(CombatAnimationStatus _status)
+	//{
+	//	if (currentCharacter == null)
+	//		throw new Exception("Attempt to trigger combat from null character reference");
+
+	//	Current Character Animation Process
+	//	yield return CombatAnimationManager.AnimateProcess(currentCharacter.Character.Anim, _status, null);
+
+	//	Get skill
+	//	bool isHit = calculator.IsHit(currentCharacter.CharacterStat.GetAccuracy());
+
+	//	Get action value
+	//	int actionValue = calculator.GetValue(_status, out bool isTargetingOpponent);
+
+	//	Get Random Opponent from opposite party or
+	//	Random on either Player or Opponent side if it's dance
+	//	RPGCharacter opponent = (_status == CombatAnimationStatus.Dance && UnityEngine.Random.Range(0, 2) == 1) ? currentCharacter : RPGPartyManager.GetRandomOpponent(currentCharacter.CharacterParty);
+
+	//	When hit
+	//	if (isHit)
+	//	{
+	//		if (isTargetingOpponent)
+	//		{
+	//			Subtract opponent health
+	//			opponent.CharacterStatInfo.SubtractHealth(actionValue, out bool isEmpty);
+
+	//			Update UI for the opponent
+
+	//		   CombatUIManager.UpdateCharacterStatusUI(opponent);
+
+	//			Manual Combat Log here
+
+	//		   CombatUIManager.AddCombatLog(CombatLogType.Damage_Target, currentCharacter.Name, _status.ToString(), actionValue, opponent.Name);
+
+	//			Target Character Animation Process
+	//			yield return CombatAnimationManager.AnimateProcess(opponent.Character.Anim, isEmpty ? CombatAnimationStatus.Fainted : CombatAnimationStatus.Damaged, () =>
+	//			{
+	//				Add action feedback here
+
+	//				 When either one is fainted
+	//				if (isEmpty)
+	//				{
+	//					if (opponent != currentCharacter)
+	//					{
+	//						Opponent fainted log
+	//						CombatUIManager.AddCombatLog(CombatLogType.Fainted, opponent.Name);
+
+	//						Current win
+	//						CombatUIManager.AddCombatLog(CombatLogType.Winning, currentCharacter.Name);
+	//					}
+	//					else
+	//					{
+	//						Jinxed log
+	//						CombatUIManager.AddCombatLog(CombatLogType.Jinxed, currentCharacter.Name);
+	//					}
+
+	//					End the game
+	//					GameplayController.EndGame();
+	//				}
+	//			});
+	//		}
+	//		else
+	//		{
+	//			Add healing value to current character health
+	//			currentCharacter.CharacterStatInfo.AddHealth(actionValue);
+
+	//			Update UI for the opponent
+
+	//		   CombatUIManager.UpdateCharacterStatusUI(currentCharacter);
+
+	//			Manual Combat Log here
+
+	//		   CombatUIManager.AddCombatLog(CombatLogType.Heal_Self, currentCharacter.Name, _status.ToString(), actionValue);
+	//		}
+	//	}
+	//	When missed
+	//	else
+	//	{
+	//		Manual Combat Log here
+	//		CombatUIManager.AddCombatLog(CombatLogType.Missed, currentCharacter.Name, _status.ToString());
+
+	//		Target Character Animation Process
+	//		if (isTargetingOpponent)
+	//		{
+	//			yield return CombatAnimationManager.AnimateProcess(opponent.Character.Anim, CombatAnimationStatus.Dodged, null);
+	//		}
+	//	}
+
+	//	End action on this turn
+	//   OnTurnEnd?.Invoke();
+	//}
+
+	private IEnumerator CombatSimulation(SkillData _skill)
 	{
 		if (currentCharacter == null)
 			throw new Exception("Attempt to trigger combat from null character reference");
 
+		CombatAnimationStatus anim = _skill.skillAnim;
+
 		// Current Character Animation Process
-		yield return CombatAnimationManager.AnimateProcess(currentCharacter.Character.Anim, _status, null);
+		yield return CombatAnimationManager.AnimateProcess(currentCharacter.Character.Anim, anim, null);
 
 		// Get skill
 		bool isHit = calculator.IsHit(currentCharacter.CharacterStat.GetAccuracy());
 
 		// Get action value
-		int actionValue = calculator.GetValue(_status, out bool isTargetingOpponent);
+		int actionValue = calculator.GetValue(anim, out bool isTargetingOpponent);
 
 		// Get Random Opponent from opposite party or
 		// Random on either Player or Opponent side if it's dance
-		RPGCharacter opponent = (_status == CombatAnimationStatus.Dance && UnityEngine.Random.Range(0, 2) == 1) ? currentCharacter : RPGPartyManager.GetRandomOpponent(currentCharacter.CharacterParty);
+		RPGCharacter opponent = (anim == CombatAnimationStatus.Dance && UnityEngine.Random.Range(0, 2) == 1) ? currentCharacter : RPGPartyManager.GetRandomOpponent(currentCharacter.CharacterParty);
 
 		// When hit
 		if (isHit)
@@ -123,7 +217,7 @@ public class CombatController : MonoBehaviour
 				CombatUIManager.UpdateCharacterStatusUI(opponent);
 
 				// Manual Combat Log here
-				CombatUIManager.AddCombatLog(CombatLogType.Damage_Target, currentCharacter.Name, _status.ToString(), actionValue, opponent.Name);
+				CombatUIManager.AddCombatLog(CombatLogType.Damage_Target, currentCharacter.Name, anim.ToString(), actionValue, opponent.Name);
 
 				// Target Character Animation Process
 				yield return CombatAnimationManager.AnimateProcess(opponent.Character.Anim, isEmpty ? CombatAnimationStatus.Fainted : CombatAnimationStatus.Damaged, () =>
@@ -161,14 +255,14 @@ public class CombatController : MonoBehaviour
 				CombatUIManager.UpdateCharacterStatusUI(currentCharacter);
 
 				// Manual Combat Log here
-				CombatUIManager.AddCombatLog(CombatLogType.Heal_Self, currentCharacter.Name, _status.ToString(), actionValue);
+				CombatUIManager.AddCombatLog(CombatLogType.Heal_Self, currentCharacter.Name, anim.ToString(), actionValue);
 			}
 		}
 		// When missed
 		else
 		{
 			// Manual Combat Log here
-			CombatUIManager.AddCombatLog(CombatLogType.Missed, currentCharacter.Name, _status.ToString());
+			CombatUIManager.AddCombatLog(CombatLogType.Missed, currentCharacter.Name, anim.ToString());
 
 			// Target Character Animation Process
 			if (isTargetingOpponent)
@@ -180,4 +274,6 @@ public class CombatController : MonoBehaviour
 		// End action on this turn
 		OnTurnEnd?.Invoke();
 	}
+
+
 }

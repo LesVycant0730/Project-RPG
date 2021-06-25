@@ -8,6 +8,7 @@ namespace AnimationTypes
 		Cutscene,
 		Misc
 	}
+
 	public enum CombatAnimationStatus
 	{
 		// Start, End

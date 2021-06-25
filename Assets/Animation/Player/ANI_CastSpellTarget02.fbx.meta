@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 9c9ece7d8ae02c441991a11f80cf3af0
+guid: cb05c8e981a0bc64b89acd5dc8fb1f1d
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: CastHeal01
+    second: CastSpellTarget02
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -35,11 +35,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: CastHeal01
+      name: CastSpellTarget02
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 136
+      lastFrame: 256
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -58,14 +58,7 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: 0.34022558
-        functionName: RPGAction
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
+      events: []
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

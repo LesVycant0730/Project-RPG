@@ -30,9 +30,9 @@ MonoBehaviour:
   - status: 6
     animClip: Normal_Attack_01
   - status: 7
-    animClip: Cast_Fire_01
+    animClip: Cast_Spell_Target_01
   - status: 8
-    animClip: Cast_Spell_01
+    animClip: Cast_Spell_Ally_01
   - status: 9
     animClip: 
   - status: 10
@@ -44,16 +44,16 @@ MonoBehaviour:
   - status: 13
     animClip: React_Dodged_01
   - status: 14
-    animClip: Cast_Heal_01
+    animClip: Cast_Spell_Ally_01
   - status: 15
     animClip: Normal_Attack_01
   - status: 16
-    animClip: Cast_Spell_01
+    animClip: Cast_Spell_Target_01
   - status: 17
     animClip: Cast_Fire_01
   - status: 18
     animClip: Normal_Attack_02
   - status: 19
-    animClip: Cast_Spell_02
+    animClip: Cast_Spell_Target_02
   - status: 20
     animClip: Dance

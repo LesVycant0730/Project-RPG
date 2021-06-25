@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using RPG_Data;
 using RoboRyanTron.SearchableEnum;
+using AnimationTypes;
 
 [CreateAssetMenu(fileName = "Skill Data", menuName = "ScriptableObjects/Skill Data", order = 1)]
 public class SkillData : ScriptableObject
@@ -26,12 +27,15 @@ public class SkillData : ScriptableObject
     [Header("Skill Cost")]
     public int hpCost, spCost;
 
+    // Skill Effect Section
     [Header("Skill Effects")]
     [Space(20)]
-
-    [SerializeField]
-    // Skill Effect Section
     public SkillEffectCollection skillEffectCollection;
+
+    // VFX and Animation
+    [Header ("VFX && Animation")]
+    public string vfxName;
+    public CombatAnimationStatus skillAnim;
 
 	#region Data Check
 	private void OnValidate()

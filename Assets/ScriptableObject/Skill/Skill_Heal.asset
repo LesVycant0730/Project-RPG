@@ -18,10 +18,13 @@ MonoBehaviour:
   skillClass: 99
   hasUserClassRestriction: 0
   userClass: 
+  hpCost: 0
+  spCost: 0
   skillEffectCollection:
     hasDamage: 0
     hasHeal: 0
     SE_Damage:
+      canOverrideSkillType: 0
       skillType: 0
       isAOE: 0
       isPercentage: 1
@@ -33,6 +36,7 @@ MonoBehaviour:
       successRate: 0
       damageAmount: 0
     SE_Heal:
+      canOverrideSkillType: 0
       skillType: 1
       isAOE: 0
       isPercentage: 1
@@ -43,3 +47,5 @@ MonoBehaviour:
       totalInstance: 0
       successRate: 0
       healAmount: 0
+  vfxName: Healing_Mesh_01
+  skillAnim: 8

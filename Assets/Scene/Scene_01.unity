@@ -2141,6 +2141,7 @@ MonoBehaviour:
         controller: {fileID: 0}
       characterUI: {fileID: 0}
   - partyCharacters: []
+  isTesting: 1
   _currentCombatCharacter:
     id: 0
     party: 0

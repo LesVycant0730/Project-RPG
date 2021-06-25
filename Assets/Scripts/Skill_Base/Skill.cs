@@ -48,6 +48,11 @@ public class Skill : IRPGAction
         return skill_Data.skillDescription;
     }
 
+    public string GetVFXName()
+	{
+        return skill_Data.vfxName;
+	}
+
 	void IRPGAction.ActionStart()
 	{
 		throw new System.NotImplementedException();

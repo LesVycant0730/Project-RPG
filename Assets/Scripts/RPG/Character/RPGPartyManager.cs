@@ -27,6 +27,10 @@ public class RPGPartyManager : GameplayBaseManager
 	public static event Action<RPGCharacter, RPG_Party> OnCharacterTurn;
 	#endregion
 
+	#region Test
+	[SerializeField] private bool isTesting;
+	#endregion
+
 	#region RPG Character
 	[SerializeField] public RPGCharacter CurrentRPGCharacter { get; private set; }
 
@@ -173,8 +177,18 @@ public class RPGPartyManager : GameplayBaseManager
 		// First character will always be the fastest character
 		//CurrentRPGCharacter = GetFastestCharacter();
 
-		// Demo will use random characters
-		CurrentRPGCharacter = GetRandomCharacter();
+		if (isTesting)
+		{
+			// Testing will always use player character
+			CurrentRPGCharacter = null;
+			CurrentCombatCharacter = null;
+			CurrentRPGCharacter = GetRandomOpponent(RPG_Party.Enemy);
+		}
+		else
+		{
+			// Demo will use random characters
+			CurrentRPGCharacter = GetRandomCharacter();
+		}
 
 		if (CurrentRPGCharacter != null)
 		{
@@ -192,7 +206,7 @@ public class RPGPartyManager : GameplayBaseManager
 		CurrentRPGCharacter = null;
 		CurrentCombatCharacter = null;
 	}
-	#endregion
+#endregion
 
 	protected override void Init()
 	{

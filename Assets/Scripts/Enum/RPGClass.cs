@@ -1,5 +1,6 @@
 ﻿namespace RPG_Data
 {
+	#region Enum
 	public enum User_Class
     {
         Leader,
@@ -135,5 +136,22 @@
         Enemy,
         Neutral
 	}
+	#endregion
+
+	#region Data
+	public struct CombatActionInfo
+	{
+        public int Target { get; private set; }
+        public int Value { get; private set; }
+        public bool IsHit { get; private set; }
+
+        public CombatActionInfo(int _target)
+		{
+            Target = _target;
+            Value = 0;
+            IsHit = true;
+		}
+	}
+	#endregion
 }
 
