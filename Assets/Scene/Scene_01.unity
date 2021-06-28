@@ -1073,6 +1073,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a75f0f35da08ae488b4bc69680b239e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  libraryFolderDirectory: 
   playerInfos:
   - {fileID: 11400000, guid: 34341f40650df7e4cbad63f165011a87, type: 2}
   enemyInfos:
@@ -2389,6 +2390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 296a0615322b7354fae41f801faab2d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  libraryFolderDirectory: 
   descriptionInfoSO: {fileID: 11400000, guid: 8c737ebcec509274fadb2cf1b256d304, type: 2}
 --- !u!4 &758392385
 Transform:
@@ -4813,6 +4815,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31632fccb3331514cbf0c29986d52f02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  libraryFolderDirectory: Assets/ScriptableObject/Skill/
   skillDataSO:
   - {fileID: 11400000, guid: bb371e1b243192640a8a88d831a695c8, type: 2}
   - {fileID: 11400000, guid: f7fd3b340725681439bef0102124c0d8, type: 2}
@@ -4846,6 +4849,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: af11f767f3725504f83fc14aee6a3b32, type: 2}
   - {fileID: 11400000, guid: 72fc7c7ffc4842e43bc388688f99628f, type: 2}
   - {fileID: 11400000, guid: 99ac259620298704ba99fb309b9aec78, type: 2}
+  - {fileID: 11400000, guid: eb2015802ed9415488441a3d86214719, type: 2}
+  - {fileID: 11400000, guid: 83b8e1c6606c1fd4eb31d53decc992d2, type: 2}
   - {fileID: 11400000, guid: 6acbf7cf54355184ab5cc47e5711a4f4, type: 2}
   - {fileID: 11400000, guid: 54e5ded75bb7b6149850330a51c5a23e, type: 2}
   - {fileID: 11400000, guid: 7778bfe230f97304ebc6e0421ac38550, type: 2}

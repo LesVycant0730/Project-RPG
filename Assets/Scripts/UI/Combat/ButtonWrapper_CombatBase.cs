@@ -19,7 +19,7 @@ public class ButtonWrapper_CombatBase : Selectable
 
 		base.OnPointerDown(eventData);
 
-		Action_M.Action_Next(actionType);
+		Action_M.ActionCheckAndRun(actionType);
 	}
 
 	public override void OnPointerEnter(PointerEventData eventData)

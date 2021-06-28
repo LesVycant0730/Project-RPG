@@ -50,8 +50,8 @@ public class CombatCalculator : MonoBehaviour
 		return 0;
 	}
 
-	public CombatActionInfo GetResult()
+	public CombatActionInfo GetResult(RPG_Party _party, int _target, int _value)
 	{
-		return new CombatActionInfo();
+		return new CombatActionInfo(_party, _target, _value, true);
 	}
 }

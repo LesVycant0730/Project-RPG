@@ -55,7 +55,7 @@ namespace RPG_Input
                 case InputType.Enter:
                     break;
                 case InputType.Back:
-                    ActionManager.Instance.Action_Back();
+                    ActionManager.Instance.ActionBack();
                     break;
                 case InputType.Inspect:
                     break;

@@ -141,15 +141,23 @@
 	#region Data
 	public struct CombatActionInfo
 	{
-        public int Target { get; private set; }
-        public int Value { get; private set; }
-        public bool IsHit { get; private set; }
+        public RPG_Party TargetParty;
+        public int Target;
+        public int Value;
+        public bool IsHit;
 
-        public CombatActionInfo(int _target)
+        public CombatActionInfo(RPG_Party _party, int _target)
 		{
+            TargetParty = _party;
             Target = _target;
             Value = 0;
             IsHit = true;
+		}
+
+        public CombatActionInfo(RPG_Party _party, int _target, int _value, bool _isHit) : this(_party, _target)
+		{
+            Value = _value;
+            IsHit = _isHit;
 		}
 	}
 	#endregion

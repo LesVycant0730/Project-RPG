@@ -23,16 +23,15 @@ public class ActionManager : MonoBehaviour
         action_Combat = GetComponent<CombatAction>();
 	}
 
-	public void Action_Next(Combat_Action _actionType)
+	public void ActionNext(Combat_Action _actionType)
 	{
 		CustomLog.Log("Run Next Action from: " + CombatManager.CurrentAction + ", to: " + _actionType);
 		action_Combat.RunCombatAction(_actionType);
 	}
 
-	public void Action_Next()
+	public void ActionNext()
 	{
-		bool hasAction = false;
-		var nextAction = CombatManager.GetNextAction(CombatManager.CurrentAction, out hasAction);
+		var nextAction = CombatManager.GetNextAction(CombatManager.CurrentAction, out bool hasAction);
 
 		if (nextAction != Combat_Action.NONE && hasAction)
 		{
@@ -52,10 +51,9 @@ public class ActionManager : MonoBehaviour
 		action_Combat.CancelCombatAction(_actionType);
 	}
 
-	public void Action_Back()
+	public void ActionBack()
 	{
-		bool hasAction = false;
-		var prevAction = CombatManager.GetPreviousAction(out hasAction);
+		var prevAction = CombatManager.GetPreviousAction(out bool hasAction);
 
 		if (prevAction != Combat_Action.NONE && hasAction)
 		{
@@ -70,6 +68,18 @@ public class ActionManager : MonoBehaviour
 		else if (prevAction == Combat_Action.NONE)
 		{
 			action_Combat.CancelCombatAction(prevAction);
+		}
+	}
+
+	public void ActionCheckAndRun(Combat_Action _action)
+	{
+		if (CombatManager.CurrentAction == _action)
+		{
+			ActionBack();
+		}
+		else
+		{
+			ActionNext(_action);
 		}
 	}
 

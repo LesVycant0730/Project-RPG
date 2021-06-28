@@ -3,6 +3,7 @@ using AnimationTypes;
 using UnityEngine;
 using System;
 using GameInfo;
+using RPG_Data;
 
 public class CombatController : MonoBehaviour
 {
@@ -191,6 +192,9 @@ public class CombatController : MonoBehaviour
 			throw new Exception("Attempt to trigger combat from null character reference");
 
 		CombatAnimationStatus anim = _skill.skillAnim;
+
+		// Get result from the action
+		CombatActionInfo info = calculator.GetResult(RPG_Party.Ally, 0, 0);
 
 		// Current Character Animation Process
 		yield return CombatAnimationManager.AnimateProcess(currentCharacter.Character.Anim, anim, null);

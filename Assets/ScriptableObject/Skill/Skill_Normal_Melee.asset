@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 676aa760a5817f14aa60a4e80b47c5ba, type: 3}
-  m_Name: Skill_Heal
+  m_Name: Skill_Normal_Melee
   m_EditorClassIdentifier: 
   ToggleOnValidate: 0
-  skillName: 36
-  skillDescription: This skill is Heal
-  skillClass: 99
+  skillName: 49
+  skillDescription: This skill is Normal Melee
+  skillClass: 0
   hasUserClassRestriction: 0
   userClass: 
   hpCost: 0
   spCost: 0
   skillEffectCollection:
-    hasDamage: 0
-    hasHeal: 1
+    hasDamage: 1
+    hasHeal: 0
     SE_Damage:
       canOverrideSkillType: 0
       skillType: 0
@@ -32,20 +32,20 @@ MonoBehaviour:
       spCostPercentage: 0
       hpCostFixed: 0
       spCostFixed: 0
-      totalInstance: 0
-      successRate: 0
-      damageAmount: 0
+      totalInstance: 1
+      successRate: 90
+      damageAmount: 15
     SE_Heal:
       canOverrideSkillType: 0
       skillType: 1
       isAOE: 0
-      isPercentage: 0
+      isPercentage: 1
       hpCostPercentage: 0
       spCostPercentage: 0
       hpCostFixed: 0
-      spCostFixed: 15
-      totalInstance: 1
-      successRate: 100
-      healAmount: 50
-  vfxName: Healing_Mesh_01
-  skillAnim: 8
+      spCostFixed: 0
+      totalInstance: 0
+      successRate: 0
+      healAmount: 0
+  vfxName: 
+  skillAnim: 6
