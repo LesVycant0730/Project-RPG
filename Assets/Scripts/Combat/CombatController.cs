@@ -1,9 +1,9 @@
-using System.Collections;
 using AnimationTypes;
-using UnityEngine;
-using System;
 using GameInfo;
 using RPG_Data;
+using System;
+using System.Collections;
+using UnityEngine;
 
 public class CombatController : MonoBehaviour
 {
@@ -28,7 +28,7 @@ public class CombatController : MonoBehaviour
 		OnPlayerAction -= PlayerAction;
 	}
 
-	public void CheckTurn(RPGCharacter _char, RPG_Data.RPG_Party _party)
+	public void CheckTurn(RPGCharacter _char, RPG_Party _party)
 	{
 		currentCharacter = _char;
 
@@ -73,7 +73,7 @@ public class CombatController : MonoBehaviour
 	{
 		if (currentCharacter != null)
 		{
-			if (currentCharacter.CharacterParty == RPG_Data.RPG_Party.Ally)
+			if (currentCharacter.CharacterParty == RPG_Party.Ally)
 			{
 				// Disable UI
 				CombatUIManager.OnCombatActionRegistered();

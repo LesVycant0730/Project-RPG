@@ -1,51 +1,21 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using RPG_Data;
 
 public class ButtonWrapper_CombatSkill : ButtonWrapper_CombatBase
 {
-	private bool isInit = false;
-	[SerializeField] private Skill skill = null;
 	[SerializeField] private Text textButton;
+	[SerializeField] private Skill_Name skillName = Skill_Name.FINAL_INDEX;
+	private Skill skill;
 
 	#region Skill Update
-	public void SetSkill(Skill _skill, bool _init)
+	public void SetSkill(Skill_Name _skill)
 	{
-		if (skill == _skill)
-		{
-			return;
-		}
-
-		isInit = false;
-		skill = _skill;
-
-		if (_init)
-		{
-			Init();
-		}
-	}
-
-	public void Init()
-	{
-		if (isInit)
-		{
-			return;
-		}
-
-		isInit = true;
-		textButton.text = skill.GetName();
+		skillName = _skill;
+		skill = SkillLibrary.GetSkill(skillName);
 	}
 	#endregion
-
-#if UNITY_EDITOR
-	protected override void OnValidate()
-	{
-		if (textButton == null)
-		{
-			textButton = GetComponentInChildren<Text>();
-		}
-	}
-#endif
 
 	protected override void Start()
 	{
@@ -61,7 +31,7 @@ public class ButtonWrapper_CombatSkill : ButtonWrapper_CombatBase
 	{
 		base.OnPointerEnter(eventData);
 
-		CombatUIManager.OnCombatSkillEnter(skill?.GetDescription());
+		CombatUIManager.OnCombatSkillEnter(skill.GetDescription());
 	}
 
 	public override void OnPointerExit(PointerEventData eventData)

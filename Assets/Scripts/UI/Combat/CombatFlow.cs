@@ -1,6 +1,7 @@
 ﻿using RPG_Data;
 using System.Linq;
 using UnityEngine;
+using RoboRyanTron.SearchableEnum;
 
 [CreateAssetMenu(fileName = "Combat Flow", menuName = "ScriptableObjects/Combat/Flow", order = 1)]
 public sealed class CombatFlow : ScriptableObject
@@ -52,9 +53,9 @@ public sealed class CombatFlow : ScriptableObject
 [System.Serializable]
 public sealed class CombatActionFlow
 {
-    [SerializeField] private Combat_Action current;
-    [SerializeField] private Combat_Action next = Combat_Action.NONE;
-    [SerializeField] private Combat_Action previous = Combat_Action.Default;
+    [SerializeField, SearchableEnum] private Combat_Action current;
+    [SerializeField, SearchableEnum] private Combat_Action next = Combat_Action.NONE;
+    [SerializeField, SearchableEnum] private Combat_Action previous = Combat_Action.Default;
 
     public Combat_Action GetCurrent() => current;
     public Combat_Action GetNext() => next;

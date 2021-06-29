@@ -75,7 +75,12 @@ public class ActionManager : MonoBehaviour
 	{
 		if (CombatManager.CurrentAction == _action)
 		{
-			ActionBack();
+			if (_action == Combat_Action.Default)
+			{
+				ActionNext(Combat_Action.Default);
+			}
+			else
+				ActionBack();
 		}
 		else
 		{

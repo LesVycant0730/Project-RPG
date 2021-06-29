@@ -88,7 +88,7 @@ public class CombatUIManager : GameplayBaseManager
 		}
 	}
 
-	public static void OnCombatSkillEnter(string _description = "")
+	public static void OnCombatSkillEnter(string _description)
 	{
 		if (instance)
 		{
@@ -214,6 +214,7 @@ public class CombatUIManager : GameplayBaseManager
 
 	private void CombatDefaultUIAction()
 	{
+		print("Default");
 		OnSelectNormalAction.Invoke(true);
 	}
 

@@ -118,9 +118,10 @@ public class CombatUICanvas : MonoBehaviour
         textCombatTurn.gameObject.SetActive(false);
     }
 
-    public void ToggleUIHolder(Combat_Action _actionType, bool _enabled, out bool CanToggle)
+    public void ToggleUIHolder(Combat_Action _actionType, bool _enabled, out bool _canToggle)
     {
-        CanToggle = false;
+        print($"Toggle: {_actionType}: {_enabled}");
+        _canToggle = false;
 
         CombatUIHolder holder = holders.Single(x => x.ActionType == _actionType);
 
@@ -151,7 +152,7 @@ public class CombatUICanvas : MonoBehaviour
                 holder.Disable();
 			}
 
-			CanToggle = true;
+			_canToggle = true;
         }
     }
 
@@ -214,11 +215,7 @@ public class CombatUICanvas : MonoBehaviour
 
     public void ClearCombatLog()
 	{
-        if (combatLogBuilder == null)
-            combatLogBuilder = new StringBuilder();
-        else
-            combatLogBuilder.Clear();
-
+        combatLogBuilder = new StringBuilder();
         combatLog.text = string.Empty;
     }
 
@@ -239,6 +236,7 @@ public class CombatUICanvas : MonoBehaviour
     public void DisableActionButtons()
 	{
         ToggleUIHolder(Combat_Action.Demo, false, out bool _canToggle);
+        //ToggleUIHolder(Combat_Action.Default, false, out bool _canToggle);
         Array.ForEach(demoActionButtons, x => x.interactable = false);
     }
 
