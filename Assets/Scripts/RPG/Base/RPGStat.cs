@@ -38,7 +38,7 @@ public abstract class RPGStat : ScriptableObject
 	[SerializeField] protected int speed;
 
 	[Header("[Skills]")]
-	[SerializeField, SearchableEnum] protected List<Skill_Name> unlockedSkills;
+	[SerializeField, SearchableEnum] protected List<Skill_Name> unlockedSkills = new List<Skill_Name>();
 
 	// Default RPG Stat
 	public RPGStat()

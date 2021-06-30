@@ -14,6 +14,7 @@ public class ButtonWrapper_CombatSkill : ButtonWrapper_CombatBase
 	{
 		skillName = _skill;
 		skill = SkillLibrary.GetSkill(skillName);
+		textButton.text = skillName.ToString().Replace("_", " ");
 	}
 	#endregion
 

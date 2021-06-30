@@ -10,7 +10,7 @@ public class VFXPrefabDirectorySO : PrefabDirectorySO
 
 	public override bool HasDirectory()
 	{
-		return !Util.IsNullOrEmpty(vfxDirectory);
+		return !vfxDirectory.IsNullOrEmpty();
 	}
 
 	private VFXAssetReference GetVFX(string _id)

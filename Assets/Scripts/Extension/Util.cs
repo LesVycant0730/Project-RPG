@@ -78,6 +78,11 @@ public static class Util
         return _array == null || _array.Length == 0;
 	}
 
+    public static bool IsNullOrEmpty<T>(this List<T> _list)
+	{
+        return _list == null || _list.Count == 0;
+	}
+
     public static IEnumerator WaitForAnimation(this Animator _anim, string _clipName, Action _action)
 	{
         yield return new WaitUntil(() => _anim.GetCurrentAnimatorStateInfo(0).IsName(_clipName));

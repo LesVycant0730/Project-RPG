@@ -66,6 +66,7 @@ public class CombatUIManager : GameplayBaseManager
 		DisableUpdate();
 		CombatDisabledUIAction();
 		canvas.OnCombatDefault();
+		canvas.OnCombatExit();
 
 		instance = null;
 	}
@@ -158,7 +159,7 @@ public class CombatUIManager : GameplayBaseManager
 			CharacterHighlight.SetActive(_character.Character.Model != null);
 		}
 
-		canvas.OnTurnUpdate(_character.Character, _party);
+		canvas.OnTurnUpdate(_character, _party);
 	}
 
 

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AddressableAssets;
 
 public class CombatUICanvas : MonoBehaviour
 {
@@ -47,6 +48,14 @@ public class CombatUICanvas : MonoBehaviour
     [SerializeField] private ButtonWrapper_CombatBase[] normalActionButtons;
     [SerializeField] private CombatUIHolder[] holders;
     [SerializeField] private List<CombatUIHolder> activeHolders = new List<CombatUIHolder>();
+	#endregion
+
+	#region Skill Button
+    [Header ("Skill Button")]
+	[SerializeField] private AssetReference skillButtonAsset;
+    [SerializeField] private Transform skillButtonContent;
+    [SerializeField] private List<ButtonWrapper_CombatSkill> skillButtonLists = new List<ButtonWrapper_CombatSkill>();
+    private GameObject loadedSkillButtonAsset;
     #endregion
 
     #region Description Holder
@@ -99,24 +108,11 @@ public class CombatUICanvas : MonoBehaviour
         OnCombatDefault();
 	}
 
-    // Used in slider UI
-    public void OnSliderValueChanged(float value)
+	// Used in slider UI
+	public void OnSliderValueChanged(float value)
 	{
         textAnimationSpeed.text = $"Game Speed: {value:f2}";
 	}
-
-	public void OnCombatToggle(bool _enabled)
-	{
-        Array.ForEach(demoActionButtons, x => x.interactable = _enabled);
-    }
-
-    public void OnCombatDefault()
-	{
-        demoActionButtons[0].interactable = true;
-        demoActionButtons[1].interactable = false;
-        demoActionButtons[2].interactable = false;
-        textCombatTurn.gameObject.SetActive(false);
-    }
 
     public void ToggleUIHolder(Combat_Action _actionType, bool _enabled, out bool _canToggle)
     {
@@ -156,7 +152,8 @@ public class CombatUICanvas : MonoBehaviour
         }
     }
 
-    public void UpdateDescriptionBox(string _description = "")
+	#region Description/Combat Log
+	public void UpdateDescriptionBox(string _description = "")
 	{
         if (string.IsNullOrEmpty(_description))
 		{
@@ -223,20 +220,84 @@ public class CombatUICanvas : MonoBehaviour
 	{
         textDescription.text = string.Empty;
 	}
+    #endregion
 
-	public void OnTurnUpdate(Character _char, RPG_Party _party)
+    #region Combat Event
+    public void OnCombatExit()
+    {
+        skillButtonAsset.ReleaseAsset();
+
+        skillButtonLists.ForEach(x =>
+        {
+            if (x != null)
+            {
+                Destroy(x.gameObject);
+            }
+        });
+
+        skillButtonLists.Clear();
+    }
+
+    public void OnCombatToggle(bool _enabled)
+    {
+        Array.ForEach(demoActionButtons, x => x.interactable = _enabled);
+    }
+
+    public void OnCombatDefault()
+    {
+        demoActionButtons[0].interactable = true;
+        demoActionButtons[1].interactable = false;
+        demoActionButtons[2].interactable = false;
+        textCombatTurn.gameObject.SetActive(false);
+    }
+
+    public void OnTurnUpdate(RPGCharacter _char, RPG_Party _party)
 	{
-        textCombatTurn.gameObject.SetActive(_char != null);
+        // Update combat turn text
+        textCombatTurn.gameObject.SetActive(_char.Character != null);
         textCombatTurn.color = _party == RPG_Party.Ally ? Color.blue : Color.red;
         textCombatTurn.text = _party == RPG_Party.Ally ? "Player Turn" : "Enemy Turn";
 
+        // Update combat demo action buttons 
         Array.ForEach(demoActionButtons, x => x.interactable = _party == RPG_Party.Ally);
+
+        // Update skill button list based on character available skill lists.
+        if (_party == RPG_Party.Ally)
+		{
+            UpdateSkillButtons(_char);
+		}
 	}
+	#endregion
+
+	private async void UpdateSkillButtons(RPGCharacter _char)
+	{
+        List<Skill_Name> skillList = _char.CharacterStat.GetSkillList();
+
+        if (!skillList.IsNullOrEmpty())
+        {
+            if (loadedSkillButtonAsset == null)
+                loadedSkillButtonAsset = await UtilAddressables.LoadAsset<GameObject>(skillButtonAsset, null);
+
+            for (int i = 0; i < skillList.Count; i++)
+            {
+                // Reuse existing buttons
+                if (i < skillButtonLists.Count)
+                {
+                    skillButtonLists[i].SetSkill(skillList[i]);
+                }
+                else
+                {
+                    ButtonWrapper_CombatSkill newButton = Instantiate(loadedSkillButtonAsset, skillButtonContent).GetComponent<ButtonWrapper_CombatSkill>();
+                    newButton.SetSkill(skillList[i]);
+                    skillButtonLists.Add(newButton);
+                }
+            }
+        }
+    }
 
     public void DisableActionButtons()
 	{
         ToggleUIHolder(Combat_Action.Demo, false, out bool _canToggle);
-        //ToggleUIHolder(Combat_Action.Default, false, out bool _canToggle);
         Array.ForEach(demoActionButtons, x => x.interactable = false);
     }
 
@@ -250,15 +311,11 @@ public class CombatUICanvas : MonoBehaviour
         switch (_character.CharacterParty)
 		{
             case RPG_Party.Ally:
-                if (playerStatusUI.Length <= characterIndex)
-                    throw new Exception($"Expected Player status UI of index: {characterIndex} while the length is only {playerStatusUI.Length}");
-
+                Debug.Assert(playerStatusUI.Length > characterIndex, $"Expected Player status UI of index: {characterIndex} while the length is only {playerStatusUI.Length}");
                 playerStatusUI[characterIndex].UpdateInfo(_character.CharacterStatInfo);
                 break;
             case RPG_Party.Enemy:
-                if (enemyStatusUI.Length <= characterIndex) 
-                    throw new Exception($"Expected Player status UI of index: {characterIndex} while the length is only {enemyStatusUI.Length}");
-
+                Debug.Assert(enemyStatusUI.Length > characterIndex, $"Expected Enemy status UI of index: {characterIndex} while the length is only {enemyStatusUI.Length}");
                 enemyStatusUI[characterIndex].UpdateInfo(_character.CharacterStatInfo);
                 break;
 		}

@@ -58,7 +58,7 @@ public class ButtonWrapper_CombatBase : Selectable
 	#region Update
 	private void Toggle(bool _value)
 	{
-		gameObject.SetActive(_value);
+		//gameObject.SetActive(_value);
 	}
 
 	public virtual void OnSlotUpdate()
