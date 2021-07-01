@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using RPG_Data;
+using AnimationTypes;
 
 // Note: The base class for skill
 [System.Serializable]
@@ -51,6 +52,11 @@ public class Skill : IRPGAction
     public string GetVFXName()
 	{
         return skill_Data.vfxName;
+	}
+
+    public CombatAnimationStatus GetAnimationType()
+	{
+        return skill_Data.skillAnim;
 	}
 
 	void IRPGAction.ActionStart()

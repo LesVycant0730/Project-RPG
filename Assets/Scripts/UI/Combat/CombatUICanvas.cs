@@ -116,7 +116,6 @@ public class CombatUICanvas : MonoBehaviour
 
     public void ToggleUIHolder(Combat_Action _actionType, bool _enabled, out bool _canToggle)
     {
-        print($"Toggle: {_actionType}: {_enabled}");
         _canToggle = false;
 
         CombatUIHolder holder = holders.Single(x => x.ActionType == _actionType);
@@ -275,6 +274,7 @@ public class CombatUICanvas : MonoBehaviour
 
         if (!skillList.IsNullOrEmpty())
         {
+            // Load skill button asset
             if (loadedSkillButtonAsset == null)
                 loadedSkillButtonAsset = await UtilAddressables.LoadAsset<GameObject>(skillButtonAsset, null);
 

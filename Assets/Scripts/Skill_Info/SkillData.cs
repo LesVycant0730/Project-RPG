@@ -21,7 +21,7 @@ public class SkillData : ScriptableObject
 
     public bool hasUserClassRestriction;
 
-    [ConditionalHide(false, ConditionalSourceField = "hasUserClassRestriction")]
+    [ConditionalHide(false, ConditionalSourceField = nameof(hasUserClassRestriction))]
     public User_Class[] userClass;
 
     [Header("Skill Cost")]

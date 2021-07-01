@@ -18,9 +18,9 @@ public class ButtonWrapper_CombatSkill : ButtonWrapper_CombatBase
 	}
 	#endregion
 
-	protected override void Start()
+	protected override void Awake()
 	{
-		base.Start();
+		base.Awake();
 	}
 
 	protected override void OnDestroy()
@@ -30,6 +30,9 @@ public class ButtonWrapper_CombatSkill : ButtonWrapper_CombatBase
 
 	public override void OnPointerEnter(PointerEventData eventData)
 	{
+		if (!interactable)
+			return;
+
 		base.OnPointerEnter(eventData);
 
 		CombatUIManager.OnCombatSkillEnter(skill.GetDescription());
@@ -37,6 +40,9 @@ public class ButtonWrapper_CombatSkill : ButtonWrapper_CombatBase
 
 	public override void OnPointerExit(PointerEventData eventData)
 	{
+		if (!interactable)
+			return;
+
 		base.OnPointerExit(eventData);
 
 		CombatUIManager.OnCombatActionExit();
@@ -44,6 +50,9 @@ public class ButtonWrapper_CombatSkill : ButtonWrapper_CombatBase
 
 	public override void OnPointerDown(PointerEventData eventData)
 	{
+		if (!interactable)
+			return;
+
 		base.OnPointerDown(eventData);
 	}
 

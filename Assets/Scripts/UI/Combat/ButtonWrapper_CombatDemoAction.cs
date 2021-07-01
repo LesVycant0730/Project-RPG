@@ -15,7 +15,7 @@ public class ButtonWrapper_CombatDemoAction : Selectable
 		base.OnPointerDown(eventData);
 
 		// Execute action
-		CombatController.InvokePlayerAction(_status);
+		//CombatController.InvokePlayerAction(_status);
 	}
 
 	public override void OnPointerEnter(PointerEventData eventData)

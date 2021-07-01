@@ -22,7 +22,7 @@ public class SO_Skill_Editor : Editor
 			SetDirty(data);
 		}
 
-		if (GUILayout.Button ("Trigger Effects"))
+		if (GUILayout.Button ("Simulate Effects"))
 		{
 			data.SimulateEffects();
 		}

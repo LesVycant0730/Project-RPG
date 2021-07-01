@@ -14,7 +14,8 @@ public class CombatController : MonoBehaviour
 	private Coroutine CombatCor = null;
 
 	public static event Action OnTurnEnd;
-	public static event Action<CombatAnimationStatus> OnPlayerAction;
+	//public static event Action<CombatAnimationStatus> OnPlayerAction;
+	public static event Action<SkillData> OnPlayerAction;
 
 	private void Awake()
 	{
@@ -35,63 +36,65 @@ public class CombatController : MonoBehaviour
 		if (_char != null)
 		{
 			// If Player, combat action will require manual input
-			if (_party == RPG_Data.RPG_Party.Ally)
+			if (_party == RPG_Party.Ally)
 			{
 				return;
 			}
 			// If Enemy, combat action will automated
 			else
 			{
-				CombatAnimationStatus randAnim = (CombatAnimationStatus)UnityEngine.Random.Range((int)CombatAnimationStatus.Normal_Kick, (int)CombatAnimationStatus.Fireball + 1);
+				// Demo only
+				//CombatAnimationStatus randAnim = (CombatAnimationStatus)UnityEngine.Random.Range((int)CombatAnimationStatus.Normal_Kick, (int)CombatAnimationStatus.Fireball + 1);
+				//CombatActionCoroutine(randAnim);
 
-				CombatActionCoroutine(randAnim);
+				// Add skill feedback here
 			}
 		}
 	}
 
+	#region Demo
 	// Called in Button only
-	public void RandomCombatAction()
-	{
-		CombatAnimationStatus[] randAnimArr = new CombatAnimationStatus[]
-		{
-			CombatAnimationStatus.Normal_Kick, CombatAnimationStatus.Self_Heal,
-			CombatAnimationStatus.Magic_Missile, CombatAnimationStatus.Fireball,
-			CombatAnimationStatus.Heavy_Kick, CombatAnimationStatus.Magic_Bomb
-		};
+	//public void RandomCombatAction()
+	//{
+	//	CombatAnimationStatus[] randAnimArr = new CombatAnimationStatus[]
+	//	{
+	//		CombatAnimationStatus.Normal_Kick, CombatAnimationStatus.Self_Heal,
+	//		CombatAnimationStatus.Magic_Missile, CombatAnimationStatus.Fireball,
+	//		CombatAnimationStatus.Heavy_Kick, CombatAnimationStatus.Magic_Bomb
+	//	};
 
-		CombatAnimationStatus randAnim = randAnimArr[UnityEngine.Random.Range(0, randAnimArr.Length)];
+	//	CombatAnimationStatus randAnim = randAnimArr[UnityEngine.Random.Range(0, randAnimArr.Length)];
 
-		PlayerAction(randAnim);
-	}
+	//	PlayerAction(randAnim);
+	//}
 
-	public static void InvokePlayerAction(CombatAnimationStatus _status)
-	{
-		OnPlayerAction?.Invoke(_status);
-	}
+	//public static void InvokePlayerAction(CombatAnimationStatus _status)
+	//{
+	//	OnPlayerAction?.Invoke(_status);
+	//}
 
-	private void PlayerAction(CombatAnimationStatus _status)
-	{
-		if (currentCharacter != null)
-		{
-			if (currentCharacter.CharacterParty == RPG_Party.Ally)
-			{
-				// Disable UI
-				CombatUIManager.OnCombatActionRegistered();
+	//private void PlayerAction(CombatAnimationStatus _status)
+	//{
+	//	if (currentCharacter != null)
+	//	{
+	//		if (currentCharacter.CharacterParty == RPG_Party.Ally)
+	//		{
+	//			// Disable UI
+	//			CombatUIManager.OnCombatActionRegistered();
 
-				CombatActionCoroutine(_status);
-			}
-		}
-	}
+	//			CombatActionCoroutine(_status);
+	//		}
+	//	}
+	//}
+	//private void CombatActionCoroutine(CombatAnimationStatus _status)
+	//{
+	//	if (CombatCor != null)
+	//	{
+	//		StopCoroutine(CombatCor);
+	//	}
 
-	private void CombatActionCoroutine(CombatAnimationStatus _status)
-	{
-		if (CombatCor != null)
-		{
-			StopCoroutine(CombatCor);
-		}
-
-		//CombatCor = StartCoroutine(CombatSimulation(_status));
-	}
+	//	CombatCor = StartCoroutine(CombatSimulation(_status));
+	//}
 
 	// Only for simulating combat with animation and feedback used in demonstration 
 	//private IEnumerator CombatSimulation(CombatAnimationStatus _status)
@@ -185,6 +188,36 @@ public class CombatController : MonoBehaviour
 	//	End action on this turn
 	//   OnTurnEnd?.Invoke();
 	//}
+	#endregion
+
+	public static void InvokePlayerAction(SkillData _skill)
+	{
+		OnPlayerAction?.Invoke(_skill);
+	}
+
+	private void PlayerAction(SkillData _skill)
+	{
+		if (currentCharacter != null)
+		{
+			if (currentCharacter.CharacterParty == RPG_Party.Ally)
+			{
+				// Disable UI
+				CombatUIManager.OnCombatActionRegistered();
+
+				CombatActionCoroutine(_skill);
+			}
+		}
+	}
+
+	private void CombatActionCoroutine(SkillData _skill)
+	{
+		if (CombatCor != null)
+		{
+			StopCoroutine(CombatCor);
+		}
+
+		CombatCor = StartCoroutine(CombatSimulation(_skill));
+	}
 
 	private IEnumerator CombatSimulation(SkillData _skill)
 	{
