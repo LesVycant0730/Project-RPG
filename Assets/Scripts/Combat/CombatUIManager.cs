@@ -215,7 +215,6 @@ public class CombatUIManager : GameplayBaseManager
 
 	private void CombatDefaultUIAction()
 	{
-		print("Default");
 		OnSelectNormalAction.Invoke(true);
 	}
 

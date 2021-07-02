@@ -13,10 +13,16 @@ public class CombatController : MonoBehaviour
 
 	private Coroutine CombatCor = null;
 
+	// Action when any party ended their turn
 	public static event Action OnTurnEnd;
+
+	// Demo action (Test only)
 	//public static event Action<CombatAnimationStatus> OnPlayerAction;
+
+	// Skill action
 	public static event Action<SkillData> OnPlayerAction;
 
+	#region Mono
 	private void Awake()
 	{
 		RPGPartyManager.OnCharacterTurn += CheckTurn;
@@ -28,6 +34,7 @@ public class CombatController : MonoBehaviour
 		RPGPartyManager.OnCharacterTurn -= CheckTurn;
 		OnPlayerAction -= PlayerAction;
 	}
+	#endregion
 
 	public void CheckTurn(RPGCharacter _char, RPG_Party _party)
 	{
@@ -47,7 +54,7 @@ public class CombatController : MonoBehaviour
 				//CombatAnimationStatus randAnim = (CombatAnimationStatus)UnityEngine.Random.Range((int)CombatAnimationStatus.Normal_Kick, (int)CombatAnimationStatus.Fireball + 1);
 				//CombatActionCoroutine(randAnim);
 
-				// Add skill feedback here
+				// Add skill feedback here for enemy
 			}
 		}
 	}
@@ -190,10 +197,14 @@ public class CombatController : MonoBehaviour
 	//}
 	#endregion
 
+	#region Global Method
 	public static void InvokePlayerAction(SkillData _skill)
 	{
+		print($"Invoked: {_skill}");
+
 		OnPlayerAction?.Invoke(_skill);
 	}
+	#endregion
 
 	private void PlayerAction(SkillData _skill)
 	{
@@ -204,30 +215,32 @@ public class CombatController : MonoBehaviour
 				// Disable UI
 				CombatUIManager.OnCombatActionRegistered();
 
-				CombatActionCoroutine(_skill);
+				RPGActionCoroutine(_skill);
 			}
 		}
 	}
 
-	private void CombatActionCoroutine(SkillData _skill)
+	private void RPGActionCoroutine(SkillData _skill)
 	{
 		if (CombatCor != null)
 		{
 			StopCoroutine(CombatCor);
 		}
 
-		CombatCor = StartCoroutine(CombatSimulation(_skill));
+		CombatCor = StartCoroutine(RPGActionUpdate(_skill));
 	}
 
-	private IEnumerator CombatSimulation(SkillData _skill)
+	// Process of updating the entire combat situation and provide results
+	private IEnumerator RPGActionUpdate(SkillData _skill)
 	{
 		if (currentCharacter == null)
 			throw new Exception("Attempt to trigger combat from null character reference");
 
+		// Skill animation
 		CombatAnimationStatus anim = _skill.skillAnim;
 
 		// Get result from the action
-		CombatActionInfo info = calculator.GetResult(RPG_Party.Ally, 0, 0);
+		CombatActionInfo[] results = calculator.GetResults(RPG_Party.Ally, new RPGCharacter[], 0);
 
 		// Current Character Animation Process
 		yield return CombatAnimationManager.AnimateProcess(currentCharacter.Character.Anim, anim, null);

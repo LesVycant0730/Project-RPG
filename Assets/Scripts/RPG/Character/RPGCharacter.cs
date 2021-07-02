@@ -25,6 +25,9 @@ public class RPGCharacter
 	// The character UI reference
 	[SerializeField] private CharacterStatusUI characterUI;
 
+	// The character party index
+	[SerializeField] private int partyIndex = -1;
+
 	public RPG_Party CharacterParty => characterPartyType;
 	public RPGStat CharacterStatSO => characterStatSO;
 	public RPGStat CharacterStat => characterStat;
@@ -32,6 +35,7 @@ public class RPGCharacter
 	public Character Character => character;
 	public CharacterStatusUI CharacterUI => characterUI;
 	public string Name => characterStat != null ? characterStat.name : "NULL";
+	public int PartyIndex => partyIndex;
 
 	/// <summary>
 	/// <para> Setup character stat (Prohibited to modify except on actual stat allocation/upgrades) </para>
@@ -60,6 +64,11 @@ public class RPGCharacter
 	public void SetUI(CharacterStatusUI _UI)
 	{
 		characterUI = _UI;
+	}
+
+	public void SetPartyIndex(int _index)
+	{
+		partyIndex = _index;
 	}
 }
 
@@ -103,6 +112,9 @@ public class RPGParty
 			
 			// Get Model from addressables
 			character.SetModel(await CombatCharacterManager.GetCharacter(character));
+
+			// Set Party Index
+			character.SetPartyIndex(partyCharacters.IndexOf(character));
 
 			// Update Character UI reference
 			CombatUIManager.UpdateCharacterStatusUI(character);

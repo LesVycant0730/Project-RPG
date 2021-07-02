@@ -95,22 +95,6 @@ public class RPGPartyManager : GameplayBaseManager
 
 		return null;
 	}
-
-	public static int GetCharacterIndex(RPGCharacter _character)
-	{
-		if (instance == null)
-			return -1;
-
-		switch (_character.CharacterParty)
-		{
-			case RPG_Party.Ally:
-				return instance.GetParty(RPG_Party.Ally).GetCharacterIndex(_character);
-			case RPG_Party.Enemy:
-				return instance.GetParty(RPG_Party.Enemy).GetCharacterIndex(_character);
-		}
-
-		return -1;
-	}
 	#endregion
 
 	#region RPG Character (In Combat)

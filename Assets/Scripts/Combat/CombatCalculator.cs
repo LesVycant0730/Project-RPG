@@ -50,8 +50,20 @@ public class CombatCalculator : MonoBehaviour
 		return 0;
 	}
 
-	public CombatActionInfo GetResult(RPG_Party _party, int _target, int _value)
+	public CombatActionInfo[] GetResults(RPGCharacter[] _target, int _value)
 	{
-		return new CombatActionInfo(_party, _target, _value, true);
+		CombatActionInfo[] results = new CombatActionInfo[_target.Length];
+
+		for (int i = 0; i < results.Length; i++)
+		{
+			results[i] = new CombatActionInfo(_target[i].CharacterParty, _target[i].PartyIndex)
+			{
+				// Update stat here
+				Value = _value,
+				IsHit = true
+			};
+		}
+
+		return results;
 	}
 }

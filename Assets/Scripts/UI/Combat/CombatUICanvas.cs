@@ -303,7 +303,7 @@ public class CombatUICanvas : MonoBehaviour
 
     public void UpdateCharacterInfo(RPGCharacter _character)
 	{
-        int characterIndex = RPGPartyManager.GetCharacterIndex(_character);
+        int characterIndex = _character.PartyIndex;
 
         if (characterIndex == -1)
             throw new Exception($"Negative Character Index");
