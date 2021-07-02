@@ -1,62 +1,60 @@
-﻿using UnityEngine;
+﻿using AnimationTypes;
 using RPG_Data;
-using AnimationTypes;
 
 // Note: The base class for skill
 [System.Serializable]
 public class Skill : IRPGAction
 {
-    [SerializeField]
-    private SkillData skill_Data;
+    public SkillData Data { get; private set; }
 
-    public Skill(SkillData _skillData)
+    public Skill(SkillData _data)
 	{
-        skill_Data = _skillData;
+        Data = _data;
 	}
 
     public string GetName()
 	{
-        return skill_Data.skillName.ToString();
+        return Data.skillName.ToString();
 	}
 
     public Skill_Name GetEnum()
 	{
-        return skill_Data.skillName;
+        return Data.skillName;
 	}
 
     public int GetHPCost()
     {
-        return skill_Data.hpCost;
+        return Data.hpCost;
     }
 
     public int GetSPCost()
     {
-        return skill_Data.spCost;
+        return Data.spCost;
     }
 
     public bool HasClassRestriction()
     {
-        return skill_Data.hasUserClassRestriction;
+        return Data.hasUserClassRestriction;
     }
 
     public User_Class[] GetClass()
     {
-        return skill_Data.userClass;
+        return Data.userClass;
     }
 
     public string GetDescription()
     {
-        return skill_Data.skillDescription;
+        return Data.skillDescription;
     }
 
     public string GetVFXName()
 	{
-        return skill_Data.vfxName;
+        return Data.vfxName;
 	}
 
     public CombatAnimationStatus GetAnimationType()
 	{
-        return skill_Data.skillAnim;
+        return Data.skillAnim;
 	}
 
 	void IRPGAction.ActionStart()

@@ -54,6 +54,11 @@ public class ButtonWrapper_CombatSkill : ButtonWrapper_CombatBase
 			return;
 
 		base.OnPointerDown(eventData);
+
+		if (skill != null)
+			CombatController.InvokePlayerAction(skill.Data);
+		else
+			Debug.Log("Attempt to invoke player action from empty skill reference.");
 	}
 
 }
