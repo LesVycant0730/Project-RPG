@@ -239,8 +239,8 @@ public class CombatController : MonoBehaviour
 		// Skill animation
 		CombatAnimationStatus anim = _skill.skillAnim;
 
-		// Get result from the action
-		CombatActionInfo[] results = calculator.GetResults(RPG_Party.Ally, new RPGCharacter[], 0);
+		// Get result from the action (Need Update)
+		CombatActionInfo[] results = calculator.GetResults(new RPGCharacter[0], 0);
 
 		// Current Character Animation Process
 		yield return CombatAnimationManager.AnimateProcess(currentCharacter.Character.Anim, anim, null);

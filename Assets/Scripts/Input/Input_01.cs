@@ -766,6 +766,38 @@ public class @Input_01 : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Element/Target (Up)"",
+                    ""type"": ""Button"",
+                    ""id"": ""303787f5-e9e7-4012-9169-5ee7e1ddf9e1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Element/Target (Down)"",
+                    ""type"": ""Button"",
+                    ""id"": ""8441ffe8-68d6-412b-9a95-978821266b1d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Element/Target (Left)"",
+                    ""type"": ""Button"",
+                    ""id"": ""c134047b-92f2-475b-b3dd-061069449514"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Element/Target (Right)"",
+                    ""type"": ""Button"",
+                    ""id"": ""4d89ec01-d0e4-4121-b949-c2df75031b40"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -788,6 +820,94 @@ public class @Input_01 : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Back/Previous"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7331f385-aae0-418c-b2c7-83e12da6b781"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Element/Target (Right)"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b667bf01-a90b-48ea-8469-5407ada892c8"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Element/Target (Right)"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e8357b32-50fe-40b9-a143-ae1ae20e27ea"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Element/Target (Up)"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b0d46aad-2bce-4fd0-8f3c-6951cfee028a"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Element/Target (Up)"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""40ce2645-540a-44dd-9d3f-bffb60d6bb85"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Element/Target (Down)"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7ddaf576-bae7-4df0-8a35-26b8a94fc916"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Element/Target (Down)"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f69d85b6-7809-4081-ad78-a9843471b116"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Element/Target (Left)"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d7906afc-b0d4-43c7-af16-6f8db061eadb"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Element/Target (Left)"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -818,6 +938,10 @@ public class @Input_01 : IInputActionCollection, IDisposable
         m_UICustom = asset.FindActionMap("UI/Custom", throwIfNotFound: true);
         m_UICustom_EnterNext = m_UICustom.FindAction("Enter/Next", throwIfNotFound: true);
         m_UICustom_BackPrevious = m_UICustom.FindAction("Back/Previous", throwIfNotFound: true);
+        m_UICustom_ElementTargetUp = m_UICustom.FindAction("Element/Target (Up)", throwIfNotFound: true);
+        m_UICustom_ElementTargetDown = m_UICustom.FindAction("Element/Target (Down)", throwIfNotFound: true);
+        m_UICustom_ElementTargetLeft = m_UICustom.FindAction("Element/Target (Left)", throwIfNotFound: true);
+        m_UICustom_ElementTargetRight = m_UICustom.FindAction("Element/Target (Right)", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1031,12 +1155,20 @@ public class @Input_01 : IInputActionCollection, IDisposable
     private IUICustomActions m_UICustomActionsCallbackInterface;
     private readonly InputAction m_UICustom_EnterNext;
     private readonly InputAction m_UICustom_BackPrevious;
+    private readonly InputAction m_UICustom_ElementTargetUp;
+    private readonly InputAction m_UICustom_ElementTargetDown;
+    private readonly InputAction m_UICustom_ElementTargetLeft;
+    private readonly InputAction m_UICustom_ElementTargetRight;
     public struct UICustomActions
     {
         private @Input_01 m_Wrapper;
         public UICustomActions(@Input_01 wrapper) { m_Wrapper = wrapper; }
         public InputAction @EnterNext => m_Wrapper.m_UICustom_EnterNext;
         public InputAction @BackPrevious => m_Wrapper.m_UICustom_BackPrevious;
+        public InputAction @ElementTargetUp => m_Wrapper.m_UICustom_ElementTargetUp;
+        public InputAction @ElementTargetDown => m_Wrapper.m_UICustom_ElementTargetDown;
+        public InputAction @ElementTargetLeft => m_Wrapper.m_UICustom_ElementTargetLeft;
+        public InputAction @ElementTargetRight => m_Wrapper.m_UICustom_ElementTargetRight;
         public InputActionMap Get() { return m_Wrapper.m_UICustom; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1052,6 +1184,18 @@ public class @Input_01 : IInputActionCollection, IDisposable
                 @BackPrevious.started -= m_Wrapper.m_UICustomActionsCallbackInterface.OnBackPrevious;
                 @BackPrevious.performed -= m_Wrapper.m_UICustomActionsCallbackInterface.OnBackPrevious;
                 @BackPrevious.canceled -= m_Wrapper.m_UICustomActionsCallbackInterface.OnBackPrevious;
+                @ElementTargetUp.started -= m_Wrapper.m_UICustomActionsCallbackInterface.OnElementTargetUp;
+                @ElementTargetUp.performed -= m_Wrapper.m_UICustomActionsCallbackInterface.OnElementTargetUp;
+                @ElementTargetUp.canceled -= m_Wrapper.m_UICustomActionsCallbackInterface.OnElementTargetUp;
+                @ElementTargetDown.started -= m_Wrapper.m_UICustomActionsCallbackInterface.OnElementTargetDown;
+                @ElementTargetDown.performed -= m_Wrapper.m_UICustomActionsCallbackInterface.OnElementTargetDown;
+                @ElementTargetDown.canceled -= m_Wrapper.m_UICustomActionsCallbackInterface.OnElementTargetDown;
+                @ElementTargetLeft.started -= m_Wrapper.m_UICustomActionsCallbackInterface.OnElementTargetLeft;
+                @ElementTargetLeft.performed -= m_Wrapper.m_UICustomActionsCallbackInterface.OnElementTargetLeft;
+                @ElementTargetLeft.canceled -= m_Wrapper.m_UICustomActionsCallbackInterface.OnElementTargetLeft;
+                @ElementTargetRight.started -= m_Wrapper.m_UICustomActionsCallbackInterface.OnElementTargetRight;
+                @ElementTargetRight.performed -= m_Wrapper.m_UICustomActionsCallbackInterface.OnElementTargetRight;
+                @ElementTargetRight.canceled -= m_Wrapper.m_UICustomActionsCallbackInterface.OnElementTargetRight;
             }
             m_Wrapper.m_UICustomActionsCallbackInterface = instance;
             if (instance != null)
@@ -1062,6 +1206,18 @@ public class @Input_01 : IInputActionCollection, IDisposable
                 @BackPrevious.started += instance.OnBackPrevious;
                 @BackPrevious.performed += instance.OnBackPrevious;
                 @BackPrevious.canceled += instance.OnBackPrevious;
+                @ElementTargetUp.started += instance.OnElementTargetUp;
+                @ElementTargetUp.performed += instance.OnElementTargetUp;
+                @ElementTargetUp.canceled += instance.OnElementTargetUp;
+                @ElementTargetDown.started += instance.OnElementTargetDown;
+                @ElementTargetDown.performed += instance.OnElementTargetDown;
+                @ElementTargetDown.canceled += instance.OnElementTargetDown;
+                @ElementTargetLeft.started += instance.OnElementTargetLeft;
+                @ElementTargetLeft.performed += instance.OnElementTargetLeft;
+                @ElementTargetLeft.canceled += instance.OnElementTargetLeft;
+                @ElementTargetRight.started += instance.OnElementTargetRight;
+                @ElementTargetRight.performed += instance.OnElementTargetRight;
+                @ElementTargetRight.canceled += instance.OnElementTargetRight;
             }
         }
     }
@@ -1090,5 +1246,9 @@ public class @Input_01 : IInputActionCollection, IDisposable
     {
         void OnEnterNext(InputAction.CallbackContext context);
         void OnBackPrevious(InputAction.CallbackContext context);
+        void OnElementTargetUp(InputAction.CallbackContext context);
+        void OnElementTargetDown(InputAction.CallbackContext context);
+        void OnElementTargetLeft(InputAction.CallbackContext context);
+        void OnElementTargetRight(InputAction.CallbackContext context);
     }
 }

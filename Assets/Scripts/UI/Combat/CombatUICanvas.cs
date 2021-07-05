@@ -82,8 +82,8 @@ public class CombatUICanvas : MonoBehaviour
     [SerializeField] private Text textCombatTurn;
     #endregion
 
-    #region Animation
-    [SerializeField] private Text textAnimationSpeed;
+    #region Game Speed
+    [SerializeField] private Text textGameSpeed;
 	#endregion
 
 #if UNITY_EDITOR
@@ -111,7 +111,7 @@ public class CombatUICanvas : MonoBehaviour
 	// Used in slider UI
 	public void OnSliderValueChanged(float value)
 	{
-        textAnimationSpeed.text = $"Game Speed: {value:f2}";
+        textGameSpeed.text = $"Game Speed: {value:f2}";
 	}
 
     public void ToggleUIHolder(Combat_Action _actionType, bool _enabled, out bool _canToggle)

@@ -39,6 +39,10 @@ namespace RPG_Input
             // UI Input
             input.UICustom.EnterNext.performed += (ctx) => { InputAction(InputType.Enter); };
             input.UICustom.BackPrevious.performed += (ctx) => { InputAction(InputType.Back); };
+            input.UICustom.ElementTargetUp.performed += (ctx) => { InputAction(InputType.Element_Up); };
+            input.UICustom.ElementTargetDown.performed += (ctx) => { InputAction(InputType.Element_Down); };
+            input.UICustom.ElementTargetLeft.performed += (ctx) => { InputAction(InputType.Element_Left); };
+            input.UICustom.ElementTargetRight.performed += (ctx) => { InputAction(InputType.Element_Right); };
 
             // Player Input
             input.Player.InspectProceed.performed += (ctx) => { InputAction(InputType.Inspect); };
@@ -58,6 +62,14 @@ namespace RPG_Input
                     ActionManager.Instance.ActionBack();
                     break;
                 case InputType.Inspect:
+                    break;
+                case InputType.Element_Up:
+                    break;
+                case InputType.Element_Down:
+                    break;
+                case InputType.Element_Left:
+                    break;
+                case InputType.Element_Right:
                     break;
                 default:
                     break;

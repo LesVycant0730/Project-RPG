@@ -5,6 +5,10 @@
         Enter,
         Back,
         Inspect,
+        Element_Up,
+        Element_Down,
+        Element_Left,
+        Element_Right,
         None
 	}
 }
