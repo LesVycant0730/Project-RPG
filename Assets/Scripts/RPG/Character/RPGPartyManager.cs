@@ -25,6 +25,7 @@ public class RPGPartyManager : GameplayBaseManager
 	}
 
 	public static event Action<RPGCharacter, RPG_Party> OnCharacterTurn;
+	public static event Action<RPGCharacter> OnTargetSelected;
 	#endregion
 
 	#region Test

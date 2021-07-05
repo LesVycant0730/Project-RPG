@@ -29,7 +29,7 @@ public class CameraBase : MonoBehaviour
 	[SerializeField, Range(0.0f, 1.0f)]
 	protected float camRotSmooth = 0.15f;
 
-	public virtual void Start()
+	protected virtual void Awake()
 	{
 		if (cam == null)
 		{
@@ -43,7 +43,7 @@ public class CameraBase : MonoBehaviour
 		}
 	}
 
-	public virtual void LateUpdate()
+	protected virtual void LateUpdate()
 	{
 		if (isUpdating)
 		{
@@ -83,7 +83,7 @@ public class CameraBase : MonoBehaviour
 #if UNITY_EDITOR
 		if (!Application.isPlaying && cam == null)
 		{
-			Start();
+			Awake();
 		}
 #endif
 
@@ -123,9 +123,12 @@ public class CameraBase : MonoBehaviour
 		}
 		else
 		{
-			// Set camera to default position and rotation
-			camTransform.SetPositionAndRotation(camPosDefault, camRotDefault);
-
+			if (posUpdate)
+			{
+				// Set camera to default position and rotation
+				camTransform.SetPositionAndRotation(camPosDefault, camRotDefault);
+			}
+			
 			// Reset camera velocity
 			currentCamVel = Vector3.zero;
 			targetCamVel = Vector3.zero;

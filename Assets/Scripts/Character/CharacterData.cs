@@ -11,7 +11,7 @@ public class Character
     [SerializeField, SearchableEnum] private RPG_Party party = RPG_Party.Ally;
 
     // The base or root object of the character holding everything
-    [SerializeField] private GameObject baseObject;
+    [SerializeField] private GameObject root;
     // The character model renderer
     [SerializeField] private SkinnedMeshRenderer model;
     // Is animator
@@ -25,7 +25,8 @@ public class Character
 
     public Character_ID ID => id;
     public RPG_Party Party => party;
-    public GameObject BaseObject => baseObject;
+    public GameObject Root => root;
+    public Transform RootTransform => root.transform;
     public SkinnedMeshRenderer Model => model;
     public Animator Anim => anim;
     public Vector3 ModelCenter => modelCenter;
@@ -44,7 +45,7 @@ public class Character
     {
         id = _id;
         party = _party;
-        baseObject = _go;
+        root = _go;
         model = _go.GetComponentInChildren<SkinnedMeshRenderer>();
 		isUsing = true;
         anim = _go.GetComponent<Animator>();
@@ -113,10 +114,10 @@ public class Character
 
     private void Destroy()
     {
-        if (baseObject)
+        if (root)
         {
-            Addressables.ReleaseInstance(baseObject);
-            baseObject = null;
+            Addressables.ReleaseInstance(root);
+            root = null;
         }
     }
 }
