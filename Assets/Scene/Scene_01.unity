@@ -2144,6 +2144,7 @@ MonoBehaviour:
         isUsing: 0
         controller: {fileID: 0}
       characterUI: {fileID: 0}
+      partyIndex: -1
   - partyCharacters:
     - characterPartyType: 1
       characterStatSO: {fileID: 11400000, guid: 4b74c164614e8184cb6aad70364dc8fc, type: 2}
@@ -2177,6 +2178,7 @@ MonoBehaviour:
         isUsing: 0
         controller: {fileID: 0}
       characterUI: {fileID: 0}
+      partyIndex: -1
   - partyCharacters: []
   isTesting: 1
   _currentCombatCharacter:
@@ -3399,7 +3401,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 964428526}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.13658012, y: 1.8858947, z: 0.5715806}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1178940641}
@@ -4220,7 +4222,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1115841632}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.13658012, y: -0.88589466, z: 3.4284194}
+  m_LocalPosition: {x: 0, y: 1, z: 4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 964428527}
@@ -4508,6 +4510,7 @@ GameObject:
   - component: {fileID: 1178940641}
   - component: {fileID: 1178940640}
   - component: {fileID: 1178940639}
+  - component: {fileID: 1178940643}
   - component: {fileID: 1178940642}
   m_Layer: 0
   m_Name: Main Camera
@@ -4574,8 +4577,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1178940638}
-  m_LocalRotation: {x: 0, y: -0.258819, z: 0, w: 0.9659259}
-  m_LocalPosition: {x: 3, y: 0, z: -3}
+  m_LocalRotation: {x: -0, y: -0.258819, z: -0, w: 0.9659259}
+  m_LocalPosition: {x: 3.1365802, y: 1.8858947, z: -2.4284194}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 964428527}
@@ -4598,13 +4601,47 @@ MonoBehaviour:
   cameraCenter: {fileID: 1115841633}
   posUpdate: 1
   posLerp: 1
+  camPosDefault: {x: 3.1365802, y: 1.8858947, z: -2.4284194}
   camPosOffset: {x: 3, y: 2, z: -3}
   currentCamVel: {x: 0, y: 0, z: 0}
   camPosSmooth: 0.15
   rotUpdate: 0
   rotLerp: 0
+  camRotDefault: {x: 0, y: -0.258819, z: -0, w: 0.9659259}
   camRotOffset: 0
   camRotSmooth: 0.15
+--- !u!114 &1178940643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1178940638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!114 &1192573539 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6566422392071406412, guid: b0262d59d8fc5604e84a8b6e59b00b2c, type: 3}
@@ -5033,7 +5070,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1449888223}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.13658012, y: -1.8858947, z: -0.5715806}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 964428527}

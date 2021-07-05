@@ -19,6 +19,11 @@ public class CombatCamera : CameraBase
 		base.Disable();
 	}
 
+	public override void SetCameraCurrent(Transform _transform)
+	{
+		base.SetCameraCurrent(_transform);
+	}
+
 	public override void SetCameraTarget(Transform _transform)
 	{
 		base.SetCameraTarget(_transform);
