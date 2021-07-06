@@ -233,9 +233,13 @@ public class RPGPartyManager : GameplayBaseManager
 
 	private void UpdateCombatState(Combat_Action _action)
 	{
-		if (CurrentCombatCharacter != null)
+		switch (_action)
 		{
-			//CurrentCombatCharacter.CombatAnimate(AnimationTypes.CombatAnimationStatus.Normal_Attack);
+			case Combat_Action.Target_Check:
+				// Get Opponent
+				RPGCharacter enemy = GetParty(RPG_Party.Enemy).GetFirstCharacter();
+				OnTargetSelected.Invoke(enemy);
+				break;
 		}
 	}
 

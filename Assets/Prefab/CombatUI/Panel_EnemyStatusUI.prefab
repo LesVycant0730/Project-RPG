@@ -246,7 +246,7 @@ GameObject:
   - component: {fileID: 5409496533316912921}
   - component: {fileID: 6566422392071406412}
   m_Layer: 5
-  m_Name: EnemyStatusUI
+  m_Name: Panel_EnemyStatusUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

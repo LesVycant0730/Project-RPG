@@ -75,9 +75,10 @@ public class CombatUICanvas : MonoBehaviour
     [Header ("Character Status")]
     [SerializeField] private PlayerStatusUI[] playerStatusUI;
     [SerializeField] private EnemyStatusUI[] enemyStatusUI;
-	#endregion
+    [SerializeField] private CharacterStatusUI targetStatusUI;
+    #endregion
 
-	#region Combat Header
+    #region Combat Header
     [Header ("Combat Header")]
     [SerializeField] private Text textCombatTurn;
     #endregion
@@ -320,4 +321,17 @@ public class CombatUICanvas : MonoBehaviour
                 break;
 		}
 	}
+
+    public void DisplayTargetInfo(RPGCharacter _character)
+    {
+        if (_character != null)
+		{
+            targetStatusUI.UpdateInfo(_character.CharacterStatInfo);
+            targetStatusUI.Enable();
+        }
+        else
+		{
+            targetStatusUI.Disable();
+		}
+    }
 }

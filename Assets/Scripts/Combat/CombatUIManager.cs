@@ -37,6 +37,7 @@ public class CombatUIManager : GameplayBaseManager
 		
 		// Party Action
 		RPGPartyManager.OnCharacterTurn += UpdateToCurrentCharacter;
+		RPGPartyManager.OnTargetSelected += UpdateToTargetCharacter;
 
 		// Combat UI Action
 		CombatAction.Action_Next += CombatUIAction;
@@ -57,6 +58,7 @@ public class CombatUIManager : GameplayBaseManager
 
 		// Party Action
 		RPGPartyManager.OnCharacterTurn -= UpdateToCurrentCharacter;
+		RPGPartyManager.OnTargetSelected -= UpdateToTargetCharacter;
 
 		// Combat UI Action
 		CombatAction.Action_Next -= CombatUIAction;
@@ -162,6 +164,10 @@ public class CombatUIManager : GameplayBaseManager
 		canvas.OnTurnUpdate(_character, _party);
 	}
 
+	private void UpdateToTargetCharacter(RPGCharacter _character)
+	{
+		canvas.DisplayTargetInfo(_character);
+	}
 
 	private void CombatUIAction(Combat_Action _actionType)
 	{

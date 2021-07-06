@@ -267,6 +267,18 @@ public class RPGParty
 		return partyCharacters[rand.Next(partyCharacters.Count)];
 	}
 
+	public RPGCharacter GetFirstCharacter()
+	{
+		return partyCharacters.Count > 0 ? partyCharacters[0] : null;
+	}
+
+	public RPGCharacter GetLastCharacter()
+	{
+		int count = partyCharacters.Count;
+
+		return count > 0 ? partyCharacters[count - 1] : null;
+	}
+
 	public int GetCharacterIndex(RPGCharacter _character)
 	{
 		return partyCharacters.IndexOf(_character);

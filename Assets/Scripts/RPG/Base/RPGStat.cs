@@ -146,8 +146,8 @@ public class RPGCharacterInfo
 
 	[SerializeField, ConditionalHide(false)] public int damagePhysical;
 	[SerializeField, ConditionalHide(false)] public int damageMagical;
-	[SerializeField, ConditionalHide(false)] public float criticalRate;
-	[SerializeField, ConditionalHide(false)] public float criticalDamage;
+	[SerializeField, Range(0.01f, 1.0f), ConditionalHide(false)] public float criticalRate;
+	[SerializeField, Range(1.0f, 20.0f), ConditionalHide(false)] public float criticalDamage;
 
 	[Header("[Defense]")]
 	[Space(10)]
