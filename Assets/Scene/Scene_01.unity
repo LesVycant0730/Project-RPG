@@ -314,6 +314,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Panel_CharacterDetailUI
       objectReference: {fileID: 0}
+    - target: {fileID: 3449516982468291243, guid: 4dae975907dfd974a8fed7eab8b39b81, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3449516982780493499, guid: 4dae975907dfd974a8fed7eab8b39b81, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -6403,6 +6407,7 @@ MonoBehaviour:
   - {fileID: 750302985}
   enemyStatusUI:
   - {fileID: 1192573539}
+  targetStatusUI: {fileID: 0}
   textCombatTurn: {fileID: 1877688704}
   textGameSpeed: {fileID: 124668521}
 --- !u!1 &1608385823
