@@ -123,6 +123,9 @@
         // Disable
         Disabled,
 
+        // Standard
+        Previous_Action,
+
         // Empty
         NONE,
 

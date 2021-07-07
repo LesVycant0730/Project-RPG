@@ -57,13 +57,16 @@ public class ActionManager : MonoBehaviour
 
 		if (prevAction != Combat_Action.NONE && hasAction)
 		{
+			// If same action, skip it
 			if (CombatManager.CurrentAction == prevAction)
-			{
 				return;
-			}
 
-			CustomLog.Log("Run Back Action from: " + CombatManager.CurrentAction + ", to: " + prevAction);
-			action_Combat.CancelCombatAction(prevAction);
+			// Check if previous action is back to custom action instead of prefix previous action
+			var finalPrevAction = prevAction == Combat_Action.Previous_Action ? CombatManager.PreviousAction : prevAction;
+
+			Debug.Log("Run Back Action from: " + CombatManager.CurrentAction + ", to: " + finalPrevAction);
+
+			action_Combat.CancelCombatAction(finalPrevAction);
 		}
 		else if (prevAction == Combat_Action.NONE)
 		{

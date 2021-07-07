@@ -46,7 +46,7 @@ namespace RPG_Input
 
             // Player Input
             input.Player.InspectProceed.performed += (ctx) => { InputAction(InputType.Inspect); };
-            input.Player.ExitReject.performed += (ctx) => { InputAction(InputType.Back); };
+            //input.Player.ExitReject.performed += (ctx) => { InputAction(InputType.Back); };
 
         }
 

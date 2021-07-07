@@ -109,7 +109,7 @@ public class CharacterStatusUI : MonoBehaviour
 		if (textHealth)
 		{
 			textHealth.text = includeMaxHealth ? $"{info.currentHealth} / {info.maxHealth}" : info.currentHealth.ToString();
-			textHealth.color = (percentage > 0.3f) ? Color.white : Color.red;
+			//textHealth.color = (percentage > 0.3f) ? Color.white : Color.red;
 		}
 
 		// Health bar

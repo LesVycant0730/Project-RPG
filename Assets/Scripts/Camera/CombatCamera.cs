@@ -44,7 +44,8 @@ public class CombatCamera : CameraBase
 
 	private void OnTargetSelected(RPGCharacter _target)
 	{
-		target = _target.Character.RootTransform;
+		print($"Set target: {_target}");
+		target = _target?.Character.RootTransform;
 	}
 
 	public override void SetCameraCurrent(Transform _transform)

@@ -13,57 +13,75 @@ MonoBehaviour:
   m_Name: Combat Flow 1
   m_EditorClassIdentifier: 
   actionFlows:
-  - current: 0
-    next: 16
+  - tooltip: Default layer.
+    current: 0
+    next: 17
     previous: 0
-  - current: 1
+  - tooltip: (Target Attack) When selected standard attack option, only applied to
+      Enemy.
+    current: 1
     next: 6
     previous: 0
-  - current: 2
-    next: 16
+  - tooltip: (Skill selection) When selected skill selection option, applied to All
+      Parties.
+    current: 2
+    next: 5
     previous: 0
-  - current: 3
-    next: 16
+  - tooltip: (Assist) When selected assist option, only applied to Ally.
+    current: 3
+    next: 8
     previous: 0
-  - current: 4
-    next: 16
+  - tooltip: (Item Selection) When selected item selection option, applied to any
+      party based on item type.
+    current: 4
+    next: 5
     previous: 0
-  - current: 5
+  - tooltip: (Target Check) When selected any option required target, applied to
+      any party based on action type.
+    current: 5
     next: 1
-    previous: 0
-  - current: 6
-    next: 16
-    previous: 0
-  - current: 7
-    next: 16
-    previous: 0
-  - current: 8
-    next: 16
-    previous: 0
-  - current: 9
-    next: 16
-    previous: 0
-  - current: 10
-    next: 16
-    previous: 0
-  - current: 11
-    next: 16
-    previous: 0
-  - current: 12
-    next: 16
-    previous: 0
-  - current: 13
-    next: 16
-    previous: 0
-  - current: 14
-    next: 16
-    previous: 0
-  - current: 15
-    next: 16
-    previous: 0
-  - current: 17
-    next: 16
     previous: 16
-  - current: 16
+  - tooltip: (Target Selection Enemy) Undecided.
+    current: 6
     next: 16
-    previous: 16
+    previous: 0
+  - tooltip: (Target Selection Ally) Undecided.
+    current: 7
+    next: 16
+    previous: 0
+  - tooltip: (Target Assist Ally) Undecided.
+    current: 8
+    next: 17
+    previous: 0
+  - tooltip: 
+    current: 9
+    next: 16
+    previous: 0
+  - tooltip: 
+    current: 10
+    next: 16
+    previous: 0
+  - tooltip: 
+    current: 11
+    next: 16
+    previous: 0
+  - tooltip: 
+    current: 12
+    next: 16
+    previous: 0
+  - tooltip: 
+    current: 13
+    next: 16
+    previous: 0
+  - tooltip: 
+    current: 14
+    next: 16
+    previous: 0
+  - tooltip: 
+    current: 15
+    next: 17
+    previous: 0
+  - tooltip: NULL.
+    current: 17
+    next: 17
+    previous: 17

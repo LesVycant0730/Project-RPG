@@ -1,7 +1,7 @@
-﻿using RPG_Data;
+﻿using RoboRyanTron.SearchableEnum;
+using RPG_Data;
 using System.Linq;
 using UnityEngine;
-using RoboRyanTron.SearchableEnum;
 
 [CreateAssetMenu(fileName = "Combat Flow", menuName = "ScriptableObjects/Combat/Flow", order = 1)]
 public sealed class CombatFlow : ScriptableObject
@@ -12,7 +12,7 @@ public sealed class CombatFlow : ScriptableObject
 
 	public Combat_Action GetNextAction(Combat_Action _action, out bool _hasNextAction)
 	{
-        var nextAction = actionFlows.Single(x => x.GetCurrent() == _action).GetNext();
+        var nextAction = actionFlows.Single(x => x.Current == _action).Next;
 
         _hasNextAction = nextAction != Combat_Action.NONE || nextAction == _action;
 
@@ -21,7 +21,7 @@ public sealed class CombatFlow : ScriptableObject
 
     public Combat_Action GetPrevAction(Combat_Action _action, out bool _hasPrevAction)
     {
-        var prevAction = actionFlows.Single(x => x.GetCurrent() == _action).GetPrevious();
+        var prevAction = actionFlows.Single(x => x.Current == _action).Previous;
 
         _hasPrevAction = prevAction != Combat_Action.NONE || prevAction == _action;
 
@@ -53,13 +53,14 @@ public sealed class CombatFlow : ScriptableObject
 [System.Serializable]
 public sealed class CombatActionFlow
 {
+    [SerializeField, TextArea (0, 5)] private string tooltip;
     [SerializeField, SearchableEnum] private Combat_Action current;
     [SerializeField, SearchableEnum] private Combat_Action next = Combat_Action.NONE;
     [SerializeField, SearchableEnum] private Combat_Action previous = Combat_Action.Default;
 
-    public Combat_Action GetCurrent() => current;
-    public Combat_Action GetNext() => next;
-    public Combat_Action GetPrevious() => previous;
+    public Combat_Action Current => current;
+    public Combat_Action Next => next;
+    public Combat_Action Previous => previous;
 
     public CombatActionFlow(Combat_Action _default)
 	{

@@ -6,11 +6,9 @@ public sealed class CombatManager : GameplayBaseManager
     public static CombatManager Instance { get; private set; }
 
 	public static Combat_Action CurrentAction { get; private set; }
+	public static Combat_Action PreviousAction { get; private set; }
 
 	[SerializeField] private CombatFlow combatFlowSetting;
-
-	private static RPGAction OnTargetAlly;
-	private static RPGAction OnTargetEnemy;
 
 	protected override void Awake()
 	{
@@ -41,6 +39,10 @@ public sealed class CombatManager : GameplayBaseManager
 
 	private void UpdateCombatState(Combat_Action _action)
 	{
+		// Set previous action
+		PreviousAction = CurrentAction;
+
+		// Set current action
 		CurrentAction = _action;
 
 		// Expand action here

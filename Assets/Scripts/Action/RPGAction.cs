@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
+[DisallowMultipleComponent]
 public abstract class RPGAction : MonoBehaviour
 {
 	protected abstract void InvokeActions<ActionType>(ActionType _actionType) where ActionType : Enum;

@@ -33,7 +33,8 @@ public class RPGPartyManager : GameplayBaseManager
 	#endregion
 
 	#region RPG Character
-	[SerializeField] public RPGCharacter CurrentRPGCharacter { get; private set; }
+	public RPGCharacter CurrentRPGCharacter { get; private set; }
+	public RPGCharacter CurrentRPGTarget { get; private set; }
 
 	private RPGCharacter GetFastestCharacter()
 	{
@@ -199,7 +200,7 @@ public class RPGPartyManager : GameplayBaseManager
 
 		CombatController.OnTurnEnd += UpdateCharacterTurn;
 		CombatAction.Action_Next += UpdateCombatState;
-		//CombatAction.Action_Prev += UpdateCombatState;
+		CombatAction.Action_Prev += UpdateCombatState;
 		//CombatAction.Action_Reset += ResetCombatState;
 		instance = this;
 	}
@@ -216,6 +217,7 @@ public class RPGPartyManager : GameplayBaseManager
 
 		CombatController.OnTurnEnd -= UpdateCharacterTurn;
 		CombatAction.Action_Next -= UpdateCombatState;
+		CombatAction.Action_Prev -= UpdateCombatState;
 
 		UnloadParty();
 		instance = null;
@@ -236,10 +238,35 @@ public class RPGPartyManager : GameplayBaseManager
 		switch (_action)
 		{
 			case Combat_Action.Target_Check:
-				// Get Opponent
+				// Get First Opponent
 				RPGCharacter enemy = GetParty(RPG_Party.Enemy).GetFirstCharacter();
-				OnTargetSelected.Invoke(enemy);
+				InvokeTargetSelectedAction(enemy);
 				break;
+			default:
+				InvokeTargetSelectedAction(null);
+				break;
+		}
+	}
+
+	private void InvokeTargetSelectedAction(RPGCharacter _character)
+	{
+		if (_character != null)
+		{
+			// Set current target
+			CurrentRPGTarget = _character;
+
+			// Invoke actions to the new target
+			OnTargetSelected?.Invoke(CurrentRPGTarget);
+		}
+		else
+		{
+			// Check existed target reference and run action to reset references
+			if (CurrentRPGTarget != null)
+			{
+				OnTargetSelected?.Invoke(null);
+			}
+
+			CurrentRPGTarget = null;
 		}
 	}
 

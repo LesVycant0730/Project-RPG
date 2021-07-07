@@ -292,7 +292,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3449516982468291242, guid: 4dae975907dfd974a8fed7eab8b39b81, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 184
       objectReference: {fileID: 0}
     - target: {fileID: 3449516982468291242, guid: 4dae975907dfd974a8fed7eab8b39b81, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -316,7 +316,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3449516982468291243, guid: 4dae975907dfd974a8fed7eab8b39b81, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3449516982780493499, guid: 4dae975907dfd974a8fed7eab8b39b81, type: 3}
       propertyPath: m_AnchorMax.y
@@ -469,6 +469,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3449516982468291242, guid: 4dae975907dfd974a8fed7eab8b39b81, type: 3}
   m_PrefabInstance: {fileID: 8962751}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8962753 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5774309985558235950, guid: 4dae975907dfd974a8fed7eab8b39b81, type: 3}
+  m_PrefabInstance: {fileID: 8962751}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e8cb04402b8aa44d9aa4829e97584ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &16074080
 GameObject:
   m_ObjectHideFlags: 0
@@ -2433,7 +2444,7 @@ Transform:
   - {fileID: 1014270320}
   - {fileID: 1608385825}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &708841133
 GameObject:
@@ -2977,7 +2988,6 @@ GameObject:
   - component: {fileID: 777188666}
   - component: {fileID: 777188667}
   - component: {fileID: 777188668}
-  - component: {fileID: 777188669}
   m_Layer: 0
   m_Name: CombatManager
   m_TagString: Untagged
@@ -3027,18 +3037,6 @@ MonoBehaviour:
   AnimationCombatRef: {fileID: 11400000, guid: f645f3b95be6ac34b87a36abc2333210, type: 2}
   animList: []
   currentAnimSpeed: 1
---- !u!114 &777188669
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 777188665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 028cbe798fbdda84a91243e614ec1f20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &829435260
 GameObject:
   m_ObjectHideFlags: 0
@@ -3200,7 +3198,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &881897976
 GameObject:
@@ -6325,7 +6323,7 @@ RectTransform:
   - {fileID: 199353758}
   - {fileID: 236759000}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -6368,7 +6366,7 @@ MonoBehaviour:
   - actionType: 4
     holder: {fileID: 0}
   - actionType: 5
-    holder: {fileID: 0}
+    holder: {fileID: 1590444570}
   - actionType: 6
     holder: {fileID: 1590444570}
   - actionType: 7
@@ -6389,9 +6387,11 @@ MonoBehaviour:
     holder: {fileID: 0}
   - actionType: 15
     holder: {fileID: 0}
+  - actionType: 16
+    holder: {fileID: 0}
   - actionType: 17
     holder: {fileID: 199353756}
-  - actionType: 16
+  - actionType: 18
     holder: {fileID: 0}
   activeHolders: []
   skillButtonAsset:
@@ -6407,7 +6407,7 @@ MonoBehaviour:
   - {fileID: 750302985}
   enemyStatusUI:
   - {fileID: 1192573539}
-  targetStatusUI: {fileID: 0}
+  targetStatusUI: {fileID: 8962753}
   textCombatTurn: {fileID: 1877688704}
   textGameSpeed: {fileID: 124668521}
 --- !u!1 &1608385823
@@ -7769,7 +7769,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2037177694
 GameObject:

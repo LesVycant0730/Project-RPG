@@ -119,7 +119,7 @@ public class CombatUICanvas : MonoBehaviour
     {
         _canToggle = false;
 
-        CombatUIHolder holder = holders.Single(x => x.ActionType == _actionType);
+        CombatUIHolder holder = Array.Find(holders, x => x.ActionType == _actionType);
 
         if (holder != null)
         {
@@ -150,6 +150,10 @@ public class CombatUICanvas : MonoBehaviour
 
 			_canToggle = true;
         }
+        else
+		{
+            Debug.Log($"Missing holder reference: {_actionType}");
+		}
     }
 
 	#region Description/Combat Log
