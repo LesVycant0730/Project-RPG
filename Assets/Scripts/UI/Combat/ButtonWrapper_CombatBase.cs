@@ -19,7 +19,11 @@ public class ButtonWrapper_CombatBase : Selectable
 
 		base.OnPointerDown(eventData);
 
+		// Run action
 		Action_M.ActionCheckAndRun(actionType);
+
+		// Set action interface reference
+		CombatController.SetPlayerAction(actionType);
 	}
 
 	public override void OnPointerEnter(PointerEventData eventData)

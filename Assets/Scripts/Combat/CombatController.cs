@@ -208,7 +208,20 @@ public class CombatController : MonoBehaviour
 	{
 		currentSelectedAction = _action;
 
-		currentSelectedAction.ActionStart();
+		if (currentSelectedAction != null)
+			currentSelectedAction.ActionStart();
+		else
+			Debug.Log("Attempt to run action on empty interface.");
+	}
+
+	public static void SetPlayerAction(Combat_Action _action)
+	{
+		currentSelectedAction = UtilRPGAction.GetActionInterface(_action);
+
+		if (currentSelectedAction != null)
+			currentSelectedAction.ActionStart();
+		else
+			Debug.Log("Attempt to run action on empty interface.");
 	}
 
 	public static void InvokePlayerAction(SkillData _skill)
