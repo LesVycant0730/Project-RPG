@@ -64,8 +64,6 @@ public class ActionManager : MonoBehaviour
 			// Check if previous action is back to custom action instead of prefix previous action
 			var finalPrevAction = prevAction == Combat_Action.Previous_Action ? CombatManager.PreviousAction : prevAction;
 
-			Debug.Log("Run Back Action from: " + CombatManager.CurrentAction + ", to: " + finalPrevAction);
-
 			action_Combat.CancelCombatAction(finalPrevAction);
 		}
 		else if (prevAction == Combat_Action.NONE)

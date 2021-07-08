@@ -1,8 +1,8 @@
 ﻿using RPG_Data;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using System.Collections.Generic;
 
 public class RPGPartyManager : GameplayBaseManager
 {
@@ -258,14 +258,10 @@ public class RPGPartyManager : GameplayBaseManager
 			// Invoke actions to the new target
 			OnTargetSelected?.Invoke(CurrentRPGTarget);
 		}
-		else
+		// Check existed target reference and run action to reset references
+		else if (CurrentRPGTarget != null)
 		{
-			// Check existed target reference and run action to reset references
-			if (CurrentRPGTarget != null)
-			{
-				OnTargetSelected?.Invoke(null);
-			}
-
+			OnTargetSelected?.Invoke(null);
 			CurrentRPGTarget = null;
 		}
 	}

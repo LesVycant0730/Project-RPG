@@ -55,10 +55,7 @@ public class ButtonWrapper_CombatSkill : ButtonWrapper_CombatBase
 
 		base.OnPointerDown(eventData);
 
-		if (skill != null)
-			CombatController.SetPlayerAction(skill);
-		else
-			Debug.Log("Attempt to invoke player action from empty skill reference.");
+		CombatController.SetPlayerAction(skill);
 	}
 
 }

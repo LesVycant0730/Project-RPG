@@ -3,7 +3,7 @@ using RPG_Data;
 
 // Note: The base class for character skill action
 [System.Serializable]
-public class ChAction_Skill : IRPGCharacterAction
+public struct ChAction_Skill : IRPGCharacterAction
 {
     public SkillData Data { get; private set; }
 
