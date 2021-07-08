@@ -7,8 +7,10 @@ using UnityEngine;
 
 public class CombatController : MonoBehaviour
 {
+	// Combat result calculator
 	[SerializeField] private CombatCalculator calculator;
 
+	// Current controlled character
 	private RPGCharacter currentCharacter;
 
 	private Coroutine CombatCor = null;
@@ -19,6 +21,9 @@ public class CombatController : MonoBehaviour
 	// Demo action (Test only)
 	//public static event Action<CombatAnimationStatus> OnPlayerAction;
 
+	// RPG action interface
+	private static IRPGCharacterAction currentSelectedAction;
+	
 	// Skill action
 	public static event Action<SkillData> OnPlayerAction;
 
@@ -198,6 +203,14 @@ public class CombatController : MonoBehaviour
 	#endregion
 
 	#region Global Method
+	// Need change to a general action reference instead of skill
+	public static void SetPlayerAction(IRPGCharacterAction _action)
+	{
+		currentSelectedAction = _action;
+
+		currentSelectedAction.ActionStart();
+	}
+
 	public static void InvokePlayerAction(SkillData _skill)
 	{
 		print($"Invoked: {_skill}");

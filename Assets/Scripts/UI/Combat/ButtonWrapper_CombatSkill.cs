@@ -7,7 +7,7 @@ public class ButtonWrapper_CombatSkill : ButtonWrapper_CombatBase
 {
 	[SerializeField] private Text textButton;
 	[SerializeField] private Skill_Name skillName = Skill_Name.FINAL_INDEX;
-	private Skill skill;
+	private ChAction_Skill skill;
 
 	#region Skill Update
 	public void SetSkill(Skill_Name _skill)
@@ -56,7 +56,7 @@ public class ButtonWrapper_CombatSkill : ButtonWrapper_CombatBase
 		base.OnPointerDown(eventData);
 
 		if (skill != null)
-			CombatController.InvokePlayerAction(skill.Data);
+			CombatController.SetPlayerAction(skill);
 		else
 			Debug.Log("Attempt to invoke player action from empty skill reference.");
 	}

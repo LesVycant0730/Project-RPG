@@ -1,13 +1,13 @@
 ﻿using AnimationTypes;
 using RPG_Data;
 
-// Note: The base class for skill
+// Note: The base class for character skill action
 [System.Serializable]
-public class Skill : IRPGAction
+public class ChAction_Skill : IRPGCharacterAction
 {
     public SkillData Data { get; private set; }
 
-    public Skill(SkillData _data)
+    public ChAction_Skill(SkillData _data)
 	{
         Data = _data;
 	}
@@ -57,22 +57,22 @@ public class Skill : IRPGAction
         return Data.skillAnim;
 	}
 
-	void IRPGAction.ActionStart()
+	void IRPGCharacterAction.ActionStart()
+	{
+        UnityEngine.Debug.Log("Action Start");
+	}
+
+	void IRPGCharacterAction.ActionEnd()
 	{
 		throw new System.NotImplementedException();
 	}
 
-	void IRPGAction.ActionEnd()
+	void IRPGCharacterAction.OnTurnStart()
 	{
 		throw new System.NotImplementedException();
 	}
 
-	void IRPGAction.OnTurnStart()
-	{
-		throw new System.NotImplementedException();
-	}
-
-	void IRPGAction.OnTurnEnd()
+	void IRPGCharacterAction.OnTurnEnd()
 	{
 		throw new System.NotImplementedException();
 	}

@@ -3,14 +3,14 @@ using UnityEditor;
 using UnityEngine;
 using System.IO;
 
-public class SO_Skill_Asset_Generator : EditorWindow
+public class SO_SkillAssetGenerator_Editor : EditorWindow
 {
 	private const string path = "Assets/ScriptableObject/Skill/";
 
 	[MenuItem ("Custom Tools/Skill Asset/Generator")]
 	static void Init()
 	{
-		SO_Skill_Asset_Generator window = (SO_Skill_Asset_Generator)GetWindow(typeof(SO_Skill_Asset_Generator));
+		SO_SkillAssetGenerator_Editor window = (SO_SkillAssetGenerator_Editor)GetWindow(typeof(SO_SkillAssetGenerator_Editor));
 
 		window.Show();
 	}
