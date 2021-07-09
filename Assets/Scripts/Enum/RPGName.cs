@@ -46,7 +46,7 @@ namespace RPG_Data
 		// Others
 
 		// Normal Attack
-		Normal_Melee, Normal_Ranged,
+		Attack,
 
 		// Index
 		FINAL_INDEX

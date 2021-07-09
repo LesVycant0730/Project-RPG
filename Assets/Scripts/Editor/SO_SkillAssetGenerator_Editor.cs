@@ -1,7 +1,8 @@
 ﻿using RPG_Data;
+using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using System.IO;
 
 public class SO_SkillAssetGenerator_Editor : EditorWindow
 {
@@ -28,9 +29,9 @@ public class SO_SkillAssetGenerator_Editor : EditorWindow
 
 		GUILayout.Space(10);
 
-		if (GUILayout.Button("Delete All Skill SO"))
+		if (GUILayout.Button("Delete Obsolete Skill SO"))
 		{
-			DeleteAllAssets();
+			DeleteObsoletes();
 		}
 	}
 
@@ -46,7 +47,7 @@ public class SO_SkillAssetGenerator_Editor : EditorWindow
 		for (int i = 0; i < (int)Skill_Name.FINAL_INDEX; i++)
 		{
 			Skill_Name skill = (Skill_Name)i;
-			string assetName = "Skill_" + skill.ToString() + ".asset";
+			string assetName = $"Skill_{skill}.asset";
 
 			if (optionIndex == 0 && File.Exists(path + assetName))
 			{
@@ -68,8 +69,23 @@ public class SO_SkillAssetGenerator_Editor : EditorWindow
 		return EditorUtility.DisplayDialogComplex("Generate Skill Assets.", "Choose your generate options.", "Normal (No override)", "Back", "Force (Override)");
 	}
 
-	private void DeleteAllAssets()
+	private void DeleteObsoletes()
 	{
+		// Current existing assets
+		string[] files = Directory.GetFiles(path, "*asset");
 
+		// All intended skill asset paths
+		string[] skillAssetPaths = new string[(int)Skill_Name.FINAL_INDEX];
+
+		for (int i = 0; i < (int)Skill_Name.FINAL_INDEX; i++)
+		{
+			skillAssetPaths[i] = $"{path}Skill_{(Skill_Name)i}.asset";
+		}
+
+		foreach (var obsoletePath in files.Except(skillAssetPaths))
+		{
+			Debug.Log($"Deleted obsolete asset: {obsoletePath}");
+			AssetDatabase.DeleteAsset(obsoletePath);
+		}
 	}
 }

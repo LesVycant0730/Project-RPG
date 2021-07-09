@@ -2,11 +2,13 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using RPG_Data;
+using RoboRyanTron.SearchableEnum;
 
 public class ButtonWrapper_CombatSkill : ButtonWrapper_CombatBase
 {
+	[SerializeField] private bool setOnStart = false;
 	[SerializeField] private Text textButton;
-	[SerializeField] private Skill_Name skillName = Skill_Name.FINAL_INDEX;
+	[SerializeField, SearchableEnum] private Skill_Name skillName = Skill_Name.FINAL_INDEX;
 	private ChAction_Skill skill;
 
 	#region Skill Update
@@ -21,6 +23,10 @@ public class ButtonWrapper_CombatSkill : ButtonWrapper_CombatBase
 	protected override void Awake()
 	{
 		base.Awake();
+
+		// Set skill reference on awake.
+		if (setOnStart)
+			SetSkill(skillName);
 	}
 
 	protected override void OnDestroy()

@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 676aa760a5817f14aa60a4e80b47c5ba, type: 3}
-  m_Name: Skill_Normal_Melee
+  m_Name: Skill_Attack
   m_EditorClassIdentifier: 
   ToggleOnValidate: 0
   skillName: 49
-  skillDescription: This skill is Normal Melee
-  skillClass: 0
+  skillDescription: This skill is Attack
+  skillClass: 99
   hasUserClassRestriction: 0
   userClass: 
   hpCost: 0
   spCost: 0
   skillEffectCollection:
-    hasDamage: 1
+    hasDamage: 0
     hasHeal: 0
     SE_Damage:
       canOverrideSkillType: 0
@@ -32,9 +32,9 @@ MonoBehaviour:
       spCostPercentage: 0
       hpCostFixed: 0
       spCostFixed: 0
-      totalInstance: 1
-      successRate: 90
-      damageAmount: 15
+      totalInstance: 0
+      successRate: 0
+      damageAmount: 0
     SE_Heal:
       canOverrideSkillType: 0
       skillType: 1

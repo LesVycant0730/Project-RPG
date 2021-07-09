@@ -2807,7 +2807,7 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 738082109}
-  actionType: 9
+  actionType: 13
 --- !u!114 &738082109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3430,7 +3430,7 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 899585950}
-  actionType: 10
+  actionType: 14
 --- !u!114 &899585950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4466,7 +4466,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1041291720}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40411165edaf63c44b8ac4ee4a2c92a6, type: 3}
+  m_Script: {fileID: 11500000, guid: ebbe51d0ea1af6446ab37e33190b9a6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -4498,7 +4498,10 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 1041291723}
-  actionType: 1
+  actionType: 0
+  setOnStart: 1
+  textButton: {fileID: 0}
+  skillName: 49
 --- !u!114 &1041291723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5565,8 +5568,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: af11f767f3725504f83fc14aee6a3b32, type: 2}
   - {fileID: 11400000, guid: 72fc7c7ffc4842e43bc388688f99628f, type: 2}
   - {fileID: 11400000, guid: 99ac259620298704ba99fb309b9aec78, type: 2}
-  - {fileID: 11400000, guid: eb2015802ed9415488441a3d86214719, type: 2}
-  - {fileID: 11400000, guid: 83b8e1c6606c1fd4eb31d53decc992d2, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 11400000, guid: 6acbf7cf54355184ab5cc47e5711a4f4, type: 2}
   - {fileID: 11400000, guid: 54e5ded75bb7b6149850330a51c5a23e, type: 2}
   - {fileID: 11400000, guid: 7778bfe230f97304ebc6e0421ac38550, type: 2}
@@ -6348,7 +6351,7 @@ MonoBehaviour:
   - {fileID: 2087640899}
   normalActionButtons:
   - {fileID: 992029247}
-  - {fileID: 1041291722}
+  - {fileID: 0}
   - {fileID: 738082108}
   - {fileID: 899585949}
   - {fileID: 696938710}
