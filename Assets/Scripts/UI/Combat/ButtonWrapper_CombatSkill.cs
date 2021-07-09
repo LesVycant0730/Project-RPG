@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+﻿using RoboRyanTron.SearchableEnum;
+using RPG_Data;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using RPG_Data;
-using RoboRyanTron.SearchableEnum;
 
 public class ButtonWrapper_CombatSkill : ButtonWrapper_CombatBase
 {
@@ -16,9 +16,17 @@ public class ButtonWrapper_CombatSkill : ButtonWrapper_CombatBase
 	{
 		skillName = _skill;
 		skill = SkillLibrary.GetSkill(skillName);
-		textButton.text = skillName.ToString().Replace("_", " ");
+		textButton.text = $"{skillName}".Replace("_", " ");
 	}
 	#endregion
+
+	protected override void OnValidate()
+	{
+		base.OnValidate();
+
+		if (!textButton)
+			textButton = GetComponentInChildren<Text>();
+	}
 
 	protected override void Awake()
 	{
