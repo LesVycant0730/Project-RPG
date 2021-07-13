@@ -9,6 +9,8 @@ public class ButtonWrapper_CombatSkill : ButtonWrapper_CombatBase
 	[SerializeField] private bool setOnStart = false;
 	[SerializeField] private Text textButton;
 	[SerializeField, SearchableEnum] private Skill_Name skillName = Skill_Name.FINAL_INDEX;
+
+	// Skill action
 	private ChAction_Skill skill;
 
 	#region Skill Update

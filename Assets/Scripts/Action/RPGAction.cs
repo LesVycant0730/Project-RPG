@@ -4,8 +4,10 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public abstract class RPGAction : MonoBehaviour
 {
-	protected abstract void InvokeActions<ActionType>(ActionType _actionType) where ActionType : Enum;
-	protected abstract void CancelActions<ActionType>(ActionType _actionType) where ActionType : Enum;
+	public abstract void NextAction<ActionType>(ActionType _actionType) where ActionType : Enum;
+	public abstract void BackAction<ActionType>(ActionType _actionType) where ActionType : Enum;
+	public abstract void NextElementAction();
+	public abstract void PrevElementAction();
 	public abstract void RunResetAction();
 	public abstract void ClearAllActions();
 

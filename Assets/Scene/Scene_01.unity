@@ -4502,7 +4502,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1041291723}
   actionType: 0
   setOnStart: 1
-  textButton: {fileID: 0}
+  textButton: {fileID: 426307384}
   skillName: 49
 --- !u!114 &1041291723
 MonoBehaviour:

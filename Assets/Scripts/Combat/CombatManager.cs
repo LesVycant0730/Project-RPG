@@ -22,6 +22,7 @@ public sealed class CombatManager : GameplayBaseManager
 		CombatAction.Action_Next += UpdateCombatState;
 		CombatAction.Action_Prev += UpdateCombatState;
 		CombatAction.Action_Reset += ResetCombatState;
+		CombatAction.Action_Confirmed += UpdateCombatTargetAction;
 	}
 
 	protected override void Run()
@@ -35,6 +36,7 @@ public sealed class CombatManager : GameplayBaseManager
 		CombatAction.Action_Next -= UpdateCombatState;
 		CombatAction.Action_Prev -= UpdateCombatState;
 		CombatAction.Action_Reset -= ResetCombatState;
+		CombatAction.Action_Confirmed -= UpdateCombatTargetAction;
 	}
 
 	private void UpdateCombatState(Combat_Action _action)
@@ -60,6 +62,15 @@ public sealed class CombatManager : GameplayBaseManager
 	private void ResetCombatState()
 	{
 		UpdateCombatState(Combat_Action.Default);
+	}
+
+	// When press Inspect/Proceed input
+	private void UpdateCombatTargetAction()
+	{
+		if (CurrentAction != Combat_Action.Target_Check)
+			return;
+
+		// Add combat confirmation action here
 	}
 
 	#region Get Action State

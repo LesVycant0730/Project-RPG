@@ -8,6 +8,7 @@ public class ActionManager : MonoBehaviour
 
     [SerializeField] private CombatAction action_Combat;
 
+	#region Mono
 	private void Awake()
 	{
 		if (Instance == null)
@@ -22,11 +23,13 @@ public class ActionManager : MonoBehaviour
 
         action_Combat = GetComponent<CombatAction>();
 	}
+	#endregion
 
+	#region Action
 	public void ActionNext(Combat_Action _actionType)
 	{
 		CustomLog.Log("Run Next Action from: " + CombatManager.CurrentAction + ", to: " + _actionType);
-		action_Combat.RunCombatAction(_actionType);
+		action_Combat.NextAction(_actionType);
 	}
 
 	public void ActionNext()
@@ -41,14 +44,14 @@ public class ActionManager : MonoBehaviour
 			}
 
 			CustomLog.Log("Run Next Action from: " + CombatManager.CurrentAction + ", to: " + nextAction);
-			action_Combat.RunCombatAction(nextAction);
+			action_Combat.NextAction(nextAction);
 		}
 	}
 
 	public void Action_Back(Combat_Action _actionType)
 	{
 		CustomLog.Log("Run Previous Action from: " + CombatManager.CurrentAction + ", to: " + _actionType);
-		action_Combat.CancelCombatAction(_actionType);
+		action_Combat.BackAction(_actionType);
 	}
 
 	public void ActionBack()
@@ -64,11 +67,11 @@ public class ActionManager : MonoBehaviour
 			// Check if previous action is back to custom action instead of prefix previous action
 			var finalPrevAction = prevAction == Combat_Action.Previous_Action ? CombatManager.PreviousAction : prevAction;
 
-			action_Combat.CancelCombatAction(finalPrevAction);
+			action_Combat.BackAction(finalPrevAction);
 		}
 		else if (prevAction == Combat_Action.NONE)
 		{
-			action_Combat.CancelCombatAction(prevAction);
+			action_Combat.BackAction(prevAction);
 		}
 	}
 
@@ -89,8 +92,10 @@ public class ActionManager : MonoBehaviour
 		}
 	}
 
+	// Reset the action state to default
 	public void ResetAction()
 	{
 		action_Combat.RunResetAction();
 	}
+	#endregion
 }

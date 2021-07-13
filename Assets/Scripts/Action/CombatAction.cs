@@ -3,14 +3,22 @@ using System;
 
 public class CombatAction : RPGAction
 {
+	// General action flow navigation
 	public static event Action<Combat_Action> Action_Next;
 	public static event Action<Combat_Action> Action_Prev;
+
+	// Combat target selection action
+	public static event Action Action_NextTarget;
+	public static event Action Action_PrevTarget;
+
+	// Reset/Confirm action
 	public static event Action Action_Reset;
+	public static event Action Action_Confirmed;
 
 	/// <summary>
 	/// Run action based on the enum parameter
 	/// </summary>
-	protected override void InvokeActions<ActionType>(ActionType _actionType)
+	public override void NextAction<ActionType>(ActionType _actionType)
 	{
 		Combat_Action action = GetActionType<Combat_Action>(_actionType);
 
@@ -20,7 +28,7 @@ public class CombatAction : RPGAction
 	/// <summary>
 	/// Cancel action based on the enum parameter
 	/// </summary>
-	protected override void CancelActions<ActionType>(ActionType _actionType)
+	public override void BackAction<ActionType>(ActionType _actionType)
 	{
 		Combat_Action action = GetActionType<Combat_Action>(_actionType);
 
@@ -38,13 +46,25 @@ public class CombatAction : RPGAction
 		Action_Prev = null;
 	}
 
-	public void RunCombatAction(Combat_Action _actionType)
+	/// <summary>
+	/// Get the next target from the combat action
+	/// </summary>
+	public override void NextElementAction()
 	{
-		InvokeActions(_actionType);
+		Action_NextTarget?.Invoke();
 	}
 
-	public void CancelCombatAction(Combat_Action _actionType)
+	/// <summary>
+	/// Get the previous target from the combat action
+	/// </summary>
+	public override void PrevElementAction()
 	{
-		CancelActions(_actionType);
+		Action_PrevTarget?.Invoke();
+	}
+
+
+	public void ConfirmTargetCombatAction()
+	{
+		Action_Confirmed?.Invoke();
 	}
 }

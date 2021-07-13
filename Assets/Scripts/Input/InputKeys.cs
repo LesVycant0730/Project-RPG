@@ -4,7 +4,7 @@
 	{
         Enter,
         Back,
-        Inspect,
+        Inspect_Proceed,
         Element_Up,
         Element_Down,
         Element_Left,

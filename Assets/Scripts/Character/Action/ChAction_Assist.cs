@@ -11,7 +11,7 @@ public struct ChAction_Assist : IRPGCharacterAction
 
 	void IRPGCharacterAction.ActionStart()
 	{
-		throw new System.NotImplementedException();
+		
 	}
 
 	void IRPGCharacterAction.OnTurnEnd()
